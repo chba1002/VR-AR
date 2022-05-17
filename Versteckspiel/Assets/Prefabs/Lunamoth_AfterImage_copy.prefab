@@ -181,7 +181,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d64739ef736f0e4e8a097780cbf072d, type: 2}
+  - {fileID: 2100000, guid: 6ebbc6a3f3694b24389c579bd7246859, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -597,7 +597,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d64739ef736f0e4e8a097780cbf072d, type: 2}
+  - {fileID: 2100000, guid: 6ebbc6a3f3694b24389c579bd7246859, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -691,7 +691,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d64739ef736f0e4e8a097780cbf072d, type: 2}
+  - {fileID: 2100000, guid: 6ebbc6a3f3694b24389c579bd7246859, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -785,9 +785,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d64739ef736f0e4e8a097780cbf072d, type: 2}
-  - {fileID: 2100000, guid: 1d64739ef736f0e4e8a097780cbf072d, type: 2}
-  - {fileID: 2100000, guid: 7837b0d76a9ed1c41914cf012691c139, type: 2}
+  - {fileID: 2100000, guid: 6ebbc6a3f3694b24389c579bd7246859, type: 2}
+  - {fileID: 2100000, guid: 6ebbc6a3f3694b24389c579bd7246859, type: 2}
+  - {fileID: 2100000, guid: 6ebbc6a3f3694b24389c579bd7246859, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1293,7 +1293,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7837b0d76a9ed1c41914cf012691c139, type: 2}
+  - {fileID: 2100000, guid: 6ebbc6a3f3694b24389c579bd7246859, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2146,6 +2146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 408fcdf0c5161834cbe7176f07851601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 202676025476892136}
+  Moth: {fileID: 3209069893897170251}
+  lunamoth: {fileID: 4118365020220650288}
 --- !u!114 &2882951107865078447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2158,10 +2161,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4455219fc45f181479f267643d4d2510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myAnimator: {fileID: 0}
-  myRenderer: {fileID: 0}
-  targetAnimator: {fileID: 0}
-  targetObject: {fileID: 0}
+  myAnimator: {fileID: 4118365020220650288}
+  myRenderer: {fileID: 4033503106857826439}
+  targetAnimator: {fileID: 1226677111574333253, guid: 21a04ed878c4635459d333b31ee9a31b,
+    type: 3}
+  targetObject: {fileID: 5525340793821202309, guid: 21a04ed878c4635459d333b31ee9a31b,
+    type: 3}
   time: 0
   intensity: 0
   pow: 0

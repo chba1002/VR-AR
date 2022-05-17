@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AfterImagePool : MonoBehaviour
 {
-    public PlayerMovement myPlayerMovementScript;
+    //public PlayerMovement myPlayerMovementScript;
+    public Lunamoth LunamothScript;
     public GameObject prefab;
     public int poolSize = 10;
     public List<AfterImage> afterImages;
@@ -16,15 +17,15 @@ public class AfterImagePool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myPlayerMovementScript = transform.root.GetComponent<PlayerMovement>();
+        LunamothScript = transform.root.GetComponent<Lunamoth>();
         Debug.Log("Start After Image Pool");
         afterImages = new List<AfterImage>(poolSize);
         for (int i = 0; i < poolSize; i++)
         {
             GameObject nextAfterImage = Instantiate(prefab);
             afterImages.Add(nextAfterImage.GetComponent<AfterImage>());
-            nextAfterImage.GetComponent<AfterImage>().targetObject = myPlayerMovementScript.Moth;
-            nextAfterImage.GetComponent<AfterImage>().targetAnimator = myPlayerMovementScript.animator;
+            nextAfterImage.GetComponent<AfterImage>().targetObject = LunamothScript.Moth;
+            nextAfterImage.GetComponent<AfterImage>().targetAnimator = LunamothScript.lunamoth;
         }
 
     }

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Lunamoth : MonoBehaviour
 {
-    private Animator lunamoth;
+    public CharacterController controller;
+    public GameObject Moth;
+    public Animator lunamoth;
     private bool State1 = true;
     private bool State2 = false;
 
