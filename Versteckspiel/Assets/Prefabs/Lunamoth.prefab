@@ -5101,7 +5101,7 @@ GameObject:
   - component: {fileID: 9168878300397808587}
   - component: {fileID: 9168878300397808588}
   - component: {fileID: 9168878300397808589}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FP_Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
