@@ -5099,7 +5099,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9168878300397808590}
   - component: {fileID: 9168878300397808587}
-  - component: {fileID: 9168878300397808588}
   - component: {fileID: 9168878300397808589}
   m_Layer: 6
   m_Name: FP_Camera
@@ -5166,14 +5165,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &9168878300397808588
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9168878300397808591}
-  m_Enabled: 1
 --- !u!114 &9168878300397808589
 MonoBehaviour:
   m_ObjectHideFlags: 0
