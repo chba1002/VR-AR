@@ -737,7 +737,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 831697276}
+    m_TransformParent: {fileID: 8142836}
     m_Modifications:
     - target: {fileID: 6189929146655215661, guid: f5e40151d509c794e8bf6ebd5a07bab7,
         type: 3}
@@ -747,7 +747,7 @@ PrefabInstance:
     - target: {fileID: 6189929146655215661, guid: f5e40151d509c794e8bf6ebd5a07bab7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6423929750307261772, guid: f5e40151d509c794e8bf6ebd5a07bab7,
         type: 3}
@@ -762,22 +762,22 @@ PrefabInstance:
     - target: {fileID: 6822068809533803159, guid: f5e40151d509c794e8bf6ebd5a07bab7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6822068809533803159, guid: f5e40151d509c794e8bf6ebd5a07bab7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6822068809533803159, guid: f5e40151d509c794e8bf6ebd5a07bab7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6822068809533803159, guid: f5e40151d509c794e8bf6ebd5a07bab7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6822068809533803159, guid: f5e40151d509c794e8bf6ebd5a07bab7,
         type: 3}
@@ -1030,12 +1030,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
---- !u!4 &831697276 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a,
-    type: 3}
-  m_PrefabInstance: {fileID: 475907695}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &939140764
 GameObject:
   m_ObjectHideFlags: 0
