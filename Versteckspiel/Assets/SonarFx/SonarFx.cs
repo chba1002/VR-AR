@@ -22,10 +22,11 @@
 //
 using UnityEngine;
 
+
 [RequireComponent(typeof(Camera))]
 public class SonarFx : MonoBehaviour
 {
-      // Sonar mode (directional or spherical)
+    // Sonar mode (directional or spherical)
     public enum SonarMode { Directional, Spherical }
     [SerializeField] SonarMode _mode = SonarMode.Directional;
     public SonarMode mode { get { return _mode; } set { _mode = value; } }
@@ -97,29 +98,44 @@ public class SonarFx : MonoBehaviour
         GetComponent<Camera>().ResetReplacementShader();
     }
 
-    public GameObject UrsprungSchrei;
-
     void Update()
     {
-        // von mir, um Effekt an Fledermaus zu hängen. origin = this.transform.position.;
-        //origin = UrsprungSchrei.transform.position;
+        // Zum Testen mit dem Oculus Controller 
+        //if(OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+
+        // Zum Testen am PC
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            print("Fledermaus schreit");
+            // Problem: Er emittiert trotzdem die Wellen, nur sieht man sie nicht, sie sollen aber per Knopfdruck entstehen.
+            //_waveInterval = 30;
+        }
+
+        /*else
+        {
+            OnDisable();
+            _waveInterval = 0;
+        }*/
 
         Shader.SetGlobalColor(baseColorID, _baseColor);
         Shader.SetGlobalColor(waveColorID, _waveColor);
         Shader.SetGlobalColor(addColorID, _addColor);
 
-        var param = new Vector4(_waveAmplitude, _waveExponent, _waveInterval, _waveSpeed);
-        Shader.SetGlobalVector(waveParamsID, param);
+        //Schrei schaut nach Position von OVRCameraRig
+        origin = GameObject.Find("OVRCameraRig").GetComponent<Transform>().position;
 
-        if (_mode == SonarMode.Directional)
-        {
-            Shader.DisableKeyword("SONAR_SPHERICAL");
-            Shader.SetGlobalVector(waveVectorID, _direction.normalized);
-        }
-        else
-        {
-            Shader.EnableKeyword("SONAR_SPHERICAL");
-            Shader.SetGlobalVector(waveVectorID, _origin);
-        }
+        var param = new Vector4(_waveAmplitude, _waveExponent, _waveInterval, _waveSpeed);
+           Shader.SetGlobalVector(waveParamsID, param);
+
+           if (_mode == SonarMode.Directional)
+           {
+                Shader.DisableKeyword("SONAR_SPHERICAL");
+                Shader.SetGlobalVector(waveVectorID, _direction.normalized);
+           }
+           else
+           {
+                Shader.EnableKeyword("SONAR_SPHERICAL");
+                Shader.SetGlobalVector(waveVectorID, _origin);
+           }
     }
 }
