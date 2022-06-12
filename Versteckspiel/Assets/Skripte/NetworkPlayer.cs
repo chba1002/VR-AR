@@ -2,21 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using Photon.Pun;
 
 public class NetworkPlayer : MonoBehaviour
 {
     public Transform bat;
+    private PhotonView photonView;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        photonView = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        MapPosition(bat, XRNode.Head);
+        if(photonView.IsMine)
+        {
+            bat.gameObject.SetActive(false);
+            MapPosition(bat, XRNode.Head);
+        }
     }
 
     void MapPosition(Transform target, XRNode node)
