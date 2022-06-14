@@ -100,7 +100,7 @@ public class SonarFx : MonoBehaviour
 
     void Update()
     {
-        // Zum Testen mit dem Oculus Controller 
+        // Zum Testen mit dem Oculus Controller (hat noch nicht funktioniert...)
         //if(OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
 
         // Zum Testen am PC
@@ -121,8 +121,8 @@ public class SonarFx : MonoBehaviour
         Shader.SetGlobalColor(waveColorID, _waveColor);
         Shader.SetGlobalColor(addColorID, _addColor);
 
-        //Schrei schaut nach Position von OVRCameraRig
-        origin = GameObject.Find("OVRCameraRig").GetComponent<Transform>().position;
+        //Schrei schaut nach Position von CenterEyeAnchor im OVRCameraRig
+        origin = GameObject.Find("CenterEyeAnchor").GetComponent<Transform>().position;
 
         var param = new Vector4(_waveAmplitude, _waveExponent, _waveInterval, _waveSpeed);
            Shader.SetGlobalVector(waveParamsID, param);
