@@ -6,7 +6,7 @@ namespace Moth.Scripts.Lobby
 {
     public class MothLobbyTopPanel : MonoBehaviour
     {
-        private readonly string connectionStatusMessage = "    Connection Status: ";
+        private readonly string connectionStatusMessage = "Verbindungsstatus: ";
 
         [Header("UI References")]
         public Text ConnectionStatusText;

@@ -52,7 +52,7 @@ namespace Moth.Scripts.Lobby
             cachedRoomList = new Dictionary<string, RoomInfo>();
             roomListEntries = new Dictionary<string, GameObject>();
             
-            PlayerName.text = "Player " + Random.Range(1000, 10000);
+            PlayerName.text = "Spieler " + Random.Range(1000, 10000);
         }
 
         #endregion

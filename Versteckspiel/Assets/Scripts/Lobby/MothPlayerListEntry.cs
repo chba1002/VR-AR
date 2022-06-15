@@ -92,7 +92,7 @@ namespace Moth.Scripts.Lobby
 
         public void SetPlayerReady(bool playerReady)
         {
-            PlayerReadyButton.GetComponentInChildren<Text>().text = playerReady ? "Ready!" : "Ready?";
+            PlayerReadyButton.GetComponentInChildren<Text>().text = playerReady ? "Bereit!" : "Bereit?";
             PlayerReadyImage.enabled = playerReady;
         }
     }
