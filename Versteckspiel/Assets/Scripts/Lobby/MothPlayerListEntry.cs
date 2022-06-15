@@ -23,7 +23,7 @@ namespace Moth.Scripts.Lobby
         public Text PlayerNameText;
 
         public Image PlayerColorImage;
-        public Button PlayerReadyButton;
+       // public Button PlayerReadyButton;
         public Image PlayerReadyImage;
 
         private int ownerId;
@@ -38,32 +38,7 @@ namespace Moth.Scripts.Lobby
 
         public void Start()
         {
-            if (PhotonNetwork.LocalPlayer.ActorNumber != ownerId)
-            {
-                PlayerReadyButton.gameObject.SetActive(false);
-            }
-            else
-            {
-                Hashtable initialProps = new Hashtable() {
-                    {MothGame.PLAYER_READY, isPlayerReady}, 
-                    {MothGame.PLAYER_LIVES, MothGame.PLAYER_MAX_LIVES}};
-                PhotonNetwork.LocalPlayer.SetCustomProperties(initialProps);
-                PhotonNetwork.LocalPlayer.SetScore(0);
 
-                PlayerReadyButton.onClick.AddListener(() =>
-                {
-                    isPlayerReady = !isPlayerReady;
-                    SetPlayerReady(isPlayerReady);
-
-                    Hashtable props = new Hashtable() {{MothGame.PLAYER_READY, isPlayerReady}};
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        FindObjectOfType<MothLobbyMainPanel>().LocalPlayerPropertiesUpdated();
-                    }
-                });
-            }
         }
 
         public void OnDisable()
@@ -81,7 +56,7 @@ namespace Moth.Scripts.Lobby
 
         private void OnPlayerNumberingChanged()
         {
-            foreach (Photon.Realtime.Player  p in PhotonNetwork.PlayerList)
+            foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
                 if (p.ActorNumber == ownerId)
                 {
@@ -90,10 +65,5 @@ namespace Moth.Scripts.Lobby
             }
         }
 
-        public void SetPlayerReady(bool playerReady)
-        {
-            PlayerReadyButton.GetComponentInChildren<Text>().text = playerReady ? "Bereit!" : "Bereit?";
-            PlayerReadyImage.enabled = playerReady;
-        }
     }
 }

@@ -128,7 +128,7 @@ namespace Moth.Scripts.Lobby
                 object isPlayerReady;
                 if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
                 {
-                    entry.GetComponent<MothPlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
+                    InsideRoomPanel.GetComponent<InsideRoomPanel>().SetPlayerReady((bool) isPlayerReady, p.ActorNumber);
                 }
 
                 playerListEntries.Add(p.ActorNumber, entry);
@@ -197,7 +197,8 @@ namespace Moth.Scripts.Lobby
                 object isPlayerReady;
                 if (changedProps.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
                 {
-                    entry.GetComponent<MothPlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
+                    InsideRoomPanel.GetComponent<InsideRoomPanel>()
+                    .SetPlayerReady((bool) isPlayerReady, targetPlayer.ActorNumber);
                 }
             }
 
