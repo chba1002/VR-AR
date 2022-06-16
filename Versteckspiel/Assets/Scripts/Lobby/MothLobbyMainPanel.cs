@@ -35,6 +35,7 @@ namespace Moth.Scripts.Lobby
 
         [Header("Inside Room Panel")]
         public GameObject InsideRoomPanel;
+        public GameObject MothPlayerListEntries;
 
         public Button StartGameButton;
         public GameObject PlayerListEntryPrefab;
@@ -121,7 +122,7 @@ namespace Moth.Scripts.Lobby
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
                 GameObject entry = Instantiate(PlayerListEntryPrefab);
-                entry.transform.SetParent(InsideRoomPanel.transform);
+                entry.transform.SetParent(MothPlayerListEntries.transform);
                 entry.transform.localScale = Vector3.one;
                 entry.GetComponent<MothPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
 

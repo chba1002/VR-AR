@@ -24,6 +24,8 @@ namespace Moth.Scripts.Lobby
         private bool isPlayerReady;
         //         public Image PlayerReadyImage;
 
+        public GameObject MothPlayerListEntries;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -127,30 +129,32 @@ namespace Moth.Scripts.Lobby
 
         public void SetPlayerReady(bool playerReady, int targetPlayerActorNumber)
         {
-            Debug.Log("playerReady: " + playerReady + ", targetPlayerActorNumber:" + targetPlayerActorNumber);
+            Debug.Log("playerReady: " + playerReady + ", targetPlayerActorNumber:" + targetPlayerActorNumber + ", PhotonNetwork.LocalPlayer.ActorNumber"+PhotonNetwork.LocalPlayer.ActorNumber);
 
             if (targetPlayerActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
             {
                 PlayerReadyButton.GetComponentInChildren<Text>().text = playerReady ? "Bereit!" : "Bereit?";
             }
 
-            //PlayerReadyImage.enabled = playerReady;
-        }
+            var mothPlayerListEntry = MothPlayerListEntries.GetComponents<MothPlayerListEntry>().ToList();
+            Debug.Log("Count: "+mothPlayerListEntry.Count);
 
-        // Update is called once per frame
-        void Update()
-        {
-
+            foreach (Transform child in MothPlayerListEntries.transform)
+            {
+                child.GetComponents<MothPlayerListEntry>().ToList()
+                    .Where(predicate: m => m.PlayerActorNumber == targetPlayerActorNumber)
+                    .FirstOrDefault()
+                    ?.SetPlayerReady(playerReady);
+            }
         }
 
         private void UpdatePlayerSelectionPanelsSetMothBat(int mothBatId, bool active){
 
             Debug.Log("UpdatePlayerSelectionPanelsSetMothBat mothBatId:"+mothBatId+" active:"+active +" [PlayerSelectionPanels.length: "+PlayerSelectionPanels.Count+"]");
 
-            PlayerSelectionPanels.ForEach(playerSelectionPanel =>
-                Debug.Log("playerSelectionPanel.MothBatIdentifier: "+playerSelectionPanel.MothBatIdentifier)
-            );
-
+            var allMothBatIdentifier = string.Join(" ", PlayerSelectionPanels);
+            Debug.Log("allMothBatIdentifier: " + allMothBatIdentifier);
+            
             PlayerSelectionPanels
                 .Where(p => p.MothBatIdentifier == mothBatId)
                 .ToList()

@@ -26,7 +26,7 @@ namespace Moth.Scripts.Lobby
        // public Button PlayerReadyButton;
         public Image PlayerReadyImage;
 
-        private int ownerId;
+        public int PlayerActorNumber {get; private set;}
         private bool isPlayerReady;
 
         #region UNITY
@@ -48,9 +48,14 @@ namespace Moth.Scripts.Lobby
 
         #endregion
 
+        /// <summary>
+        /// Initializes a new MothPlayerListEntry.
+        /// </summary>
+        /// <param name="playerId">Player actor number.</param>
+        /// <param name="playerName">Name of the player.</param>
         public void Initialize(int playerId, string playerName)
         {
-            ownerId = playerId;
+            PlayerActorNumber = playerId;
             PlayerNameText.text = playerName;
         }
 
@@ -58,12 +63,21 @@ namespace Moth.Scripts.Lobby
         {
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
-                if (p.ActorNumber == ownerId)
+                if (p.ActorNumber == PlayerActorNumber)
                 {
                     PlayerColorImage.color = MothGame.GetColor(p.GetPlayerNumber());
                 }
             }
         }
 
+        /// <summary>
+        /// Set selected player ready and visualize it.
+        /// </summary>
+        /// <param name="ready">Indicates whether the player is ready.</param>
+        public void SetPlayerReady(bool ready){
+            Debug.Log($"SetPlayer {PlayerActorNumber} ready: {ready}");
+            isPlayerReady = ready;
+            PlayerReadyImage.enabled = ready;
+        }
     }
 }
