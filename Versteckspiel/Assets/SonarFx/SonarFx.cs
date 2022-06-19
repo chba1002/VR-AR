@@ -21,6 +21,7 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 using UnityEngine;
+using System.Collections;
 
 
 [RequireComponent(typeof(Camera))]
@@ -89,53 +90,71 @@ public class SonarFx : MonoBehaviour
 
     void OnEnable()
     {
-        GetComponent<Camera>().SetReplacementShader(shader, null);
-        Update();
+        
+        //Update();
     }
 
     void OnDisable()
     {
-        GetComponent<Camera>().ResetReplacementShader();
+        //GetComponent<Camera>().ResetReplacementShader();
     }
 
     void Update()
     {
-        // Zum Testen mit dem Oculus Controller (hat noch nicht funktioniert...)
-        //if(OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        //Schrei schaut nach Position von CenterEyeAnchor im OVRCameraRig
+        origin = GameObject.Find("CenterEyeAnchor").GetComponent<Transform>().position;
 
+        // Zum Testen mit dem Oculus Controller (hat noch nicht funktioniert...)
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        {
+            print("Fledermaus schreit");
+            Echo();
+            StartCoroutine(WaveSpeed());
+            // Knopf wird gedrückt, 1 Welle entsteht, verschwindet nach Xsec, dann 5sec Pause (Coroutine?), dann wieder frei zum erneuten Drücken
+            IEnumerator WaveSpeed()
+            {
+                yield return new WaitForSeconds(_waveSpeed/5f);
+                GetComponent<Camera>().ResetReplacementShader();
+            }
+        }
         // Zum Testen am PC
         if (Input.GetKeyUp(KeyCode.Space))
         {
             print("Fledermaus schreit");
-            // Problem: Er emittiert trotzdem die Wellen, nur sieht man sie nicht, sie sollen aber per Knopfdruck entstehen.
-            //_waveInterval = 30;
+            Echo();
+            StartCoroutine(WaveSpeed());
+
+            IEnumerator WaveSpeed()
+            {
+                yield return new WaitForSeconds(_waveSpeed/5f);
+                // Problem: Shader soll nicht an und aus gehen, er soll nur 1 Intervall durchlaufen und dann aufhören und dann wieder bei 0 anfangen
+                GetComponent<Camera>().ResetReplacementShader();
+            }
         }
 
-        /*else
+
+        void Echo()
         {
-            OnDisable();
-            _waveInterval = 0;
-        }*/
+            //Hier steht alles zum Schrei
+            GetComponent<Camera>().SetReplacementShader(shader, null);
 
-        Shader.SetGlobalColor(baseColorID, _baseColor);
-        Shader.SetGlobalColor(waveColorID, _waveColor);
-        Shader.SetGlobalColor(addColorID, _addColor);
+            Shader.SetGlobalColor(baseColorID, _baseColor);
+            Shader.SetGlobalColor(waveColorID, _waveColor);
+            Shader.SetGlobalColor(addColorID, _addColor);
 
-        //Schrei schaut nach Position von CenterEyeAnchor im OVRCameraRig
-        origin = GameObject.Find("CenterEyeAnchor").GetComponent<Transform>().position;
+            var param = new Vector4(_waveAmplitude, _waveExponent, _waveInterval, _waveSpeed);
+            Shader.SetGlobalVector(waveParamsID, param);
 
-        var param = new Vector4(_waveAmplitude, _waveExponent, _waveInterval, _waveSpeed);
-           Shader.SetGlobalVector(waveParamsID, param);
-
-           if (_mode == SonarMode.Directional)
-           {
+            if (_mode == SonarMode.Directional)
+            {
                 Shader.DisableKeyword("SONAR_SPHERICAL");
                 Shader.SetGlobalVector(waveVectorID, _direction.normalized);
-           }
-           else
-           {
+            }
+            else
+            {
                 Shader.EnableKeyword("SONAR_SPHERICAL");
                 Shader.SetGlobalVector(waveVectorID, _origin);
-           }
+            }
+        }
     }
 }
