@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Moth.Scripts.Lobby.Managers;
 
 namespace Moth.Scripts.Lobby
 {
@@ -42,17 +43,20 @@ namespace Moth.Scripts.Lobby
 
         private Dictionary<string, RoomInfo> cachedRoomList;
         private Dictionary<string, GameObject> roomListEntries;
-        private Dictionary<int, GameObject> playerListEntries;
 
         #region UNITY
+
+        private PlayerListManager playerListManager;
 
         public void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
 
+            playerListManager = new PlayerListManager(Instantiate, Destroy);
+
             cachedRoomList = new Dictionary<string, RoomInfo>();
             roomListEntries = new Dictionary<string, GameObject>();
-            
+
             PlayerName.text = "Spieler " + Random.Range(1000, 10000);
         }
 
@@ -103,7 +107,7 @@ namespace Moth.Scripts.Lobby
         {
             string roomName = "Room " + Random.Range(1000, 10000);
 
-            RoomOptions options = new RoomOptions {MaxPlayers = 8};
+            RoomOptions options = new RoomOptions { MaxPlayers = 8 };
 
             PhotonNetwork.CreateRoom(roomName, options, null);
         }
@@ -116,14 +120,12 @@ namespace Moth.Scripts.Lobby
 
             SetActivePanel(InsideRoomPanel.name);
 
-            if (playerListEntries == null)
-            {
-                playerListEntries = new Dictionary<int, GameObject>();
-            }
+
 
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
-                GameObject entry = InitiatePlayerListEntry(p);
+                GameObject entry = playerListManager.InitiatePlayerListEntry(p, MothPlayerListEntries, PlayerListEntryPrefab);
+
 
                 object isPlayerReady;
                 if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
@@ -131,7 +133,7 @@ namespace Moth.Scripts.Lobby
                     InsideRoomPanel.GetComponent<InsideRoomPanel>().SetPlayerReady((bool)isPlayerReady, p.ActorNumber);
                 }
 
-                playerListEntries.Add(p.ActorNumber, entry);
+                playerListManager.PlayerListEntries.Add(p.ActorNumber, entry);
             }
 
             StartGameButton.gameObject.SetActive(CheckPlayersReady());
@@ -148,29 +150,30 @@ namespace Moth.Scripts.Lobby
         {
             SetActivePanel(SelectionPanel.name);
 
-            foreach (GameObject entry in playerListEntries.Values)
+            foreach (GameObject entry in playerListManager.PlayerListEntries.Values)
             {
                 Destroy(entry.gameObject);
             }
 
-            playerListEntries.Clear();
-            playerListEntries = null;
+            playerListManager.ClearPlayerListEntries();
         }
 
         public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
         {
-            Debug.Log("OnPlayerEnteredRoom newPlayer.ActorNumber: "+newPlayer.ActorNumber);
-            GameObject entry = InitiatePlayerListEntry(newPlayer);
+            Debug.Log("OnPlayerEnteredRoom newPlayer.ActorNumber: " + newPlayer.ActorNumber);
+            GameObject entry = playerListManager.InitiatePlayerListEntry(newPlayer, MothPlayerListEntries, PlayerListEntryPrefab);
             StartGameButton.gameObject.SetActive(CheckPlayersReady());
         }
 
         public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
         {
-            Destroy(playerListEntries[otherPlayer.ActorNumber].gameObject);
-            playerListEntries.Remove(otherPlayer.ActorNumber);
+            playerListManager.RemovePlayerListEntry(
+                otherPlayer.ActorNumber,
+                MothPlayerListEntries);
 
             StartGameButton.gameObject.SetActive(CheckPlayersReady());
         }
+
 
         public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
         {
@@ -184,21 +187,21 @@ namespace Moth.Scripts.Lobby
 
         public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, Hashtable changedProps)
         {
-            Debug.Log("OnPlayerPropertiesUpdate: ActorNumber: "+targetPlayer.ActorNumber);
+            Debug.Log("OnPlayerPropertiesUpdate: ActorNumber: " + targetPlayer.ActorNumber);
 
-            if (playerListEntries == null)
-            {
-                playerListEntries = new Dictionary<int, GameObject>();
-            }
 
             GameObject entry;
-            if (playerListEntries.TryGetValue(targetPlayer.ActorNumber, out entry))
+            if (playerListManager.PlayerListEntries.TryGetValue(targetPlayer.ActorNumber, out entry))
             {
+                Debug.Log($"Player with actor number '{targetPlayer.ActorNumber}' was found.");
+
                 object isPlayerReady;
                 if (changedProps.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
                 {
+                    Debug.Log($"Player isPlayerReady '{isPlayerReady}'.");
+
                     InsideRoomPanel.GetComponent<InsideRoomPanel>()
-                    .SetPlayerReady((bool) isPlayerReady, targetPlayer.ActorNumber);
+                    .SetPlayerReady((bool)isPlayerReady, targetPlayer.ActorNumber);
                 }
             }
 
@@ -226,9 +229,9 @@ namespace Moth.Scripts.Lobby
 
             byte maxPlayers;
             byte.TryParse(MaxPlayersInputField.text, out maxPlayers);
-            maxPlayers = (byte) Mathf.Clamp(maxPlayers, 2, 8);
+            maxPlayers = (byte)Mathf.Clamp(maxPlayers, 2, 8);
 
-            RoomOptions options = new RoomOptions {MaxPlayers = maxPlayers, PlayerTtl = 10000 };
+            RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers, PlayerTtl = 10000 };
 
             PhotonNetwork.CreateRoom(roomName, options, null);
         }
@@ -275,7 +278,7 @@ namespace Moth.Scripts.Lobby
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            PhotonNetwork.LoadLevel("DemoAsteroids-GameScene");
+            PhotonNetwork.LoadLevel("Versteckspiel");
         }
 
         #endregion
@@ -292,7 +295,7 @@ namespace Moth.Scripts.Lobby
                 object isPlayerReady;
                 if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
                 {
-                    if (!(bool) isPlayerReady)
+                    if (!(bool)isPlayerReady)
                     {
                         return false;
                     }
@@ -305,7 +308,7 @@ namespace Moth.Scripts.Lobby
 
             return true;
         }
-        
+
         private void ClearRoomListView()
         {
             foreach (GameObject entry in roomListEntries.Values)
@@ -370,16 +373,6 @@ namespace Moth.Scripts.Lobby
 
                 roomListEntries.Add(info.Name, entry);
             }
-        }
-
-
-        private GameObject InitiatePlayerListEntry(Photon.Realtime.Player p)
-        {
-            GameObject entry = Instantiate(PlayerListEntryPrefab);
-            entry.transform.SetParent(MothPlayerListEntries.transform);
-            entry.transform.localScale = Vector3.one;
-            entry.GetComponent<MothPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
-            return entry;
         }
     }
 }
