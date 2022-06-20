@@ -87,6 +87,8 @@ namespace Moth.Scripts.Lobby
             ClearRoomListView();
         }
 
+
+
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
             SetActivePanel(SelectionPanel.name);
@@ -121,15 +123,12 @@ namespace Moth.Scripts.Lobby
 
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
-                GameObject entry = Instantiate(PlayerListEntryPrefab);
-                entry.transform.SetParent(MothPlayerListEntries.transform);
-                entry.transform.localScale = Vector3.one;
-                entry.GetComponent<MothPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
+                GameObject entry = InitiatePlayerListEntry(p);
 
                 object isPlayerReady;
                 if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
                 {
-                    InsideRoomPanel.GetComponent<InsideRoomPanel>().SetPlayerReady((bool) isPlayerReady, p.ActorNumber);
+                    InsideRoomPanel.GetComponent<InsideRoomPanel>().SetPlayerReady((bool)isPlayerReady, p.ActorNumber);
                 }
 
                 playerListEntries.Add(p.ActorNumber, entry);
@@ -143,6 +142,7 @@ namespace Moth.Scripts.Lobby
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
+
 
         public override void OnLeftRoom()
         {
@@ -159,13 +159,8 @@ namespace Moth.Scripts.Lobby
 
         public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
         {
-            GameObject entry = Instantiate(PlayerListEntryPrefab);
-            entry.transform.SetParent(InsideRoomPanel.transform);
-            entry.transform.localScale = Vector3.one;
-            entry.GetComponent<MothPlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
-
-            playerListEntries.Add(newPlayer.ActorNumber, entry);
-
+            Debug.Log("OnPlayerEnteredRoom newPlayer.ActorNumber: "+newPlayer.ActorNumber);
+            GameObject entry = InitiatePlayerListEntry(newPlayer);
             StartGameButton.gameObject.SetActive(CheckPlayersReady());
         }
 
@@ -185,8 +180,12 @@ namespace Moth.Scripts.Lobby
             }
         }
 
+        // ToDo: OnPlayerJoined - Refresh User List
+
         public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, Hashtable changedProps)
         {
+            Debug.Log("OnPlayerPropertiesUpdate: ActorNumber: "+targetPlayer.ActorNumber);
+
             if (playerListEntries == null)
             {
                 playerListEntries = new Dictionary<int, GameObject>();
@@ -371,6 +370,16 @@ namespace Moth.Scripts.Lobby
 
                 roomListEntries.Add(info.Name, entry);
             }
+        }
+
+
+        private GameObject InitiatePlayerListEntry(Photon.Realtime.Player p)
+        {
+            GameObject entry = Instantiate(PlayerListEntryPrefab);
+            entry.transform.SetParent(MothPlayerListEntries.transform);
+            entry.transform.localScale = Vector3.one;
+            entry.GetComponent<MothPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
+            return entry;
         }
     }
 }
