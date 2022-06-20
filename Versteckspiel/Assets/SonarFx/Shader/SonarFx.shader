@@ -26,6 +26,7 @@ Shader "Hidden/SonarFX"
     {
         _SonarBaseColor  ("Base Color",  Color)  = (0.1, 0.1, 0.1, 0)
         _SonarWaveColor  ("Wave Color",  Color)  = (1.0, 0.1, 0.1, 0)
+        _SonarMothColor  ("Moth Color",  Color)  = (1, 1, 1, 0)
         _SonarWaveParams ("Wave Params", Vector) = (1, 20, 20, 10)
         _SonarWaveVector ("Wave Vector", Vector) = (0, 0, 1, 0)
         _SonarAddColor   ("Add Color",   Color)  = (0, 0, 0, 0)
@@ -46,6 +47,7 @@ Shader "Hidden/SonarFX"
 
         float3 _SonarBaseColor;
         float3 _SonarWaveColor;
+        float3 _SonarMothColor;
         float4 _SonarWaveParams; // Amp, Exp, Interval, Speed
         float3 _SonarWaveVector;
         float3 _SonarAddColor;
@@ -57,10 +59,10 @@ Shader "Hidden/SonarFX"
 #else
             float w = length(IN.worldPos - _SonarWaveVector);
 #endif
-
+            
             // Moving wave.
             w -= _Time.y * _SonarWaveParams.w;
-
+            
             // Get modulo (w % params.z / params.z)
             w /= _SonarWaveParams.z;
             w = w - floor(w);

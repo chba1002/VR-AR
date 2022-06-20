@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Moth
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Post Processing Motte 2
   - Post Processing Motte 3
   - Post Processing Motte 4
-  - 
+  - Lights
   - 
   - 
   - 

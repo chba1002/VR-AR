@@ -68,6 +68,7 @@ public class SonarFx : MonoBehaviour
     [SerializeField] Color _addColor = Color.black;
     public Color addColor { get { return _addColor; } set { _addColor = value; } }
 
+    //public GameObject Motte;
 
     // Reference to the shader.
     [SerializeField] Shader shader;
@@ -86,6 +87,8 @@ public class SonarFx : MonoBehaviour
         waveParamsID = Shader.PropertyToID("_SonarWaveParams");
         waveVectorID = Shader.PropertyToID("_SonarWaveVector");
         addColorID = Shader.PropertyToID("_SonarAddColor");
+
+        //Motte = GameObject.FindWithTag("Moth");
     }
 
     void OnEnable()
@@ -102,12 +105,13 @@ public class SonarFx : MonoBehaviour
     void Update()
     {
         //Schrei schaut nach Position von CenterEyeAnchor im OVRCameraRig
-        origin = GameObject.Find("CenterEyeAnchor").GetComponent<Transform>().position;
+        origin = GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<Transform>().position;
 
         // Zum Testen mit dem Oculus Controller (hat noch nicht funktioniert...)
         if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
             print("Fledermaus schreit");
+            UltraSchall();
             Echo();
             StartCoroutine(WaveSpeed());
             // Knopf wird gedrückt, 1 Welle entsteht, verschwindet nach Xsec, dann 5sec Pause (Coroutine?), dann wieder frei zum erneuten Drücken
@@ -121,6 +125,7 @@ public class SonarFx : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             print("Fledermaus schreit");
+            UltraSchall();
             Echo();
             StartCoroutine(WaveSpeed());
 
@@ -132,10 +137,14 @@ public class SonarFx : MonoBehaviour
             }
         }
 
+        void UltraSchall()
+        {
+            GameObject.Find("CenterEyeAnchor").GetComponent<AudioSource>().Play();
+        }
 
         void Echo()
         {
-            //Hier steht alles zum Schrei
+            //Hier steht alles zum visuellen Schrei
             GetComponent<Camera>().SetReplacementShader(shader, null);
 
             Shader.SetGlobalColor(baseColorID, _baseColor);

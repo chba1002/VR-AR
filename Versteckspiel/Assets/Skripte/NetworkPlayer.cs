@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class NetworkPlayer : MonoBehaviour
 {
-    public Transform bat;
+    public Transform Körper;
     private PhotonView photonView;
 
     // Start is called before the first frame update
@@ -20,8 +20,8 @@ public class NetworkPlayer : MonoBehaviour
     {
         if(photonView.IsMine)
         {
-            bat.gameObject.SetActive(false);
-            MapPosition(bat, XRNode.Head);
+            Körper.gameObject.SetActive(false);
+            MapPosition(Körper, XRNode.Head);
         }
     }
 
