@@ -93,7 +93,7 @@ public class SonarFx : MonoBehaviour
 
     void OnEnable()
     {
-        
+
         //Update();
     }
 
@@ -104,14 +104,17 @@ public class SonarFx : MonoBehaviour
 
     void Update()
     {
-        //Schrei schaut nach Position von CenterEyeAnchor im OVRCameraRig
+        //Schrei schaut nach Position von CenterEyeAnchor im OVRCameraRig, möglicherweise umbenennen, da mehrere Spieler in Szene.
         origin = GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<Transform>().position;
 
+        GetComponent<Camera>().SetReplacementShader(shader, null);
+
+        GameObject.Find("CenterEyeAnchor").GetComponent<AudioSource>().Play();
+
         // Zum Testen mit dem Oculus Controller (hat noch nicht funktioniert...)
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        /*if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
             print("Fledermaus schreit");
-            UltraSchall();
             Echo();
             StartCoroutine(WaveSpeed());
             // Knopf wird gedrückt, 1 Welle entsteht, verschwindet nach Xsec, dann 5sec Pause (Coroutine?), dann wieder frei zum erneuten Drücken
@@ -120,50 +123,36 @@ public class SonarFx : MonoBehaviour
                 yield return new WaitForSeconds(_waveSpeed/5f);
                 GetComponent<Camera>().ResetReplacementShader();
             }
-        }
-        // Zum Testen am PC
-        if (Input.GetKeyUp(KeyCode.Space))
+        }*/
+
+
+        Shader.SetGlobalColor(baseColorID, _baseColor);
+        Shader.SetGlobalColor(waveColorID, _waveColor);
+        Shader.SetGlobalColor(addColorID, _addColor);
+
+        var param = new Vector4(_waveAmplitude, _waveExponent, _waveInterval, _waveSpeed);
+        Shader.SetGlobalVector(waveParamsID, param);
+
+        if (_mode == SonarMode.Directional)
         {
-            print("Fledermaus schreit");
-            UltraSchall();
-            Echo();
-            StartCoroutine(WaveSpeed());
-
-            IEnumerator WaveSpeed()
-            {
-                yield return new WaitForSeconds(_waveSpeed/5f);
-                // Problem: Shader soll nicht an und aus gehen, er soll nur 1 Intervall durchlaufen und dann aufhören und dann wieder bei 0 anfangen
-                GetComponent<Camera>().ResetReplacementShader();
-            }
+            Shader.DisableKeyword("SONAR_SPHERICAL");
+            Shader.SetGlobalVector(waveVectorID, _direction.normalized);
         }
-
-        void UltraSchall()
+        else
         {
-            GameObject.Find("CenterEyeAnchor").GetComponent<AudioSource>().Play();
+            Shader.EnableKeyword("SONAR_SPHERICAL");
+            Shader.SetGlobalVector(waveVectorID, _origin);
         }
 
-        void Echo()
-        {
-            //Hier steht alles zum visuellen Schrei
-            GetComponent<Camera>().SetReplacementShader(shader, null);
-
-            Shader.SetGlobalColor(baseColorID, _baseColor);
-            Shader.SetGlobalColor(waveColorID, _waveColor);
-            Shader.SetGlobalColor(addColorID, _addColor);
-
-            var param = new Vector4(_waveAmplitude, _waveExponent, _waveInterval, _waveSpeed);
-            Shader.SetGlobalVector(waveParamsID, param);
-
-            if (_mode == SonarMode.Directional)
-            {
-                Shader.DisableKeyword("SONAR_SPHERICAL");
-                Shader.SetGlobalVector(waveVectorID, _direction.normalized);
-            }
-            else
-            {
-                Shader.EnableKeyword("SONAR_SPHERICAL");
-                Shader.SetGlobalVector(waveVectorID, _origin);
-            }
-        }
+        StartCoroutine(SchreiTon());
     }
+
+    IEnumerator SchreiTon()
+    {
+        yield return new WaitForSeconds(4f);
+        print("Fledermaus schreit");
+        GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<AudioSource>().PlayDelayed(4f);
+        //GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<AudioSource>().Play();
+    }
+
 }
