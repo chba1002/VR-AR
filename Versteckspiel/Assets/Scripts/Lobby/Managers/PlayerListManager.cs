@@ -71,6 +71,27 @@ namespace Moth.Scripts.Lobby.Managers
             entry.GetComponent<MothPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
             return entry;
         }
+
+        internal bool CheckPlayerIsReady(Photon.Realtime.Player[] playerList)
+        {
+            foreach (Photon.Realtime.Player p in playerList)
+            {
+                object isPlayerReady;
+                if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
+                {
+                    if (!(bool)isPlayerReady)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 
 }
