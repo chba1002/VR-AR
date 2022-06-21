@@ -80,6 +80,9 @@ public class SonarFx : MonoBehaviour
     int waveVectorID;
     int addColorID;
 
+    private float nextActionTime = 3f;
+    public float period;
+
     void Awake()
     {
         baseColorID = Shader.PropertyToID("_SonarBaseColor");
@@ -93,13 +96,18 @@ public class SonarFx : MonoBehaviour
 
     void OnEnable()
     {
-
-        //Update();
+        Update();
     }
 
     void OnDisable()
     {
-        //GetComponent<Camera>().ResetReplacementShader();
+        GetComponent<Camera>().ResetReplacementShader();
+    }
+
+        void Start()
+    {
+        //Start the coroutine we define below named SchreiTon.
+        StartCoroutine(SchreiTon());
     }
 
     void Update()
@@ -109,7 +117,13 @@ public class SonarFx : MonoBehaviour
 
         GetComponent<Camera>().SetReplacementShader(shader, null);
 
-        GameObject.Find("CenterEyeAnchor").GetComponent<AudioSource>().Play();
+        period += Time.deltaTime;
+        if (period >= nextActionTime)
+        {
+            period = 0f;
+            print("Fledermaus schreit");
+            GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<AudioSource>().Play();
+        }
 
         // Zum Testen mit dem Oculus Controller (hat noch nicht funktioniert...)
         /*if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
@@ -143,16 +157,20 @@ public class SonarFx : MonoBehaviour
             Shader.EnableKeyword("SONAR_SPHERICAL");
             Shader.SetGlobalVector(waveVectorID, _origin);
         }
-
-        StartCoroutine(SchreiTon());
     }
 
     IEnumerator SchreiTon()
     {
-        yield return new WaitForSeconds(4f);
+        //Print the time of when the function is first called.
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(5);
+
+        //After we have waited 5 seconds print the time again.
+        Debug.Log("Finished Coroutine at timestamp : " + Time.time); 
         print("Fledermaus schreit");
-        GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<AudioSource>().PlayDelayed(4f);
-        //GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<AudioSource>().Play();
+        GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<AudioSource>().Play();
     }
 
 }
