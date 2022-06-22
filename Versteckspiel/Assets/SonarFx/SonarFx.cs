@@ -83,6 +83,7 @@ public class SonarFx : MonoBehaviour
     private float nextActionTime = 3f;
     public float period;
 
+
     void Awake()
     {
         baseColorID = Shader.PropertyToID("_SonarBaseColor");
@@ -104,7 +105,7 @@ public class SonarFx : MonoBehaviour
         GetComponent<Camera>().ResetReplacementShader();
     }
 
-        void Start()
+    void Start()
     {
         //Start the coroutine we define below named SchreiTon.
         StartCoroutine(SchreiTon());
