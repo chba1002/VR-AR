@@ -96,8 +96,8 @@ namespace Moth.Scripts.Lobby
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
             PhotonNetwork.CreateRoom(
-                roomListManager.GenerateRoomName(), 
-                new RoomOptions { MaxPlayers = 8 }, 
+                roomListManager.GenerateRoomName(),
+                new RoomOptions { MaxPlayers = 8 },
                 null);
         }
 
@@ -141,13 +141,14 @@ namespace Moth.Scripts.Lobby
 
         public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
         {
-            Debug.Log("OnPlayerEnteredRoom newPlayer.ActorNumber: " + newPlayer.ActorNumber);
+            Debug.Log("Remote: Spieler " + newPlayer.ActorNumber + " betritt Raum");
             GameObject entry = playerListManager.InitiatePlayerListEntry(newPlayer, MothPlayerListEntries, PlayerListEntryPrefab);
             StartGameButton.gameObject.SetActive(CheckPlayersReady());
         }
 
         public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
         {
+            Debug.Log("Remote: Spieler " + otherPlayer.ActorNumber + "verlässt Raum");
             playerListManager.RemovePlayerListEntry(
                 otherPlayer.ActorNumber,
                 MothPlayerListEntries);
@@ -165,33 +166,38 @@ namespace Moth.Scripts.Lobby
 
         public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, Hashtable changedProps)
         {
-            Debug.Log("OnPlayerPropertiesUpdate: ActorNumber: " + targetPlayer.ActorNumber);
-            GameObject entry;
-            Debug.Log(
-                "playerListManager: "+playerListManager+
-                ", playerListManager.PlayerListEntries: "+playerListManager.PlayerListEntries+
-                ", targetPlayer: "+targetPlayer+
-                ", targetPlayer.ActorNumber"+targetPlayer.ActorNumber);
+            var playerTypeString = targetPlayer.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber
+                ? $"LocalPlayer {targetPlayer.ActorNumber}:"
+                : $"RemotePlayer {targetPlayer.ActorNumber}:";
+            Debug.Log($"{playerTypeString} {targetPlayer.ActorNumber} Eigenschaften aktualisiert");
 
-            foreach (var item in playerListManager.PlayerListEntries)
+
+            if (changedProps.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
             {
-                Debug.Log("item "+item.Key +": "+item.Value);
-            }    
-            if (playerListManager.PlayerListEntries.TryGetValue(targetPlayer.ActorNumber, out entry))
-            {
-                Debug.Log($"Player with actor number '{targetPlayer.ActorNumber}' was found.");
+                Debug.Log($"{playerTypeString}  ist bereit: '{isPlayerReady}'.");
 
-                object isPlayerReady;
-                if (changedProps.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
-                {
-                    Debug.Log($"Player isPlayerReady '{isPlayerReady}'.");
-
-                    InsideRoomPanel.GetComponent<InsideRoomPanel>()
-                        .SetPlayerReady((bool)isPlayerReady, targetPlayer.ActorNumber);
-                }
+                InsideRoomPanel.GetComponent<InsideRoomPanel>()
+                    .SetPlayerReady((bool)isPlayerReady, targetPlayer.ActorNumber);
             }
 
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
+            if (changedProps.TryGetValue(MothGame.PLAYER_MOTH_BAT_TYPE, out object playMothBatType))
+            {
+                bool successfullyGetMothType = int.TryParse(playMothBatType.ToString(), out int mothId);
+
+                if (!successfullyGetMothType)
+                {
+                    Debug.LogError($"{playMothBatType.ToString()} konnte nicht geparsed werden.");
+                    return;
+                }
+
+                Debug.Log($"{playerTypeString} wählt Motte/Fledermaus '{playMothBatType}' aus.");
+
+               // InsideRoomPanel.GetComponent<InsideRoomPanel>()
+               //     .SetPlayerMothBat .... 
+            }
+
+            // ToDo: Check  if all player are ready and if moths AND bats are selected
+            // ToDo: Shpudl be done via 'PlayerListManager'
         }
 
         #endregion

@@ -52,7 +52,8 @@ namespace Moth.Scripts.Lobby
             });
 
             PlayerSelectionPanels = new List<PlayerSelectionPanel>();
-            foreach (Transform child  in PlayerSelectionPanelElements.transform) {
+            foreach (Transform child in PlayerSelectionPanelElements.transform)
+            {
                 var playerSelectionPanels = child.GetComponents<PlayerSelectionPanel>().ToList();
                 PlayerSelectionPanels.AddRange(playerSelectionPanels);
             }
@@ -65,24 +66,24 @@ namespace Moth.Scripts.Lobby
         /// <param name="mothBatId">Id of the selected moth or bat.</param>
         public void TrySetMothBat(int mothBatId)
         {
-            if(mothBatId < 1 || (mothBatId > 4 && mothBatId != 100)){
+            if (mothBatId < 1 || (mothBatId > 4 && mothBatId != 100))
+            {
                 Debug.Log($"Unknown moth bat id {mothBatId}");
                 return;
             }
 
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
-                object mothBatType;
                 if (!p.CustomProperties.TryGetValue(
-                    MothGame.PLAYER_MOTH_BAT_TYPE, 
-                    out mothBatType))
+                    MothGame.PLAYER_MOTH_BAT_TYPE,
+                    out object mothBatType))
                 {
                     continue;
                 }
 
                 var parsedMothBatType = (int)mothBatType;
 
-                Debug.Log("parsedMothBatType: " + parsedMothBatType);
+             //   Debug.Log("parsedMothBatType: " + parsedMothBatType);
 
                 bool elementIsUnselected = parsedMothBatType == MothGame.PLAYER_DEFAULT_MOTH_BAT_TYPE;
 
@@ -109,35 +110,43 @@ namespace Moth.Scripts.Lobby
                 }
             }
 
-
-
             SetLocalPlayerMothBatIdInNetwork(mothBatId);
             UpdatePlayerSelectionPanelsSetMothBat(mothBatId, true);
 
 
-          //  if (PhotonNetwork.IsMasterClient)
-          //      {
-          //      FindObjectOfType<MothLobbyMainPanel>().LocalPlayerPropertiesUpdated();
-          //      }
+            //  if (PhotonNetwork.IsMasterClient)
+            //      {
+            //      FindObjectOfType<MothLobbyMainPanel>().LocalPlayerPropertiesUpdated();
+            //      }
         }
 
         private void SetLocalPlayerMothBatIdInNetwork(int mothBatId)
         {
+            Debug.Log($"Local: Spieler {PhotonNetwork.LocalPlayer.ActorNumber} wählt Motte {mothBatId} aus");
             ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable() { { MothGame.PLAYER_MOTH_BAT_TYPE, mothBatId } };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
         public void SetPlayerReady(bool playerReady, int targetPlayerActorNumber)
         {
-            Debug.Log("playerReady: " + playerReady + ", targetPlayerActorNumber:" + targetPlayerActorNumber + ", PhotonNetwork.LocalPlayer.ActorNumber"+PhotonNetwork.LocalPlayer.ActorNumber);
+            bool isLocalPlayer = PhotonNetwork.LocalPlayer.ActorNumber == targetPlayerActorNumber;
+            var playerTypeString = isLocalPlayer ? "Local" : "Remote";
+            if (playerReady)
+            {
+                Debug.Log($"{playerTypeString}: Spieler {targetPlayerActorNumber} ist bereit.");
+            }
+            else
+            {
+                Debug.Log($"{playerTypeString}: Spieler {targetPlayerActorNumber} ist nicht mehr bereit.");
+            }
 
             if (targetPlayerActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
             {
                 PlayerReadyButton.GetComponentInChildren<Text>().text = playerReady ? "Bereit!" : "Bereit?";
             }
 
-            var mothPlayerListEntry = MothPlayerListEntries.GetComponents<MothPlayerListEntry>().ToList();
-            Debug.Log("Count: "+mothPlayerListEntry.Count);
+            // var mothPlayerListEntry = MothPlayerListEntries.GetComponents<MothPlayerListEntry>().ToList();
+            // Debug.Log("Count: " + mothPlayerListEntry.Count);
 
             foreach (Transform child in MothPlayerListEntries.transform)
             {
@@ -148,17 +157,18 @@ namespace Moth.Scripts.Lobby
             }
         }
 
-        private void UpdatePlayerSelectionPanelsSetMothBat(int mothBatId, bool active){
+        private void UpdatePlayerSelectionPanelsSetMothBat(int mothBatId, bool active)
+        {
 
-            Debug.Log("UpdatePlayerSelectionPanelsSetMothBat mothBatId:"+mothBatId+" active:"+active +" [PlayerSelectionPanels.length: "+PlayerSelectionPanels.Count+"]");
+            //Debug.Log("UpdatePlayerSelectionPanelsSetMothBat mothBatId:" + mothBatId + " active:" + active + " [PlayerSelectionPanels.length: " + PlayerSelectionPanels.Count + "]");
 
             var allMothBatIdentifier = string.Join(" ", PlayerSelectionPanels);
-            Debug.Log("allMothBatIdentifier: " + allMothBatIdentifier);
-            
+          //  Debug.Log("allMothBatIdentifier: " + allMothBatIdentifier);
+
             PlayerSelectionPanels
                 .Where(p => p.MothBatIdentifier == mothBatId)
                 .ToList()
-                .ForEach(p=> p.SetSelected(active)
+                .ForEach(p => p.SetSelected(active)
             );
         }
     }
