@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace Moth.Scripts.Lobby.Managers
 {
@@ -17,15 +18,17 @@ namespace Moth.Scripts.Lobby.Managers
         private Func<GameObject, GameObject> Instantiate { get; }
         private Action<GameObject> Destroy { get; }
         private Dictionary<int, GameObject> playerListEntries;
+        private readonly GameObject mothPlayerListEntries;
 
         /// <summary>
         /// Create a new instance of PlayerListManager.
         /// </summary>
         /// <param name="instantiate">Unity method instantiate.</param>
         /// <param name="destroy">Unity method destroy.</param>
-        public PlayerListManager(Func<GameObject, GameObject> instantiate, Action<GameObject> destroy)
+        public PlayerListManager(GameObject mothPlayerListEntries, Func<GameObject, GameObject> instantiate, Action<GameObject> destroy)
         {
             this.playerListEntries = new Dictionary<int, GameObject>();
+            this.mothPlayerListEntries = mothPlayerListEntries;
             Instantiate = instantiate;
             Destroy = destroy;
         }
@@ -72,6 +75,22 @@ namespace Moth.Scripts.Lobby.Managers
             return entry;
         }
 
+        /// <summary>
+        /// Set player ready in Ui
+        /// </summary>
+        /// <param name="playerReady"></param>
+        /// <param name="targetPlayerActorNumber"></param>
+        public void SetPlayerReadyInUi(bool playerReady, int targetPlayerActorNumber)
+        {
+            CurrentMothPlayerListEntries
+                .Where(predicate: m => m.PlayerActorNumber == targetPlayerActorNumber)
+                .FirstOrDefault()
+                ?.SetPlayerReadyInUi(playerReady);
+        }
+
+        public bool AllPlayersAreReady => CurrentMothPlayerListEntries.All(m => m.IsReady);
+
+
         internal bool CheckPlayerIsReady(Photon.Realtime.Player[] playerList)
         {
             foreach (Photon.Realtime.Player p in playerList)
@@ -92,6 +111,20 @@ namespace Moth.Scripts.Lobby.Managers
 
             return true;
         }
-    }
+        private List<MothPlayerListEntry> CurrentMothPlayerListEntries
+        {
+            get
+            {
+                var entries = new List<MothPlayerListEntry>();
+                foreach (Transform child in mothPlayerListEntries.transform)
+                {
+                    child.GetComponents<MothPlayerListEntry>()
+                         .ToList()
+                         .ForEach(m => entries.Add(m));
+                }
 
+                return entries;
+            }
+        }
+    }
 }

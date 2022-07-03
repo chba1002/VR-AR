@@ -50,8 +50,7 @@ namespace Moth.Scripts.Lobby
         public void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
-
-            playerListManager = new PlayerListManager(Instantiate, Destroy);
+            playerListManager = new PlayerListManager(MothPlayerListEntries, Instantiate, Destroy);
             roomListManager = new RoomListManager(
                 Instantiate,
             Destroy,
@@ -59,6 +58,7 @@ namespace Moth.Scripts.Lobby
             RoomListContent);
 
             PlayerName.text = "Spieler " + Random.Range(1000, 10000);
+            SetActivePanel(LoginPanel.name);
         }
 
         #endregion
@@ -115,7 +115,7 @@ namespace Moth.Scripts.Lobby
                 object isPlayerReady;
                 if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
                 {
-                    InsideRoomPanel.GetComponent<InsideRoomPanel>().SetPlayerReady((bool)isPlayerReady, p.ActorNumber);
+                    playerListManager.SetPlayerReadyInUi((bool)isPlayerReady, p.ActorNumber);
                 }
 
                 playerListManager.PlayerListEntries.Add(p.ActorNumber, entry);
@@ -176,8 +176,12 @@ namespace Moth.Scripts.Lobby
             {
                 Debug.Log($"{playerTypeString}  ist bereit: '{isPlayerReady}'.");
 
-                InsideRoomPanel.GetComponent<InsideRoomPanel>()
-                    .SetPlayerReady((bool)isPlayerReady, targetPlayer.ActorNumber);
+                playerListManager.SetPlayerReadyInUi((bool)isPlayerReady, targetPlayer.ActorNumber);
+
+                if (playerListManager.AllPlayersAreReady)
+                {
+                    OnStartGameButtonClicked();
+                }
             }
 
             if (changedProps.TryGetValue(MothGame.PLAYER_MOTH_BAT_TYPE, out object playMothBatType))

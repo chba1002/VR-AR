@@ -1,17 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PlayerListEntry.cs" company="Exit Games GmbH">
-//   Part of: Asteroid Demo,
-// </copyright>
-// <summary>
-//  Player List Entry
-// </summary>
-// <author>developer@exitgames.com</author>
-// --------------------------------------------------------------------------------------------------------------------
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 
@@ -27,6 +16,7 @@ namespace Moth.Scripts.Lobby
         public Image PlayerReadyImage;
 
         public int PlayerActorNumber {get; private set;}
+        public bool IsReady => isPlayerReady;
         private bool isPlayerReady;
 
         #region UNITY
@@ -36,10 +26,6 @@ namespace Moth.Scripts.Lobby
             PlayerNumbering.OnPlayerNumberingChanged += OnPlayerNumberingChanged;
         }
 
-        public void Start()
-        {
-
-        }
 
         public void OnDisable()
         {
@@ -74,8 +60,11 @@ namespace Moth.Scripts.Lobby
         /// Set selected player ready and visualize it.
         /// </summary>
         /// <param name="ready">Indicates whether the player is ready.</param>
-        public void SetPlayerReady(bool ready){
-            Debug.Log($"SetPlayer {PlayerActorNumber} ready: {ready}");
+        public void SetPlayerReadyInUi(bool ready){
+            var playerTypeString = PhotonNetwork.LocalPlayer.ActorNumber == PlayerActorNumber ? "Local" : "Remote";
+            var isReadyString = ready ? "ist bereit" : "ist nicht mehr bereit";
+            Debug.Log($"{playerTypeString}: UI - Spieler {PlayerActorNumber} {isReadyString}.");
+
             isPlayerReady = ready;
             PlayerReadyImage.enabled = ready;
         }

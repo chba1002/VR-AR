@@ -40,7 +40,7 @@ namespace Moth.Scripts.Lobby
             PlayerReadyButton.onClick.AddListener(() =>
             {
                 isPlayerReady = !isPlayerReady;
-                SetPlayerReady(isPlayerReady, PhotonNetwork.LocalPlayer.ActorNumber);
+                //SetPlayerReady(isPlayerReady, PhotonNetwork.LocalPlayer.ActorNumber);
 
                 ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable() { { MothGame.PLAYER_READY, isPlayerReady } };
                 PhotonNetwork.LocalPlayer.SetCustomProperties(props);
@@ -83,7 +83,7 @@ namespace Moth.Scripts.Lobby
 
                 var parsedMothBatType = (int)mothBatType;
 
-             //   Debug.Log("parsedMothBatType: " + parsedMothBatType);
+                //   Debug.Log("parsedMothBatType: " + parsedMothBatType);
 
                 bool elementIsUnselected = parsedMothBatType == MothGame.PLAYER_DEFAULT_MOTH_BAT_TYPE;
 
@@ -110,9 +110,20 @@ namespace Moth.Scripts.Lobby
                 }
             }
 
-            SetLocalPlayerMothBatIdInNetwork(mothBatId);
-            UpdatePlayerSelectionPanelsSetMothBat(mothBatId, true);
+            if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(MothGame.PLAYER_MOTH_BAT_TYPE, out object mothBatTypeObject))
+            {
+                if (int.TryParse(mothBatTypeObject.ToString(), out int mothbatType))
+                {
+                    if (new List<int>() { 1, 2, 3, 4, 100 }.Contains(mothbatType))
+                    {
+                        Debug.Log("Couldnt select moth or bat. Already selected: "+ mothbatType);
+                        return;
+                    }
+                }
+            }
 
+            SetLocalPlayerMothBatIdInNetwork(mothBatId);
+            UpdatePlayerSelectionPanelsSetMothBat(mothBatId, true, PhotonNetwork.LocalPlayer.ActorNumber);
 
             //  if (PhotonNetwork.IsMasterClient)
             //      {
@@ -127,48 +138,17 @@ namespace Moth.Scripts.Lobby
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
-        public void SetPlayerReady(bool playerReady, int targetPlayerActorNumber)
+        private void UpdatePlayerSelectionPanelsSetMothBat(int mothBatId, bool active, int? optionalPlayerId = null)
         {
-            bool isLocalPlayer = PhotonNetwork.LocalPlayer.ActorNumber == targetPlayerActorNumber;
-            var playerTypeString = isLocalPlayer ? "Local" : "Remote";
-            if (playerReady)
-            {
-                Debug.Log($"{playerTypeString}: Spieler {targetPlayerActorNumber} ist bereit.");
-            }
-            else
-            {
-                Debug.Log($"{playerTypeString}: Spieler {targetPlayerActorNumber} ist nicht mehr bereit.");
-            }
-
-            if (targetPlayerActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
-            {
-                PlayerReadyButton.GetComponentInChildren<Text>().text = playerReady ? "Bereit!" : "Bereit?";
-            }
-
-            // var mothPlayerListEntry = MothPlayerListEntries.GetComponents<MothPlayerListEntry>().ToList();
-            // Debug.Log("Count: " + mothPlayerListEntry.Count);
-
-            foreach (Transform child in MothPlayerListEntries.transform)
-            {
-                child.GetComponents<MothPlayerListEntry>().ToList()
-                    .Where(predicate: m => m.PlayerActorNumber == targetPlayerActorNumber)
-                    .FirstOrDefault()
-                    ?.SetPlayerReady(playerReady);
-            }
-        }
-
-        private void UpdatePlayerSelectionPanelsSetMothBat(int mothBatId, bool active)
-        {
-
             //Debug.Log("UpdatePlayerSelectionPanelsSetMothBat mothBatId:" + mothBatId + " active:" + active + " [PlayerSelectionPanels.length: " + PlayerSelectionPanels.Count + "]");
 
             var allMothBatIdentifier = string.Join(" ", PlayerSelectionPanels);
-          //  Debug.Log("allMothBatIdentifier: " + allMothBatIdentifier);
+            //  Debug.Log("allMothBatIdentifier: " + allMothBatIdentifier);
 
             PlayerSelectionPanels
                 .Where(p => p.MothBatIdentifier == mothBatId)
                 .ToList()
-                .ForEach(p => p.SetSelected(active)
+                .ForEach(p => p.SetSelected(active, optionalPlayerId)
             );
         }
     }

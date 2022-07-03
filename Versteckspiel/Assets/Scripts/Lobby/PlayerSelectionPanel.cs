@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class PlayerSelectionPanel : MonoBehaviour
@@ -10,7 +6,7 @@ public class PlayerSelectionPanel : MonoBehaviour
     [SerializeField]
     private int MothBatId;
 
-    public Button SelectionButton;
+    public TMP_Text PlayerName;
 
 
     public TMP_Text ButtonText;
@@ -32,8 +28,8 @@ public class PlayerSelectionPanel : MonoBehaviour
 
     }
 
-    internal void SetSelected(bool active)
+    internal void SetSelected(bool active, int? optionalPlayerId = null)
     {
-        ButtonText.text = active ? "Ausgewählt" : "Nicht ausgewählt";
+        PlayerName.text = !active || optionalPlayerId  == null ? "-" : "Player " +optionalPlayerId.ToString();
     }
 }
