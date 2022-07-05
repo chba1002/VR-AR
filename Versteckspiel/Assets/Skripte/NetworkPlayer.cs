@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using Photon.Pun;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class NetworkPlayer : MonoBehaviour
 {
-    public Transform Koerper;
+    public Transform Body;
     private PhotonView photonView;
+
+    private Transform BodyRig;
 
     // Start is called before the first frame update
     void Start()
     {
         photonView = GetComponent<PhotonView>();
+        XRRig rig = FindObjectOfType<XRRig>();
+        Body = rig.transform.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor");
     }
 
     // Update is called once per frame
@@ -20,16 +25,14 @@ public class NetworkPlayer : MonoBehaviour
     {
         if(photonView.IsMine)
         {
-            Koerper.gameObject.SetActive(false);
-            MapPosition(Koerper, XRNode.Head);
+            Body.gameObject.SetActive(false);
+            MapPosition(Body, BodyRig);
         }
     }
 
-    void MapPosition(Transform target, XRNode node)
+    void MapPosition(Transform target,Transform rigTransform)
     {
-        InputDevices.GetDeviceAtXRNode(node).TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 position);
-        InputDevices.GetDeviceAtXRNode(node).TryGetFeatureValue(CommonUsages.deviceRotation, out Quaternion rotation);
-        target.position = position;
-        target.rotation = rotation;
+        target.position = rigTransform.position;
+        target.rotation = rigTransform.rotation;
     }
 }
