@@ -5,22 +5,24 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ShootAtMoth : MonoBehaviour
 {
-    [SerializeField] Transform raycastOrigin;
-    [SerializeField] LayerMask InteractionLayerMask;
+    public int prey; // Anzahl der verbleibenden Motten
+    public GameObject Endscreen;
 
     public void ShootMoth()
     {
-        //Sobald der Strahl Motte berührt, kann man schießen.
+        //Sobald der Strahl Motte berührt, kann man schießen. Check
         //Beide Strahlen müssen Motte treffen, damit sie stirbt. Sonst passiert nichts.
-        //Axis1D.PrimaryIndexTrigger und Axis1D.SecondaryIndexTrigger zum Schießen.
-        //
+        //Axis1D.PrimaryIndexTrigger und Axis1D.SecondaryIndexTrigger zum Schießen. Check
+        //Motten brauchen Sterbeanzeige
 
-        RaycastHit hit;
+        print("Motte getroffen!");
+        Destroy(this.gameObject);
 
-        if(Physics.Raycast(raycastOrigin.position, raycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, InteractionLayerMask))
+
+        /*// Sobald alle Motten abgeschossen wurden, taucht der Endbildschirm auf.
+        if (prey = 0)
         {
-            print("Treffer!");
-            Destroy(this.gameObject);
-        }
+            Endscreen.SetActive(true);
+        }*/
     }
 }
