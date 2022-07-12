@@ -6,17 +6,10 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ShootAtMoth : MonoBehaviour
 {
-    public float playTime;
     public GameObject EndscreenBat;
     public GameObject EndscreenMoths;
+    GameObject[] Prey;  // Anzahl der verbleibenden Motten
 
-    public int Prey; // Anzahl der verbleibenden Motten
-
-    public void Start()
-    {
-        Prey = 5;
-        playTime = Time.deltaTime;
-    }
     public void ShootMoth()
     {
         //Sobald der Strahl Motte berührt, kann man schießen. Check
@@ -26,8 +19,8 @@ public class ShootAtMoth : MonoBehaviour
         //Motten gewinnen, sobald Zeit abläuft, FM gewinnt, sobald innerhalb der Zeit alle Motten gefroffen wurden, dann jeweiliges Menü anzeigen
 
         print("Motte getroffen!");
-        Destroy(this.gameObject);
-        Prey = Prey - 1;
+        // Hier Dissolve Shader einfügen @Chi
+        Destroy(this.gameObject); //oder deaktivieren
     }
 
 
@@ -38,18 +31,14 @@ public class ShootAtMoth : MonoBehaviour
 
     public void Update()
     {
-        
-        // Sobald alle Motten abgeschossen wurden bzw. die Zeit abgelaufen ist, taucht der Endbildschirm auf.
-        if (Prey == 0)
+        Prey = GameObject.FindGameObjectsWithTag("Moth");
+
+        // Sobald alle Motten abgeschossen wurden , taucht der Endbildschirm auf.
+        if (Prey.Length == 0)
         {
+            print("Alle Motten getroffen.");
             EndscreenBat.SetActive(true);
             EndscreenMoths.SetActive(false);
-        }
-
-        if (playTime == 0)
-        {
-            EndscreenBat.SetActive(false);
-            EndscreenMoths.SetActive(true);
         }
     }
 }
