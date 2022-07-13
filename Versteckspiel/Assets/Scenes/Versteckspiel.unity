@@ -3000,6 +3000,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 620bb9d7c6380e240bfd8dd1ecbca0d9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33492a809a2e38c47af2e2eac1278a03, type: 3}
+--- !u!1 &838527126 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 33492a809a2e38c47af2e2eac1278a03,
+    type: 3}
+  m_PrefabInstance: {fileID: 838527125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &856875355
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3172,7 +3178,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &893910751
 Canvas:
   m_ObjectHideFlags: 0
@@ -5375,8 +5381,8 @@ MonoBehaviour:
   timerText: {fileID: 1533772194}
   EndscreenBat: {fileID: 1363173897}
   EndscreenMoths: {fileID: 1624978911}
-  Blocking: {fileID: 0}
-  DeathScreen: {fileID: 0}
+  Blocking: {fileID: 838527126}
+  DeathScreen: {fileID: 893910747}
   WinningSound: {fileID: 1624978917}
 --- !u!114 &1533772194
 MonoBehaviour:
