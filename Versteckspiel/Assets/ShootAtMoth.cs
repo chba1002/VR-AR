@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
 
 public class ShootAtMoth : MonoBehaviour
 {
     public GameObject EndscreenBat;
     public GameObject EndscreenMoths;
     GameObject[] Prey;  // Anzahl der verbleibenden Motten
+    public AudioSource WinningSound;
+    public TMP_Text TimePlayed;
+    public Timer mytimerscript;
 
     public void ShootMoth()
     {
@@ -37,8 +41,12 @@ public class ShootAtMoth : MonoBehaviour
         if (Prey.Length == 0)
         {
             print("Alle Motten getroffen.");
+            WinningSound.Play();
             EndscreenBat.SetActive(true);
             EndscreenMoths.SetActive(false);
         }
+
+        string StartTime = mytimerscript.timeValue.ToString("f0");
+        TimePlayed.text = StartTime;
     }
 }

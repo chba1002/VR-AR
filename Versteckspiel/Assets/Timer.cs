@@ -9,6 +9,9 @@ public class Timer : MonoBehaviour
     public Text timerText;
     public GameObject EndscreenBat;
     public GameObject EndscreenMoths;
+    public GameObject Blocking;
+    public GameObject DeathScreen;
+    public AudioSource WinningSound;
 
     // Update is called once per frame
     void Update()
@@ -25,8 +28,11 @@ public class Timer : MonoBehaviour
         }
         if (timeValue == 0)
         {
+            WinningSound.Play();
             EndscreenBat.SetActive(false);
             EndscreenMoths.SetActive(true);
+            Blocking.SetActive(false);
+            DeathScreen.SetActive(true);
         }
     }
 
