@@ -946,7 +946,7 @@ PrefabInstance:
     - target: {fileID: 8361293130495922478, guid: 26d958a7dbbad1b4d821819bbd4256df,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8361293130495922478, guid: 26d958a7dbbad1b4d821819bbd4256df,
         type: 3}
@@ -1389,7 +1389,7 @@ PrefabInstance:
     - target: {fileID: 8361293130495922478, guid: 26d958a7dbbad1b4d821819bbd4256df,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8361293130495922478, guid: 26d958a7dbbad1b4d821819bbd4256df,
         type: 3}
@@ -3086,7 +3086,7 @@ PrefabInstance:
     - target: {fileID: 8361293130495922478, guid: 26d958a7dbbad1b4d821819bbd4256df,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8361293130495922478, guid: 26d958a7dbbad1b4d821819bbd4256df,
         type: 3}
@@ -4153,6 +4153,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lunamoth
       objectReference: {fileID: 0}
+    - target: {fileID: 8733744409964687528, guid: 21a04ed878c4635459d333b31ee9a31b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 250e43a0690d3c44d8037b775503c8ac, type: 2}
     - target: {fileID: 9168878300397808588, guid: 21a04ed878c4635459d333b31ee9a31b,
         type: 3}
       propertyPath: m_Enabled
@@ -6160,6 +6165,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Moth
       objectReference: {fileID: 0}
+    - target: {fileID: 8733744409964687528, guid: 21a04ed878c4635459d333b31ee9a31b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7d71f1bb1531dd5459bc4f28547fc318, type: 2}
     - target: {fileID: 9168878300397808588, guid: 21a04ed878c4635459d333b31ee9a31b,
         type: 3}
       propertyPath: m_Enabled
@@ -6739,7 +6749,7 @@ PrefabInstance:
     - target: {fileID: 8361293130495922478, guid: 26d958a7dbbad1b4d821819bbd4256df,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8361293130495922478, guid: 26d958a7dbbad1b4d821819bbd4256df,
         type: 3}
@@ -7985,6 +7995,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1009385504}
     m_Modifications:
+    - target: {fileID: 2607351102563344440, guid: 21a04ed878c4635459d333b31ee9a31b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5180868561899380031, guid: 21a04ed878c4635459d333b31ee9a31b,
         type: 3}
       propertyPath: m_RootOrder
@@ -8045,6 +8060,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lunamoth
       objectReference: {fileID: 0}
+    - target: {fileID: 8733744409964687528, guid: 21a04ed878c4635459d333b31ee9a31b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43367b61cc2d9cc4f9809eba14dc9ef6, type: 2}
     - target: {fileID: 9168878300397808588, guid: 21a04ed878c4635459d333b31ee9a31b,
         type: 3}
       propertyPath: m_Enabled
