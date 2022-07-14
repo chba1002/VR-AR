@@ -15,7 +15,7 @@ public class ShootAtMoth : MonoBehaviour
     public Timer mytimerscript;
 
     public bool aufloesenAktiv;
-    public float verbleibendeAufloesedauerInSekunden = 0;
+    public float verbleibendeAufloesedauerInSekunden = 2;
 
     public GameObject mothMesh1;
     public GameObject mothMesh2;
@@ -31,7 +31,7 @@ public class ShootAtMoth : MonoBehaviour
         // Erstelle neues Material auf basis des Prefab Materials, damit jeder Enemy eigenes Material hat.
         var dissolverShader = new Material(dissolveShaderMaterial);
 
-        // Weise neu erstelltes Material dem Spinnen Mesh zu.
+        // Weise neu erstelltes Material dem Moth Mesh zu.
         mothMesh1.GetComponent<Renderer>().sharedMaterial = dissolverShader;
         mothMesh2.GetComponent<Renderer>().sharedMaterial = dissolverShader;
         mothMesh3.GetComponent<Renderer>().sharedMaterial = dissolverShader;
@@ -56,22 +56,21 @@ public class ShootAtMoth : MonoBehaviour
 
         print("Motte getroffen!");
 
-        // Hier Dissolve Shader einfügen @Chi
         aufloesenAktiv = true;
-        verbleibendeAufloesedauerInSekunden -= Time.deltaTime;
         var dissolverValue = 1 - verbleibendeAufloesedauerInSekunden / 2;
-        //Debug.Log("DissolveValue: " + dissolverValue + "(" + verbleibendeAufloesedauerInSekunden + "");
-
+        Debug.Log("DissolveValue: " + dissolverValue + "(" + verbleibendeAufloesedauerInSekunden + "");
         material.SetFloat("_Dissolve", dissolverValue);
 
-        Destroy(this.gameObject); //oder deaktivieren
+        verbleibendeAufloesedauerInSekunden -= Time.deltaTime;
+
+        if (verbleibendeAufloesedauerInSekunden == 0f)
+        {
+            Destroy(this.gameObject); //oder deaktivieren
+        }
+
     }
 
 
-    public void PlayAgain()
-    {
-        SceneManager.LoadScene("Moth-LobbyScene");
-    }
 
     public void Update()
     {
@@ -88,11 +87,6 @@ public class ShootAtMoth : MonoBehaviour
 
         string StartTime = mytimerscript.timeValue.ToString("f0");
         TimePlayed.text = StartTime;
-    }
 
-    public void Aufloesen()
-    {
-        aufloesenAktiv = true;
-        verbleibendeAufloesedauerInSekunden = 2;
     }
 }

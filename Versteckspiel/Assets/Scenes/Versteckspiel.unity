@@ -1855,7 +1855,7 @@ MonoBehaviour:
   TimePlayed: {fileID: 1430736759}
   mytimerscript: {fileID: 1533772193}
   aufloesenAktiv: 0
-  verbleibendeAufloesedauerInSekunden: 0
+  verbleibendeAufloesedauerInSekunden: 2
   mothMesh1: {fileID: 19352162}
   mothMesh2: {fileID: 2123145757}
   mothMesh3: {fileID: 1776776160}
