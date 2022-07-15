@@ -15,13 +15,9 @@ public class ShootAtMoth : MonoBehaviour
     public Timer mytimerscript;
 
     public bool aufloesenAktiv;
-    public float verbleibendeAufloesedauerInSekunden = 2;
+    public float dissolveAmount;
 
-    public GameObject mothMesh1;
-    public GameObject mothMesh2;
-    public GameObject mothMesh3;
-    public GameObject mothMesh4;
-    public GameObject mothMesh5;
+    public GameObject mothMesh;
     public Material dissolveShaderMaterial;
     private Material material;
 
@@ -32,18 +28,13 @@ public class ShootAtMoth : MonoBehaviour
         var dissolverShader = new Material(dissolveShaderMaterial);
 
         // Weise neu erstelltes Material dem Moth Mesh zu.
-        mothMesh1.GetComponent<Renderer>().sharedMaterial = dissolverShader;
-        mothMesh2.GetComponent<Renderer>().sharedMaterial = dissolverShader;
-        mothMesh3.GetComponent<Renderer>().sharedMaterial = dissolverShader;
-        mothMesh4.GetComponent<Renderer>().sharedMaterial = dissolverShader;
-        mothMesh5.GetComponent<Renderer>().sharedMaterial = dissolverShader;
+        mothMesh.GetComponent<Renderer>().sharedMaterial = dissolverShader;
+
 
         // Speichere das Material in der variable 'material' zwischen.
-        material = mothMesh1.GetComponent<Renderer>().sharedMaterial;
-        material = mothMesh2.GetComponent<Renderer>().sharedMaterial;
-        material = mothMesh3.GetComponent<Renderer>().sharedMaterial;
-        material = mothMesh4.GetComponent<Renderer>().sharedMaterial;
-        material = mothMesh5.GetComponent<Renderer>().sharedMaterial;
+        material = mothMesh.GetComponent<Renderer>().sharedMaterial;
+
+
     }
 
         public void ShootMoth()
@@ -57,13 +48,21 @@ public class ShootAtMoth : MonoBehaviour
         print("Motte getroffen!");
 
         aufloesenAktiv = true;
-        var dissolverValue = 1 - verbleibendeAufloesedauerInSekunden / 2;
-        Debug.Log("DissolveValue: " + dissolverValue + "(" + verbleibendeAufloesedauerInSekunden + "");
-        material.SetFloat("_Dissolve", dissolverValue);
 
-        verbleibendeAufloesedauerInSekunden -= Time.deltaTime;
+        if (aufloesenAktiv)
+        {
+            dissolveAmount = Mathf.Clamp01(dissolveAmount + Time.deltaTime);
+            //var dissolverValue = 1 - verbleibendeAufloesedauerInSekunden / 2;
+            //Debug.Log("DissolveValue: " + dissolverValue + "(" + verbleibendeAufloesedauerInSekunden + "");
+            material.SetFloat("_Dissolve", dissolveAmount);
+        }
+        else
+        {
+            dissolveAmount = Mathf.Clamp01(dissolveAmount - Time.deltaTime);
+            material.SetFloat("_Dissolve", dissolveAmount);
+        }
 
-        if (verbleibendeAufloesedauerInSekunden == 0f)
+        if (dissolveAmount == 0f)
         {
             Destroy(this.gameObject); //oder deaktivieren
         }
