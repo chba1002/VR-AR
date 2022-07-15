@@ -166,7 +166,7 @@ public class MoviePlayerSampleControls : MonoBehaviour
 
     private void Update()
     {
-        if(OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) || OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
+        if(OVRInput.Get(OVRInput.GetButtonDown.One) || OVRInput.Get(OVRInput.GetButtonDown.PrimaryIndexTrigger) || OVRInput.Get(OVRInput.GetButtonDown.SecondaryIndexTrigger))
         {
             _lastButtonTime = Time.time;
             if (!_isVisible)
@@ -187,7 +187,7 @@ public class MoviePlayerSampleControls : MonoBehaviour
         }
 
         // if back is pressed, hide controls immediately
-        if (OVRInput.Get(OVRInput.Button.Back))
+        if (OVRInput.Get(OVRInput.GetButtonDown.Back))
         {
             if (_isVisible)
             {

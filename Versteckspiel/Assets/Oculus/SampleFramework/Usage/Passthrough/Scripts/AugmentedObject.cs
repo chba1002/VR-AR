@@ -19,7 +19,7 @@ public class AugmentedObject : MonoBehaviour
     {
         if (controllerHand != OVRInput.Controller.None)
         {
-            if (OVRInput.GetUp(OVRInput.Button.One, controllerHand))
+            if (OVRInput.GetUp(OVRInput.GetButtonDown.One, controllerHand))
             {
                 ToggleShadowType();
             }

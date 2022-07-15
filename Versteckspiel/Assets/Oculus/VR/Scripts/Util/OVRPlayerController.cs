@@ -341,14 +341,14 @@ public class OVRPlayerController : MonoBehaviour
 
 			bool dpad_move = false;
 
-			if (OVRInput.Get(OVRInput.Button.DpadUp))
+			if (OVRInput.Get(OVRInput.GetButtonDown.DpadUp))
 			{
 				moveForward = true;
 				dpad_move = true;
 
 			}
 
-			if (OVRInput.Get(OVRInput.Button.DpadDown))
+			if (OVRInput.Get(OVRInput.GetButtonDown.DpadDown))
 			{
 				moveBack = true;
 				dpad_move = true;
@@ -425,14 +425,14 @@ public class OVRPlayerController : MonoBehaviour
 			Vector3 euler = RotateAroundGuardianCenter ? transform.rotation.eulerAngles : Vector3.zero;
 			float rotateInfluence = SimulationRate * Time.deltaTime * RotationAmount * RotationScaleMultiplier;
 
-			bool curHatLeft = OVRInput.Get(OVRInput.Button.PrimaryShoulder);
+			bool curHatLeft = OVRInput.Get(OVRInput.GetButtonDown.PrimaryShoulder);
 
 			if (curHatLeft && !prevHatLeft)
 				euler.y -= RotationRatchet;
 
 			prevHatLeft = curHatLeft;
 
-			bool curHatRight = OVRInput.Get(OVRInput.Button.SecondaryShoulder);
+			bool curHatRight = OVRInput.Get(OVRInput.GetButtonDown.SecondaryShoulder);
 
 			if (curHatRight && !prevHatRight)
 				euler.y += RotationRatchet;
@@ -450,8 +450,8 @@ public class OVRPlayerController : MonoBehaviour
 
 			if (SnapRotation)
 			{
-				if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft) ||
-					(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft)))
+				if (OVRInput.Get(OVRInput.GetButtonDown.SecondaryThumbstickLeft) ||
+					(RotationEitherThumbstick && OVRInput.Get(OVRInput.GetButtonDown.PrimaryThumbstickLeft)))
 				{
 					if (ReadyToSnapTurn)
 					{
@@ -459,8 +459,8 @@ public class OVRPlayerController : MonoBehaviour
 						ReadyToSnapTurn = false;
 					}
 				}
-				else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight) ||
-					(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight)))
+				else if (OVRInput.Get(OVRInput.GetButtonDown.SecondaryThumbstickRight) ||
+					(RotationEitherThumbstick && OVRInput.Get(OVRInput.GetButtonDown.PrimaryThumbstickRight)))
 				{
 					if (ReadyToSnapTurn)
 					{

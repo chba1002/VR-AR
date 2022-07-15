@@ -40,11 +40,11 @@ public class PassthroughBrush : MonoBehaviour
         switch (brushStatus)
         {
             case BrushState.Idle:
-                if (OVRInput.GetUp(OVRInput.Button.One, controllerHand))
+                if (OVRInput.GetUp(OVRInput.GetButtonDown.One, controllerHand))
                 {
                     UndoInkLine();
                 }
-                if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controllerHand))
+                if (OVRInput.GetDown(OVRInput.GetButtonDown.PrimaryIndexTrigger, controllerHand))
                 {
                     StartLine(tipPosition);
                     brushStatus = BrushState.Inking;
@@ -53,7 +53,7 @@ public class PassthroughBrush : MonoBehaviour
             case BrushState.Inking:
                 // every frame, draw line
                 UpdateLine(tipPosition);
-                if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, controllerHand))
+                if (OVRInput.GetUp(OVRInput.GetButtonDown.PrimaryIndexTrigger, controllerHand))
                 {
                     brushStatus = BrushState.Idle;
                 }

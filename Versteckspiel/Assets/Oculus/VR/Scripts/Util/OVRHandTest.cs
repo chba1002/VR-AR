@@ -105,7 +105,7 @@ public class OVRHandTest : MonoBehaviour
 
 		monitors = new List<BoolMonitor>()
 		{
-			new BoolMonitor("One",                              () => OVRInput.Get(OVRInput.Button.One)),
+			new BoolMonitor("One",                              () => OVRInput.Get(OVRInput.GetButtonDown.One)),
 		};
 
 		result_skel_LH = OVRPlugin.GetSkeleton(OVRPlugin.SkeletonType.HandLeft, out skel_LH);

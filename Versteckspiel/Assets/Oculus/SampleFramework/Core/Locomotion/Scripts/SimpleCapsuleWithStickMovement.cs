@@ -71,8 +71,8 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 
 	void SnapTurn()
 	{
-		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft) ||
-			(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft)))
+		if (OVRInput.Get(OVRInput.GetButtonDown.SecondaryThumbstickLeft) ||
+			(RotationEitherThumbstick && OVRInput.Get(OVRInput.GetButtonDown.PrimaryThumbstickLeft)))
 		{
 			if (ReadyToSnapTurn)
 			{
@@ -80,8 +80,8 @@ public class SimpleCapsuleWithStickMovement : MonoBehaviour
 				transform.RotateAround(CameraRig.centerEyeAnchor.position, Vector3.up, -RotationAngle);
 			}
 		}
-		else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight) ||
-			(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight)))
+		else if (OVRInput.Get(OVRInput.GetButtonDown.SecondaryThumbstickRight) ||
+			(RotationEitherThumbstick && OVRInput.Get(OVRInput.GetButtonDown.PrimaryThumbstickRight)))
 		{
 			if (ReadyToSnapTurn)
 			{

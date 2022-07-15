@@ -24,7 +24,7 @@ public class OverlayPassthrough : MonoBehaviour
 
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
+        if (OVRInput.GetDown(OVRInput.GetButtonDown.One, OVRInput.Controller.RTouch))
         {
             passthroughLayer.hidden = !passthroughLayer.hidden;
         }

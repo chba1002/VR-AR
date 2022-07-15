@@ -25,7 +25,7 @@ public static class OVRInput
 {
 	[Flags]
 	/// Virtual button mappings that allow the same input bindings to work across different controllers.
-	public enum Button
+	public enum GetButtonDown
 	{
 		None                      = 0,          ///< Maps to RawButton: [Gamepad, Touch, LTouch, RTouch, Remote: None]
 		One                       = 0x00000001, ///< Maps to RawButton: [Gamepad, Touch, RTouch: A], [LTouch: X], [Remote: Start]
@@ -104,18 +104,18 @@ public static class OVRInput
 	public enum Touch
 	{
 		None                      = 0,                            ///< Maps to RawTouch: [Gamepad, Touch, LTouch, RTouch, Remote: None]
-		One                       = Button.One,                   ///< Maps to RawTouch: [Touch, RTouch: A], [LTouch: X], [Gamepad, Remote: None]
-		Two                       = Button.Two,                   ///< Maps to RawTouch: [Touch, RTouch: B], [LTouch: Y], [Gamepad, Remote: None]
-		Three                     = Button.Three,                 ///< Maps to RawTouch: [Touch: X], [Gamepad, LTouch, RTouch, Remote: None]
-		Four                      = Button.Four,                  ///< Maps to RawTouch: [Touch: Y], [Gamepad, LTouch, RTouch, Remote: None]
-		PrimaryIndexTrigger       = Button.PrimaryIndexTrigger,   ///< Maps to RawTouch: [Touch, LTouch: LIndexTrigger], [RTouch: RIndexTrigger], [Gamepad, Remote: None]
-		PrimaryThumbstick         = Button.PrimaryThumbstick,     ///< Maps to RawTouch: [Touch, LTouch: LThumbstick], [RTouch: RThumbstick], [Gamepad, Remote: None]
+		One                       = GetButtonDown.One,                   ///< Maps to RawTouch: [Touch, RTouch: A], [LTouch: X], [Gamepad, Remote: None]
+		Two                       = GetButtonDown.Two,                   ///< Maps to RawTouch: [Touch, RTouch: B], [LTouch: Y], [Gamepad, Remote: None]
+		Three                     = GetButtonDown.Three,                 ///< Maps to RawTouch: [Touch: X], [Gamepad, LTouch, RTouch, Remote: None]
+		Four                      = GetButtonDown.Four,                  ///< Maps to RawTouch: [Touch: Y], [Gamepad, LTouch, RTouch, Remote: None]
+		PrimaryIndexTrigger       = GetButtonDown.PrimaryIndexTrigger,   ///< Maps to RawTouch: [Touch, LTouch: LIndexTrigger], [RTouch: RIndexTrigger], [Gamepad, Remote: None]
+		PrimaryThumbstick         = GetButtonDown.PrimaryThumbstick,     ///< Maps to RawTouch: [Touch, LTouch: LThumbstick], [RTouch: RThumbstick], [Gamepad, Remote: None]
 		PrimaryThumbRest          = 0x00001000,                   ///< Maps to RawTouch: [Touch, LTouch: LThumbRest], [RTouch: RThumbRest], [Gamepad, Remote: None]
-		PrimaryTouchpad           = Button.PrimaryTouchpad,       ///< Maps to RawTouch: [Gamepad, Touch, LTouch, RTouch, Remote: None]
-		SecondaryIndexTrigger     = Button.SecondaryIndexTrigger, ///< Maps to RawTouch: [Touch: RIndexTrigger], [Gamepad, LTouch, RTouch, Remote: None]
-		SecondaryThumbstick       = Button.SecondaryThumbstick,   ///< Maps to RawTouch: [Touch: RThumbstick], [Gamepad, LTouch, RTouch, Remote: None]
+		PrimaryTouchpad           = GetButtonDown.PrimaryTouchpad,       ///< Maps to RawTouch: [Gamepad, Touch, LTouch, RTouch, Remote: None]
+		SecondaryIndexTrigger     = GetButtonDown.SecondaryIndexTrigger, ///< Maps to RawTouch: [Touch: RIndexTrigger], [Gamepad, LTouch, RTouch, Remote: None]
+		SecondaryThumbstick       = GetButtonDown.SecondaryThumbstick,   ///< Maps to RawTouch: [Touch: RThumbstick], [Gamepad, LTouch, RTouch, Remote: None]
 		SecondaryThumbRest        = 0x00100000,                   ///< Maps to RawTouch: [Touch: RThumbRest], [Gamepad, LTouch, RTouch, Remote: None]
-		SecondaryTouchpad         = Button.SecondaryTouchpad,     ///< Maps to RawTouch: [Gamepad, Touch, LTouch, RTouch, Remote: None]
+		SecondaryTouchpad         = GetButtonDown.SecondaryTouchpad,     ///< Maps to RawTouch: [Gamepad, Touch, LTouch, RTouch, Remote: None]
 		Any                       = ~None,                        ///< Maps to RawTouch: [Touch, LTouch, RTouch: Any], [Gamepad, Remote: None]
 	}
 
@@ -757,7 +757,7 @@ public static class OVRInput
 	/// Gets the current state of the given virtual button mask with the given controller mask.
 	/// Returns true if any masked button is down on any masked controller.
 	/// </summary>
-	public static bool Get(Button virtualMask, Controller controllerMask = Controller.Active)
+	public static bool Get(GetButtonDown virtualMask, Controller controllerMask = Controller.Active)
 	{
 		return GetResolvedButton(virtualMask, RawButton.None, controllerMask);
 	}
@@ -768,10 +768,10 @@ public static class OVRInput
 	/// </summary>
 	public static bool Get(RawButton rawMask, Controller controllerMask = Controller.Active)
 	{
-		return GetResolvedButton(Button.None, rawMask, controllerMask);
+		return GetResolvedButton(GetButtonDown.None, rawMask, controllerMask);
 	}
 
-	private static bool GetResolvedButton(Button virtualMask, RawButton rawMask, Controller controllerMask)
+	private static bool GetResolvedButton(GetButtonDown virtualMask, RawButton rawMask, Controller controllerMask)
 	{
 		if ((controllerMask & Controller.Active) != 0)
 			controllerMask |= activeControllerType;
@@ -798,7 +798,7 @@ public static class OVRInput
 	/// Gets the current down state of the given virtual button mask with the given controller mask.
 	/// Returns true if any masked button was pressed this frame on any masked controller and no masked button was previously down last frame.
 	/// </summary>
-	public static bool GetDown(Button virtualMask, Controller controllerMask = Controller.Active)
+	public static bool GetDown(GetButtonDown virtualMask, Controller controllerMask = Controller.Active)
 	{
 		return GetResolvedButtonDown(virtualMask, RawButton.None, controllerMask);
 	}
@@ -809,10 +809,10 @@ public static class OVRInput
 	/// </summary>
 	public static bool GetDown(RawButton rawMask, Controller controllerMask = Controller.Active)
 	{
-		return GetResolvedButtonDown(Button.None, rawMask, controllerMask);
+		return GetResolvedButtonDown(GetButtonDown.None, rawMask, controllerMask);
 	}
 
-	private static bool GetResolvedButtonDown(Button virtualMask, RawButton rawMask, Controller controllerMask)
+	private static bool GetResolvedButtonDown(GetButtonDown virtualMask, RawButton rawMask, Controller controllerMask)
 	{
 		bool down = false;
 
@@ -847,7 +847,7 @@ public static class OVRInput
 	/// Gets the current up state of the given virtual button mask with the given controller mask.
 	/// Returns true if any masked button was released this frame on any masked controller and no other masked button is still down this frame.
 	/// </summary>
-	public static bool GetUp(Button virtualMask, Controller controllerMask = Controller.Active)
+	public static bool GetUp(GetButtonDown virtualMask, Controller controllerMask = Controller.Active)
 	{
 		return GetResolvedButtonUp(virtualMask, RawButton.None, controllerMask);
 	}
@@ -858,10 +858,10 @@ public static class OVRInput
 	/// </summary>
 	public static bool GetUp(RawButton rawMask, Controller controllerMask = Controller.Active)
 	{
-		return GetResolvedButtonUp(Button.None, rawMask, controllerMask);
+		return GetResolvedButtonUp(GetButtonDown.None, rawMask, controllerMask);
 	}
 
-	private static bool GetResolvedButtonUp(Button virtualMask, RawButton rawMask, Controller controllerMask)
+	private static bool GetResolvedButtonUp(GetButtonDown virtualMask, RawButton rawMask, Controller controllerMask)
 	{
 		bool up = false;
 
@@ -1717,76 +1717,76 @@ public static class OVRInput
 			public RawButton Left                     = RawButton.None;
 			public RawButton Right                    = RawButton.None;
 
-			public RawButton ToRawMask(Button virtualMask)
+			public RawButton ToRawMask(GetButtonDown virtualMask)
 			{
 				RawButton rawMask = 0;
 
-				if (virtualMask == Button.None)
+				if (virtualMask == GetButtonDown.None)
 					return RawButton.None;
 
-				if ((virtualMask & Button.One) != 0)
+				if ((virtualMask & GetButtonDown.One) != 0)
 					rawMask |= One;
-				if ((virtualMask & Button.Two) != 0)
+				if ((virtualMask & GetButtonDown.Two) != 0)
 					rawMask |= Two;
-				if ((virtualMask & Button.Three) != 0)
+				if ((virtualMask & GetButtonDown.Three) != 0)
 					rawMask |= Three;
-				if ((virtualMask & Button.Four) != 0)
+				if ((virtualMask & GetButtonDown.Four) != 0)
 					rawMask |= Four;
-				if ((virtualMask & Button.Start) != 0)
+				if ((virtualMask & GetButtonDown.Start) != 0)
 					rawMask |= Start;
-				if ((virtualMask & Button.Back) != 0)
+				if ((virtualMask & GetButtonDown.Back) != 0)
 					rawMask |= Back;
-				if ((virtualMask & Button.PrimaryShoulder) != 0)
+				if ((virtualMask & GetButtonDown.PrimaryShoulder) != 0)
 					rawMask |= PrimaryShoulder;
-				if ((virtualMask & Button.PrimaryIndexTrigger) != 0)
+				if ((virtualMask & GetButtonDown.PrimaryIndexTrigger) != 0)
 					rawMask |= PrimaryIndexTrigger;
-				if ((virtualMask & Button.PrimaryHandTrigger) != 0)
+				if ((virtualMask & GetButtonDown.PrimaryHandTrigger) != 0)
 					rawMask |= PrimaryHandTrigger;
-				if ((virtualMask & Button.PrimaryThumbstick) != 0)
+				if ((virtualMask & GetButtonDown.PrimaryThumbstick) != 0)
 					rawMask |= PrimaryThumbstick;
-				if ((virtualMask & Button.PrimaryThumbstickUp) != 0)
+				if ((virtualMask & GetButtonDown.PrimaryThumbstickUp) != 0)
 					rawMask |= PrimaryThumbstickUp;
-				if ((virtualMask & Button.PrimaryThumbstickDown) != 0)
+				if ((virtualMask & GetButtonDown.PrimaryThumbstickDown) != 0)
 					rawMask |= PrimaryThumbstickDown;
-				if ((virtualMask & Button.PrimaryThumbstickLeft) != 0)
+				if ((virtualMask & GetButtonDown.PrimaryThumbstickLeft) != 0)
 					rawMask |= PrimaryThumbstickLeft;
-				if ((virtualMask & Button.PrimaryThumbstickRight) != 0)
+				if ((virtualMask & GetButtonDown.PrimaryThumbstickRight) != 0)
 					rawMask |= PrimaryThumbstickRight;
-				if ((virtualMask & Button.PrimaryTouchpad) != 0)
+				if ((virtualMask & GetButtonDown.PrimaryTouchpad) != 0)
 					rawMask |= PrimaryTouchpad;
-				if ((virtualMask & Button.SecondaryShoulder) != 0)
+				if ((virtualMask & GetButtonDown.SecondaryShoulder) != 0)
 					rawMask |= SecondaryShoulder;
-				if ((virtualMask & Button.SecondaryIndexTrigger) != 0)
+				if ((virtualMask & GetButtonDown.SecondaryIndexTrigger) != 0)
 					rawMask |= SecondaryIndexTrigger;
-				if ((virtualMask & Button.SecondaryHandTrigger) != 0)
+				if ((virtualMask & GetButtonDown.SecondaryHandTrigger) != 0)
 					rawMask |= SecondaryHandTrigger;
-				if ((virtualMask & Button.SecondaryThumbstick) != 0)
+				if ((virtualMask & GetButtonDown.SecondaryThumbstick) != 0)
 					rawMask |= SecondaryThumbstick;
-				if ((virtualMask & Button.SecondaryThumbstickUp) != 0)
+				if ((virtualMask & GetButtonDown.SecondaryThumbstickUp) != 0)
 					rawMask |= SecondaryThumbstickUp;
-				if ((virtualMask & Button.SecondaryThumbstickDown) != 0)
+				if ((virtualMask & GetButtonDown.SecondaryThumbstickDown) != 0)
 					rawMask |= SecondaryThumbstickDown;
-				if ((virtualMask & Button.SecondaryThumbstickLeft) != 0)
+				if ((virtualMask & GetButtonDown.SecondaryThumbstickLeft) != 0)
 					rawMask |= SecondaryThumbstickLeft;
-				if ((virtualMask & Button.SecondaryThumbstickRight) != 0)
+				if ((virtualMask & GetButtonDown.SecondaryThumbstickRight) != 0)
 					rawMask |= SecondaryThumbstickRight;
-				if ((virtualMask & Button.SecondaryTouchpad) != 0)
+				if ((virtualMask & GetButtonDown.SecondaryTouchpad) != 0)
 					rawMask |= SecondaryTouchpad;
-				if ((virtualMask & Button.DpadUp) != 0)
+				if ((virtualMask & GetButtonDown.DpadUp) != 0)
 					rawMask |= DpadUp;
-				if ((virtualMask & Button.DpadDown) != 0)
+				if ((virtualMask & GetButtonDown.DpadDown) != 0)
 					rawMask |= DpadDown;
-				if ((virtualMask & Button.DpadLeft) != 0)
+				if ((virtualMask & GetButtonDown.DpadLeft) != 0)
 					rawMask |= DpadLeft;
-				if ((virtualMask & Button.DpadRight) != 0)
+				if ((virtualMask & GetButtonDown.DpadRight) != 0)
 					rawMask |= DpadRight;
-				if ((virtualMask & Button.Up) != 0)
+				if ((virtualMask & GetButtonDown.Up) != 0)
 					rawMask |= Up;
-				if ((virtualMask & Button.Down) != 0)
+				if ((virtualMask & GetButtonDown.Down) != 0)
 					rawMask |= Down;
-				if ((virtualMask & Button.Left) != 0)
+				if ((virtualMask & GetButtonDown.Left) != 0)
 					rawMask |= Left;
-				if ((virtualMask & Button.Right) != 0)
+				if ((virtualMask & GetButtonDown.Right) != 0)
 					rawMask |= Right;
 
 				return rawMask;
@@ -2069,7 +2069,7 @@ public static class OVRInput
 		public abstract void ConfigureAxis1DMap();
 		public abstract void ConfigureAxis2DMap();
 
-		public RawButton ResolveToRawMask(Button virtualMask)
+		public RawButton ResolveToRawMask(GetButtonDown virtualMask)
 		{
 			return buttonMap.ToRawMask(virtualMask);
 		}

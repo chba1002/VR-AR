@@ -173,7 +173,7 @@ public class OVRMixedRealityCaptureTest : MonoBehaviour {
 		}
 #endif
 
-		if (OVRInput.GetDown(OVRInput.Button.One))
+		if (OVRInput.GetDown(OVRInput.GetButtonDown.One))
 		{
 			if (currentMode == CameraMode.ThirdPerson)
 			{

@@ -131,7 +131,7 @@ namespace OculusSampleFramework
         void Update()
         {
             // Switch ui display types 
-            if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
+            if (OVRInput.GetDown(OVRInput.GetButtonDown.Two) || OVRInput.GetDown(OVRInput.GetButtonDown.Start))
             {
                 if (inMenu) DebugUIBuilder.instance.Hide();
                 else DebugUIBuilder.instance.Show();

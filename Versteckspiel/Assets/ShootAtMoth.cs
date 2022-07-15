@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
@@ -46,14 +48,21 @@ public class ShootAtMoth : MonoBehaviour
         //Motten gewinnen, sobald Zeit abläuft, FM gewinnt, sobald innerhalb der Zeit alle Motten gefroffen wurden, dann jeweiliges Menü anzeigen
 
         print("Motte getroffen!");
-        aufloesenAktiv = true;
+        //aufloesenAktiv = true;
+        //Destroy(mothMesh.gameObject); //oder deaktivieren
+
     }
 
 
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (OVRInput.GetDown(OVRInput.GetButtonDown.PrimaryHandTrigger))
+        {
+            aufloesenAktiv = true;
+        }
+
+        if (OVRInput.GetDown(OVRInput.GetButtonDown.SecondaryHandTrigger))
         {
             aufloesenAktiv = true;
         }

@@ -56,7 +56,7 @@ public class ObjectManipulator : MonoBehaviour
 
         if (hoverObject)
         {
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller))
+            if (OVRInput.GetDown(OVRInput.GetButtonDown.PrimaryHandTrigger, controller))
             {
                 // grabbing
                 grabObject = hoverObject;
@@ -70,7 +70,7 @@ public class ObjectManipulator : MonoBehaviour
             grabTime = Mathf.Clamp01(grabTime);
             ManipulateObject(grabObject, controllerPos, controllerRot);
 
-            if (!OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, controller))
+            if (!OVRInput.Get(OVRInput.GetButtonDown.PrimaryHandTrigger, controller))
             {
                 ReleaseObject();
             }
@@ -250,7 +250,7 @@ public class ObjectManipulator : MonoBehaviour
                     break;
                 case GrabObject.ManipulationType.HorizontalScaled:
                     obj.transform.position = controllerPos + controllerRot * localGrabOffset;
-                    if (!OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, controller))
+                    if (!OVRInput.Get(OVRInput.GetButtonDown.PrimaryIndexTrigger, controller))
                     {
                         obj.transform.localScale = ClampScale(obj.transform.localScale, thumbstick);
                     }
@@ -265,7 +265,7 @@ public class ObjectManipulator : MonoBehaviour
                     break;
                 case GrabObject.ManipulationType.VerticalScaled:
                     obj.transform.position = controllerPos + controllerRot * localGrabOffset;
-                    if (!OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, controller))
+                    if (!OVRInput.Get(OVRInput.GetButtonDown.PrimaryIndexTrigger, controller))
                     {
                         obj.transform.localScale = ClampScale(obj.transform.localScale, thumbstick);
                     }

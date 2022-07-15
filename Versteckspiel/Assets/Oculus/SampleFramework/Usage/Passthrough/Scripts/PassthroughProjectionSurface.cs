@@ -34,18 +34,18 @@ public class PassthroughProjectionSurface : MonoBehaviour
     void Update()
     {
         // Hide object when A button is held, show it again when button is released, move it while held.
-        if (OVRInput.GetDown(OVRInput.Button.One))
+        if (OVRInput.GetDown(OVRInput.GetButtonDown.One))
         {
             passthroughLayer.RemoveSurfaceGeometry(projectionObject.gameObject);
             quadOutline.enabled = true;
         }
-        if (OVRInput.Get(OVRInput.Button.One))
+        if (OVRInput.Get(OVRInput.GetButtonDown.One))
         {
             OVRInput.Controller controllingHand = OVRInput.Controller.RTouch;
             transform.position = OVRInput.GetLocalControllerPosition(controllingHand);
             transform.rotation = OVRInput.GetLocalControllerRotation(controllingHand);
         }
-        if (OVRInput.GetUp(OVRInput.Button.One))
+        if (OVRInput.GetUp(OVRInput.GetButtonDown.One))
         {
             passthroughLayer.AddSurfaceGeometry(projectionObject.gameObject);
             quadOutline.enabled = false;

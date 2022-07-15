@@ -21,7 +21,7 @@ public class SceneSampler : MonoBehaviour
 
         displayText.SetActive(controllersActive);
 
-        if (OVRInput.GetUp(OVRInput.Button.Start))
+        if (OVRInput.GetUp(OVRInput.GetButtonDown.Start))
         {
             currentSceneIndex++;
             if (currentSceneIndex >= SceneManager.sceneCountInBuildSettings) currentSceneIndex = 0;

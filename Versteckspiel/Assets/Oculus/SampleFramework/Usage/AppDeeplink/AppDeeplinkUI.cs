@@ -62,7 +62,7 @@ public class AppDeeplinkUI : MonoBehaviour
             uiDeepLinkMessage.GetComponentInChildren<Text>().text = "DeeplinkMessage: " + launchDetails.DeeplinkMessage;
         }
 
-        if (OVRInput.GetDown(OVRInput.Button.Two) || OVRInput.GetDown(OVRInput.Button.Start))
+        if (OVRInput.GetDown(OVRInput.GetButtonDown.Two) || OVRInput.GetDown(OVRInput.GetButtonDown.Start))
         {
             if (inMenu)
             {

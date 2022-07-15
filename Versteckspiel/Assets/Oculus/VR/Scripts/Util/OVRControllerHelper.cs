@@ -189,9 +189,9 @@ public class OVRControllerHelper : MonoBehaviour
 
 		if (m_animator != null)
 		{
-			m_animator.SetFloat("Button 1", OVRInput.Get(OVRInput.Button.One, m_controller) ? 1.0f : 0.0f);
-			m_animator.SetFloat("Button 2", OVRInput.Get(OVRInput.Button.Two, m_controller) ? 1.0f : 0.0f);
-			m_animator.SetFloat("Button 3", OVRInput.Get(OVRInput.Button.Start, m_controller) ? 1.0f : 0.0f);
+			m_animator.SetFloat("Button 1", OVRInput.Get(OVRInput.GetButtonDown.One, m_controller) ? 1.0f : 0.0f);
+			m_animator.SetFloat("Button 2", OVRInput.Get(OVRInput.GetButtonDown.Two, m_controller) ? 1.0f : 0.0f);
+			m_animator.SetFloat("Button 3", OVRInput.Get(OVRInput.GetButtonDown.Start, m_controller) ? 1.0f : 0.0f);
 
 			m_animator.SetFloat("Joy X", OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, m_controller).x);
 			m_animator.SetFloat("Joy Y", OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, m_controller).y);

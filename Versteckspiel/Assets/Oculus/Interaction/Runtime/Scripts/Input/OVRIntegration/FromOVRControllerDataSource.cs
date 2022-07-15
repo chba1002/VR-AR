@@ -21,10 +21,10 @@ namespace Oculus.Interaction.Input
         {
             Usage = usage;
             Touch = touch;
-            Button = OVRInput.Button.None;
+            Button = OVRInput.GetButtonDown.None;
         }
 
-        public UsageMapping(ControllerButtonUsage usage, OVRInput.Button button)
+        public UsageMapping(ControllerButtonUsage usage, OVRInput.GetButtonDown button)
         {
             Usage = usage;
             Touch = OVRInput.Touch.None;
@@ -32,10 +32,10 @@ namespace Oculus.Interaction.Input
         }
 
         public bool IsTouch => Touch != OVRInput.Touch.None;
-        public bool IsButton => Button != OVRInput.Button.None;
+        public bool IsButton => Button != OVRInput.GetButtonDown.None;
         public ControllerButtonUsage Usage { get; }
         public OVRInput.Touch Touch { get; }
-        public OVRInput.Button Button { get; }
+        public OVRInput.GetButtonDown Button { get; }
     }
 
     /// <summary>
@@ -125,17 +125,17 @@ namespace Oculus.Interaction.Input
         // Mappings from Unity XR CommonUsage to Oculus Button/Touch.
         private static readonly UsageMapping[] ControllerUsageMappings =
         {
-            new UsageMapping(ControllerButtonUsage.PrimaryButton, OVRInput.Button.One),
+            new UsageMapping(ControllerButtonUsage.PrimaryButton, OVRInput.GetButtonDown.One),
             new UsageMapping(ControllerButtonUsage.PrimaryTouch, OVRInput.Touch.One),
-            new UsageMapping(ControllerButtonUsage.SecondaryButton, OVRInput.Button.Two),
+            new UsageMapping(ControllerButtonUsage.SecondaryButton, OVRInput.GetButtonDown.Two),
             new UsageMapping(ControllerButtonUsage.SecondaryTouch, OVRInput.Touch.Two),
             new UsageMapping(ControllerButtonUsage.GripButton,
-                OVRInput.Button.PrimaryHandTrigger),
+                OVRInput.GetButtonDown.PrimaryHandTrigger),
             new UsageMapping(ControllerButtonUsage.TriggerButton,
-                OVRInput.Button.PrimaryIndexTrigger),
-            new UsageMapping(ControllerButtonUsage.MenuButton, OVRInput.Button.Start),
+                OVRInput.GetButtonDown.PrimaryIndexTrigger),
+            new UsageMapping(ControllerButtonUsage.MenuButton, OVRInput.GetButtonDown.Start),
             new UsageMapping(ControllerButtonUsage.Primary2DAxisClick,
-                OVRInput.Button.PrimaryThumbstick),
+                OVRInput.GetButtonDown.PrimaryThumbstick),
             new UsageMapping(ControllerButtonUsage.Primary2DAxisTouch,
                 OVRInput.Touch.PrimaryThumbstick),
             new UsageMapping(ControllerButtonUsage.Thumbrest, OVRInput.Touch.PrimaryThumbRest)
