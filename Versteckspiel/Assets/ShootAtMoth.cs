@@ -46,14 +46,21 @@ public class ShootAtMoth : MonoBehaviour
         //Motten gewinnen, sobald Zeit abläuft, FM gewinnt, sobald innerhalb der Zeit alle Motten gefroffen wurden, dann jeweiliges Menü anzeigen
 
         print("Motte getroffen!");
-
         aufloesenAktiv = true;
+    }
 
-        if (aufloesenAktiv)
+
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            aufloesenAktiv = true;
+        }
+
+        if (aufloesenAktiv == true)
         {
             dissolveAmount = Mathf.Clamp01(dissolveAmount + Time.deltaTime);
-            //var dissolverValue = 1 - verbleibendeAufloesedauerInSekunden / 2;
-            //Debug.Log("DissolveValue: " + dissolverValue + "(" + verbleibendeAufloesedauerInSekunden + "");
             material.SetFloat("_Dissolve", dissolveAmount);
         }
         else
@@ -62,17 +69,15 @@ public class ShootAtMoth : MonoBehaviour
             material.SetFloat("_Dissolve", dissolveAmount);
         }
 
-        if (dissolveAmount == 0f)
+        if (dissolveAmount == 1f)
         {
-            Destroy(this.gameObject); //oder deaktivieren
+            Destroy(mothMesh.gameObject); //oder deaktivieren
         }
 
-    }
+        string StartTime = mytimerscript.timeValue.ToString("f0");
+        TimePlayed.text = StartTime;
 
-
-
-    public void Update()
-    {
+        
         Prey = GameObject.FindGameObjectsWithTag("Moth");
 
         // Sobald alle Motten abgeschossen wurden , taucht der Endbildschirm auf.
@@ -83,9 +88,5 @@ public class ShootAtMoth : MonoBehaviour
             EndscreenBat.SetActive(true);
             EndscreenMoths.SetActive(false);
         }
-
-        string StartTime = mytimerscript.timeValue.ToString("f0");
-        TimePlayed.text = StartTime;
-
     }
 }
