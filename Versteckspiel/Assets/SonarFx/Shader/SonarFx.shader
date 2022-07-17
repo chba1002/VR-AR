@@ -24,7 +24,7 @@ Shader "Hidden/SonarFX"
 {
     Properties
     {
-        _SonarBaseColor  ("Base Color",  Color)  = (0.1, 0.1, 0.1, 0)
+        //_SonarBaseColor  ("Base Color",  Color)  = (0.1, 0.1, 0.1, 0)
         _SonarWaveColor  ("Wave Color",  Color)  = (1.0, 0.1, 0.1, 0)
         _SonarMothColor  ("Moth Color",  Color)  = (1, 1, 1, 0)
         _SonarWaveParams ("Wave Params", Vector) = (1, 20, 20, 10)
@@ -45,7 +45,7 @@ Shader "Hidden/SonarFX"
             float3 worldPos;
         };
 
-        float3 _SonarBaseColor;
+        //float3 _SonarBaseColor;
         float3 _SonarWaveColor;
         float3 _SonarMothColor;
         float4 _SonarWaveParams; // Amp, Exp, Interval, Speed
@@ -75,7 +75,7 @@ Shader "Hidden/SonarFX"
             w *= _SonarWaveParams.x;
 
             // Apply to the surface.
-            o.Albedo = _SonarBaseColor;
+            //o.Albedo = _SonarBaseColor;
             o.Emission = _SonarWaveColor * w + _SonarAddColor;
 
         }

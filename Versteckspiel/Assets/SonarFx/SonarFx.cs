@@ -41,8 +41,8 @@ public class SonarFx : MonoBehaviour
     public Vector3 origin { get { return _origin; } set { _origin = value; } }
 
     // Base color (albedo)
-    [SerializeField] Color _baseColor = new Color(0.2f, 0.2f, 0.2f, 0);
-    public Color baseColor { get { return _baseColor; } set { _baseColor = value; } }
+    //[SerializeField] Color _baseColor = new Color(0.2f, 0.2f, 0.2f, 0);
+    //public Color baseColor { get { return _baseColor; } set { _baseColor = value; } }
 
     // Wave color
     [SerializeField] Color _waveColor = new Color(1.0f, 0.2f, 0.2f, 0);
@@ -74,7 +74,7 @@ public class SonarFx : MonoBehaviour
     [SerializeField] Shader shader;
 
     // Private shader variables
-    int baseColorID;
+    //int baseColorID;
     int waveColorID;
     int waveParamsID;
     int waveVectorID;
@@ -86,7 +86,7 @@ public class SonarFx : MonoBehaviour
 
     void Awake()
     {
-        baseColorID = Shader.PropertyToID("_SonarBaseColor");
+        //baseColorID = Shader.PropertyToID("_SonarBaseColor");
         waveColorID = Shader.PropertyToID("_SonarWaveColor");
         waveParamsID = Shader.PropertyToID("_SonarWaveParams");
         waveVectorID = Shader.PropertyToID("_SonarWaveVector");
@@ -141,7 +141,7 @@ public class SonarFx : MonoBehaviour
         }*/
 
 
-        Shader.SetGlobalColor(baseColorID, _baseColor);
+        //Shader.SetGlobalColor(baseColorID, _baseColor);
         Shader.SetGlobalColor(waveColorID, _waveColor);
         Shader.SetGlobalColor(addColorID, _addColor);
 
