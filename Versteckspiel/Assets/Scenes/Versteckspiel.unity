@@ -11501,6 +11501,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 475907698}
+        m_TargetAssemblyTypeName: ShootAtMoth, Assembly-CSharp
+        m_MethodName: ShootMoth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -12679,6 +12691,18 @@ MonoBehaviour:
       - m_Target: {fileID: 962580139283375224}
         m_TargetAssemblyTypeName: DestroyMe, Assembly-CSharp
         m_MethodName: DestroyThisObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 475907698}
+        m_TargetAssemblyTypeName: ShootAtMoth, Assembly-CSharp
+        m_MethodName: ShootMoth
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

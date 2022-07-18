@@ -62,15 +62,16 @@ public class ShootAtMoth : MonoBehaviour
             aufloesenAktiv = true;
         }
 
-        if (OVRInput.GetDown(OVRInput.GetButtonDown.PrimaryHandTrigger))
+        if (OVRInput.GetDown(OVRInput.GetButtonDown.PrimaryHandTrigger) && OVRInput.GetDown(OVRInput.GetButtonDown.SecondaryHandTrigger)) //oder besser GetKey?
         {
+            print("Two buttons pressed");
             aufloesenAktiv = true;
         }
 
-        if (OVRInput.GetDown(OVRInput.GetButtonDown.SecondaryHandTrigger))
+        /*if (OVRInput.GetDown(OVRInput.GetButtonDown.SecondaryHandTrigger)) 
         {
             aufloesenAktiv = true;
-        }
+        }*/
 
         if (aufloesenAktiv == true)
         {
@@ -85,7 +86,7 @@ public class ShootAtMoth : MonoBehaviour
 
         if (dissolveAmount == 1f)
         {
-            Destroy(mothMesh.gameObject); //oder deaktivieren
+            Destroy(mothMesh.gameObject); //das Objekt, aus das geschossen wurde
         }
 
         string StartTime = mytimerscript.timeValue.ToString("f0");
