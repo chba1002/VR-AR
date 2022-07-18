@@ -57,6 +57,11 @@ public class ShootAtMoth : MonoBehaviour
 
     public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            aufloesenAktiv = true;
+        }
+
         if (OVRInput.GetDown(OVRInput.GetButtonDown.PrimaryHandTrigger))
         {
             aufloesenAktiv = true;
