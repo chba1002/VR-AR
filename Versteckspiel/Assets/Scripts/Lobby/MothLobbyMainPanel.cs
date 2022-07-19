@@ -196,8 +196,11 @@ namespace Moth.Scripts.Lobby
 
                 Debug.Log($"{playerTypeString} wählt Motte/Fledermaus '{playMothBatType}' aus.");
 
-               // InsideRoomPanel.GetComponent<InsideRoomPanel>()
-               //     .SetPlayerMothBat .... 
+
+
+                // ToDo: Should be realizaed with other method, because on this way it is only selectable, but will not disappera, if another is selected
+                InsideRoomPanel.GetComponent<InsideRoomPanel>().UpdateMothPanelOfRemotePlayer(mothId, true, targetPlayer.ActorNumber);
+
             }
 
             // ToDo: Check  if all player are ready and if moths AND bats are selected

@@ -138,6 +138,9 @@ namespace Moth.Scripts.Lobby
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
+        public void UpdateMothPanelOfRemotePlayer(int mothBatId, bool active, int? optionalPlayerId) => UpdatePlayerSelectionPanelsSetMothBat(mothBatId, active, optionalPlayerId);
+
+
         private void UpdatePlayerSelectionPanelsSetMothBat(int mothBatId, bool active, int? optionalPlayerId = null)
         {
             //Debug.Log("UpdatePlayerSelectionPanelsSetMothBat mothBatId:" + mothBatId + " active:" + active + " [PlayerSelectionPanels.length: " + PlayerSelectionPanels.Count + "]");
