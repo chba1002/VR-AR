@@ -125,10 +125,10 @@ public class SpatialAnchorsManager : MonoBehaviour
 
         //if the user has pressed the index trigger on one of the two controllers, generate an object in that position
         if (trigger1Pressed)
-            GenerateSpatialAnchor(true);
+            GenerateSpatialAnchor(true, nameof(trigger1Pressed));
 
         if (trigger2Pressed)
-            GenerateSpatialAnchor(false);
+            GenerateSpatialAnchor(false, nameof(trigger2Pressed));
 
         //if the user presses any thumbstick, delete all anchors in current session and in persistent storage
         if (thumbstick1Pressed || thumbstick2Pressed)
@@ -147,6 +147,12 @@ public class SpatialAnchorsManager : MonoBehaviour
         //the world position of the object remains locked.
         //If we don't execute this late update method, the anchors are correct upon creation, but if the user recenters the camera rig
         //they don't remain fixed in the corresponding world position, but they move as well.
+
+        // Information: This is only needed for pc test case, because there are no ankers.
+        if (m_createdAnchors == null)
+        {
+            return;
+        }
 
         //for every anchor that has been created
         foreach (var createdAnchorPair in m_createdAnchors)
@@ -168,7 +174,7 @@ public class SpatialAnchorsManager : MonoBehaviour
     /// Generates an object with the same pose of the controller
     /// </summary>
     /// <param name="isLeft">If the controller to take as reference is the left or right one</param>
-    private void GenerateSpatialAnchor(bool isLeft)
+    private void GenerateSpatialAnchor(bool isLeft, string triggerName)
     {
         //get the pose of the controller in local tracking coordinates
         OVRPose controllerPose = new OVRPose()
@@ -195,7 +201,7 @@ public class SpatialAnchorsManager : MonoBehaviour
             InitializeSpatialAnchor(spaceHandle, isLeft ? Object1PrefabName : Object2PrefabName);
         }
         else
-            Debug.LogError("Creation of spatial anchor failed");
+            Debug.LogWarning($"Creation of spatial anchor failed for '{triggerName}'");
     }
 
     /// <summary>

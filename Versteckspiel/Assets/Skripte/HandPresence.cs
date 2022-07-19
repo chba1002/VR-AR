@@ -46,7 +46,7 @@ public class HandPresence : MonoBehaviour
 
 			else
 			{
-				Debug.LogError("Error");
+				Debug.LogWarning("TryInitialize Hand settings didn't work, because therei is no 'prefab'.");
 				spawnedController = Instantiate(controllerPrefabs[0], transform);
 			}
 

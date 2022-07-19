@@ -499,6 +499,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4456048409650308761, guid: 126d619cf4daa52469682f85c1378b4a,
+        type: 3}
+      propertyPath: CenterEyeAnchorTransform
+      value: 
+      objectReference: {fileID: 8094602354482861407}
     - target: {fileID: 6070455155680169682, guid: 126d619cf4daa52469682f85c1378b4a,
         type: 3}
       propertyPath: ObjectsToHide.Array.data[0]
@@ -1112,7 +1117,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8094602354482628991}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c725fe963b534280bc779c2e7f23fb5, type: 3}
   m_Name: 

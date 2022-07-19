@@ -39,7 +39,7 @@ public class ShootAtMoth : MonoBehaviour
 
     }
 
-        public void ShootMoth()
+    public void ShootMoth()
     {
         //Sobald der Strahl Motte berührt, kann man schießen. Check
         //Beide Strahlen müssen Motte treffen, damit sie stirbt. Sonst passiert nichts.
@@ -92,7 +92,7 @@ public class ShootAtMoth : MonoBehaviour
         string StartTime = mytimerscript.timeValue.ToString("f0");
         TimePlayed.text = StartTime;
 
-        
+
         Prey = GameObject.FindGameObjectsWithTag("Moth");
 
         // Sobald alle Motten abgeschossen wurden , taucht der Endbildschirm auf.
