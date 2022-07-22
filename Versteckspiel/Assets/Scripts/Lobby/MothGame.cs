@@ -16,7 +16,7 @@ namespace Moth.Scripts
         public const string PLAYER_LIVES = "PlayerLives";
         public const string PLAYER_READY = "IsPlayerReady";
         public const string PLAYER_LOADED_LEVEL = "PlayerLoadedLevel";
-        public const string PLAYER_MOTH_BAT_TYPE = "PlayerMothBatType";
+        public const string PLAYER_MOTH_BAT_STATE = "PlayerMothBatState";
 
         public static Color GetColor(int colorChoice)
         {

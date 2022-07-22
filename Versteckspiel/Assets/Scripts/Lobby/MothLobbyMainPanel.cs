@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using Moth.Scripts.Lobby.Managers;
 using System.Linq;
+using Assets.Scripts.Lobby.Mappers;
 
 namespace Moth.Scripts.Lobby
 {
@@ -42,6 +43,10 @@ namespace Moth.Scripts.Lobby
         public Button StartGameButton;
         public GameObject PlayerListEntryPrefab;
 
+        [Header("Handsl")]
+        public GameObject LeftHand;
+        public GameObject RightHand;
+
         #region UNITY
 
         private PlayerListManager playerListManager;
@@ -50,7 +55,7 @@ namespace Moth.Scripts.Lobby
         public void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
-            playerListManager = new PlayerListManager(MothPlayerListEntries, Instantiate, Destroy);
+            playerListManager = new PlayerListManager(MothPlayerListEntries, PlayerListEntryPrefab, Instantiate, Destroy);
             roomListManager = new RoomListManager(
                 Instantiate,
             Destroy,
@@ -61,11 +66,81 @@ namespace Moth.Scripts.Lobby
             SetActivePanel(LoginPanel.name);
         }
 
+        void Update()
+        {
+            if (LoginPanel.activeSelf)
+            {
+                if (Input.GetKeyDown("l")) OnLoginButtonClicked();
+            }
+            else if (SelectionPanel.activeSelf)
+            {
+                if (Input.GetKeyDown("s")) OnCreateRoomButtonClicked();
+                if (Input.GetKeyDown("v")) OnRoomListButtonClicked();
+            }
+            else if (InsideRoomPanel.activeSelf)
+            {
+                if (Input.GetKeyDown("1")) InsideRoomPanel.GetComponent<InsideRoomPanel>().TrySetMothBat(1);
+                if (Input.GetKeyDown("2")) InsideRoomPanel.GetComponent<InsideRoomPanel>().TrySetMothBat(2);
+                if (Input.GetKeyDown("3")) InsideRoomPanel.GetComponent<InsideRoomPanel>().TrySetMothBat(3);
+                if (Input.GetKeyDown("4")) InsideRoomPanel.GetComponent<InsideRoomPanel>().TrySetMothBat(4);
+                if (Input.GetKeyDown("5")) InsideRoomPanel.GetComponent<InsideRoomPanel>().TrySetMothBat(100);
+                if (Input.GetKeyDown("b")) InsideRoomPanel.GetComponent<InsideRoomPanel>().OnCLickPlayerReadyButton();
+                if (Input.GetKeyDown("v")) OnLeaveGameButtonClicked();
+                if (Input.GetKeyDown("s")) OnStartGameButtonClicked();
+            }
+
+            if (Input.GetKeyDown("h"))
+            {
+                LeftHand.SetActive(!LeftHand.activeSelf);
+                RightHand.SetActive(!RightHand.activeSelf);
+            }
+        }
+
         #endregion
 
         #region PUN CALLBACKS
 
+        // 2. On ConnectedToMaster --> Connected
         public override void OnConnectedToMaster() => this.SetActivePanel(SelectionPanel.name);
+
+        // 3. On OnJoinedRoom --> Player joined
+        public override void OnJoinedRoom()
+        {
+            // joining (or entering) a room invalidates any cached lobby room list (even if LeaveLobby was not called due to just joining a room)
+
+            roomListManager.ClearCachedRoomList();
+            SetActivePanel(InsideRoomPanel.name);
+
+            foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+            {
+                playerListManager.Create(p);
+            }
+
+            StartGameButton.gameObject.SetActive(CheckPlayersReady());
+
+            var props = new Hashtable
+            {
+                {MothGame.PLAYER_LOADED_LEVEL, false}
+            };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        }
+
+        // 4. OnPlayerEnteredRoom --> Remote Player joined
+        public override void OnPlayerEnteredRoom(Photon.Realtime.Player newRemotePlayer)
+        {
+            Debug.Log($"Remote: Spieler {newRemotePlayer.ActorNumber} betritt Raum");
+            playerListManager.Create(newRemotePlayer);
+            StartGameButton.gameObject.SetActive(CheckPlayersReady());
+        }
+
+        // 5. OnPlayerLeftRoom --> Remote Player left room
+        public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+        {
+            Debug.Log($"Remote: Spieler {otherPlayer.ActorNumber} verlässt Raum");
+            playerListManager.Remove(otherPlayer.ActorNumber);
+
+            StartGameButton.gameObject.SetActive(CheckPlayersReady());
+        }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
@@ -76,6 +151,7 @@ namespace Moth.Scripts.Lobby
 
         public override void OnJoinedLobby()
         {
+            Debug.Log("OnJoinedLobby: Player enters Lobby");
             // whenever this joins a new lobby, clear any previous room lists
             roomListManager.ClearCachedRoomList();
             roomListManager.ClearRoomListView();
@@ -84,6 +160,7 @@ namespace Moth.Scripts.Lobby
         // note: when a client joins / creates a room, OnLeftLobby does not get called, even if the client was in a lobby before
         public override void OnLeftLobby()
         {
+            Debug.Log("OnLeftLobby: Player left Lobby");
             roomListManager.ClearCachedRoomList();
             roomListManager.ClearRoomListView();
         }
@@ -101,60 +178,13 @@ namespace Moth.Scripts.Lobby
                 null);
         }
 
-        public override void OnJoinedRoom()
-        {
-            // joining (or entering) a room invalidates any cached lobby room list (even if LeaveLobby was not called due to just joining a room)
-
-            roomListManager.ClearCachedRoomList();
-            SetActivePanel(InsideRoomPanel.name);
-
-            foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
-            {
-                GameObject entry = playerListManager.InitiatePlayerListEntry(p, MothPlayerListEntries, PlayerListEntryPrefab);
-
-                object isPlayerReady;
-                if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
-                {
-                    playerListManager.SetPlayerReadyInUi((bool)isPlayerReady, p.ActorNumber);
-                }
-
-                playerListManager.PlayerListEntries.Add(p.ActorNumber, entry);
-            }
-
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
-
-            var props = new Hashtable
-            {
-                {MothGame.PLAYER_LOADED_LEVEL, false}
-            };
-            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-        }
-
-
         public override void OnLeftRoom()
         {
+            Debug.Log("OnLeftRoom");
             SetActivePanel(SelectionPanel.name);
-            playerListManager.PlayerListEntries.Values.ToList()
-                .ForEach(entry => Destroy(entry.gameObject));
             playerListManager.ClearPlayerListEntries();
         }
 
-        public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
-        {
-            Debug.Log("Remote: Spieler " + newPlayer.ActorNumber + " betritt Raum");
-            GameObject entry = playerListManager.InitiatePlayerListEntry(newPlayer, MothPlayerListEntries, PlayerListEntryPrefab);
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
-        }
-
-        public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
-        {
-            Debug.Log("Remote: Spieler " + otherPlayer.ActorNumber + "verlässt Raum");
-            playerListManager.RemovePlayerListEntry(
-                otherPlayer.ActorNumber,
-                MothPlayerListEntries);
-
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
-        }
 
         public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
         {
@@ -172,6 +202,11 @@ namespace Moth.Scripts.Lobby
             Debug.Log($"{playerTypeString} {targetPlayer.ActorNumber} Eigenschaften aktualisiert");
 
 
+            // PLAYER_LIVES - Player is alive
+
+
+
+            // PLAYER_READY
             if (changedProps.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
             {
                 Debug.Log($"{playerTypeString}  ist bereit: '{isPlayerReady}'.");
@@ -184,27 +219,33 @@ namespace Moth.Scripts.Lobby
                 }
             }
 
-            if (changedProps.TryGetValue(MothGame.PLAYER_MOTH_BAT_TYPE, out object playMothBatType))
+            //  PLAYER_MOTH_BAT_TYPE
+            if (changedProps.TryGetValue(MothGame.PLAYER_MOTH_BAT_STATE, out object playerMothBatStateObject))
             {
-                bool successfullyGetMothType = int.TryParse(playMothBatType.ToString(), out int mothId);
+                // ToDo: Parse save
+                var playerMothBatState = MothBatStateSerializer.Deserialize(((string)playerMothBatStateObject));
 
-                if (!successfullyGetMothType)
+                if (playerMothBatState == null)
                 {
-                    Debug.LogError($"{playMothBatType.ToString()} konnte nicht geparsed werden.");
+                    Debug.LogError($"{playerMothBatState.MothBatType} konnte nicht geparsed werden.");
                     return;
                 }
 
-                Debug.Log($"{playerTypeString} wählt Motte/Fledermaus '{playMothBatType}' aus.");
+                Debug.Log($"{playerTypeString} wählt Motte/Fledermaus '{playerMothBatState.MothBatType}' ('{playerMothBatState.IsSelected}') aus.");
 
-
-
-                // ToDo: Should be realizaed with other method, because on this way it is only selectable, but will not disappera, if another is selected
-                InsideRoomPanel.GetComponent<InsideRoomPanel>().UpdateMothPanelOfRemotePlayer(mothId, true, targetPlayer.ActorNumber);
-
+                // ToDo: Should be realizaed with other method, because on this way it is only selectable, but will not disappear, if another is selected
+                InsideRoomPanel
+                    .GetComponent<InsideRoomPanel>()
+                    .UpdateMothPanelOfRemotePlayer(playerMothBatState.MothBatType, playerMothBatState.LastMothBatType, playerMothBatState.IsSelected, targetPlayer.ActorNumber);
             }
 
+            //  PLAYER_LOADED_LEVEL
+
+
+
+
             // ToDo: Check  if all player are ready and if moths AND bats are selected
-            // ToDo: Shpudl be done via 'PlayerListManager'
+            // ToDo: Should be done via 'PlayerListManager'
         }
 
         #endregion
@@ -219,15 +260,8 @@ namespace Moth.Scripts.Lobby
 
         public void OnCreateRoomButtonClicked()
         {
-            string roomName = RoomNameInputField.text;
-            roomName = (roomName.Equals(string.Empty)) ? "Room " + Random.Range(1000, 10000) : roomName;
-
-            byte maxPlayers;
-            byte.TryParse(MaxPlayersInputField.text, out maxPlayers);
-            maxPlayers = (byte)Mathf.Clamp(maxPlayers, 2, 8);
-
-            RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers, PlayerTtl = 10000 };
-            PhotonNetwork.CreateRoom(roomName, options, null);
+            (var roomName, var roomOptions) = roomListManager.CreateRoom(RoomNameInputField.text, MaxPlayersInputField.text, Random.Range);
+            PhotonNetwork.CreateRoom(roomName, roomOptions);
         }
 
         public void OnJoinRandomRoomButtonClicked()
@@ -270,8 +304,7 @@ namespace Moth.Scripts.Lobby
 
         private bool CheckPlayersReady()
         {
-            if (!PhotonNetwork.IsMasterClient) return false;
-            return playerListManager.CheckPlayerIsReady(PhotonNetwork.PlayerList);
+            return playerListManager.AllPlayersAreReady; //CheckAllPlayersAreReady(PhotonNetwork.PlayerList, PhotonNetwork.IsMasterClient);
         }
 
         public void LocalPlayerPropertiesUpdated() =>

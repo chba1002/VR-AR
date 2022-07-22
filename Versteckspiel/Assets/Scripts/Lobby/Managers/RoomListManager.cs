@@ -9,18 +9,20 @@ namespace Moth.Scripts.Lobby.Managers
     public class RoomListManager
     {
         private Action<GameObject> Destroy { get; }
-        private Func<GameObject,GameObject> Instantiate { get; }
+        private Func<GameObject, GameObject> Instantiate { get; }
         private Dictionary<string, GameObject> roomListEntries;
+        private int roomCounter;
         private Dictionary<string, RoomInfo> cachedRoomList;
         private readonly GameObject RoomListEntryPrefab;
         private readonly GameObject RoomListContent;
 
         public RoomListManager(
-            Func<GameObject,GameObject> instantiate,
-            Action<GameObject> destroy, 
+            Func<GameObject, GameObject> instantiate,
+            Action<GameObject> destroy,
             GameObject roomListEntryPrefab,
             GameObject roomListContent)
         {
+            roomCounter = 0;
             cachedRoomList = new Dictionary<string, RoomInfo>();
             roomListEntries = new Dictionary<string, GameObject>();
             Destroy = destroy;
@@ -29,8 +31,8 @@ namespace Moth.Scripts.Lobby.Managers
             RoomListContent = roomListContent;
         }
 
-
-        public void ClearCachedRoomList(){
+        public void ClearCachedRoomList()
+        {
             cachedRoomList.Clear();
         }
 
@@ -79,7 +81,7 @@ namespace Moth.Scripts.Lobby.Managers
                 GameObject entry = Instantiate(RoomListEntryPrefab);
                 entry.transform.SetParent(RoomListContent.transform);
                 entry.transform.localScale = Vector3.one;
-                entry.GetComponent<MothRoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers);
+                entry.GetComponent<MothRoomListEntry>().Initialize(++roomCounter, info.Name, (byte)info.PlayerCount, info.MaxPlayers);
 
                 roomListEntries.Add(info.Name, entry);
             }
@@ -88,6 +90,18 @@ namespace Moth.Scripts.Lobby.Managers
         internal string GenerateRoomName()
         {
             return "Room " + UnityEngine.Random.Range(1000, 10000);
+        }
+
+        internal (string, RoomOptions) CreateRoom(string roomName, string maxPlayersString, Func<float, float, float> randomRange)
+        {
+            roomName = (roomName.Equals(string.Empty)) ? "Room " + randomRange(1000, 10000) : roomName;
+
+            byte maxPlayers;
+            byte.TryParse(maxPlayersString, out maxPlayers);
+            maxPlayers = (byte)Mathf.Clamp(maxPlayers, 2, 8);
+
+            RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers, PlayerTtl = 10000 };
+            return (roomName, options);
         }
     }
 

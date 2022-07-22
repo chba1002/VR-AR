@@ -20,26 +20,30 @@ namespace Moth.Scripts.Lobby.Managers
         private Dictionary<int, GameObject> playerListEntries;
         private readonly GameObject mothPlayerListEntries;
 
+        private GameObject playerListEntryPrefab;
+
         /// <summary>
         /// Create a new instance of PlayerListManager.
         /// </summary>
         /// <param name="instantiate">Unity method instantiate.</param>
         /// <param name="destroy">Unity method destroy.</param>
-        public PlayerListManager(GameObject mothPlayerListEntries, Func<GameObject, GameObject> instantiate, Action<GameObject> destroy)
+        public PlayerListManager(GameObject mothPlayerListEntries, GameObject playerListEntryPrefab,  Func<GameObject, GameObject> instantiate, Action<GameObject> destroy)
         {
             this.playerListEntries = new Dictionary<int, GameObject>();
             this.mothPlayerListEntries = mothPlayerListEntries;
+            this.playerListEntryPrefab = playerListEntryPrefab;
             Instantiate = instantiate;
             Destroy = destroy;
         }
 
         internal void ClearPlayerListEntries()
         {
+            PlayerListEntries.Values.ToList().ForEach(entry => Destroy(entry.gameObject));
             playerListEntries.Clear();
             playerListEntries = null;
         }
 
-        internal void RemovePlayerListEntry(int actorNumber, GameObject mothPlayerListEntries)
+        internal void Remove(int actorNumber)
         {
             GameObject mothPlayerListEntryGo = null;
             foreach (Transform m in mothPlayerListEntries.transform)
@@ -63,15 +67,25 @@ namespace Moth.Scripts.Lobby.Managers
 
         }
 
-        internal GameObject InitiatePlayerListEntry(
-            Photon.Realtime.Player p,
-            GameObject mothPlayerListEntries,
-            GameObject playerListEntryPrefab)
+        internal GameObject Create(Photon.Realtime.Player p)
         {
             GameObject entry = Instantiate(playerListEntryPrefab);
             entry.transform.SetParent(mothPlayerListEntries.transform);
             entry.transform.localScale = Vector3.one;
             entry.GetComponent<MothPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
+
+            if(p?.ActorNumber == null)
+            {
+                Debug.LogWarning("Actor numer isnt set.");
+            }
+
+            PlayerListEntries.Add(p.ActorNumber, entry);
+
+            if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
+            {
+                SetPlayerReadyInUi((bool)isPlayerReady, p.ActorNumber);
+            }
+
             return entry;
         }
 
@@ -90,13 +104,13 @@ namespace Moth.Scripts.Lobby.Managers
 
         public bool AllPlayersAreReady => CurrentMothPlayerListEntries.All(m => m.IsReady);
 
-
-        internal bool CheckPlayerIsReady(Photon.Realtime.Player[] playerList)
+        internal bool CheckAllPlayersAreReady(Photon.Realtime.Player[] playerList, bool isMasterClient)
         {
+            if (!isMasterClient) return false;
+
             foreach (Photon.Realtime.Player p in playerList)
             {
-                object isPlayerReady;
-                if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out isPlayerReady))
+                if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
                 {
                     if (!(bool)isPlayerReady)
                     {
@@ -111,6 +125,7 @@ namespace Moth.Scripts.Lobby.Managers
 
             return true;
         }
+
         private List<MothPlayerListEntry> CurrentMothPlayerListEntries
         {
             get
