@@ -9,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class SpatialAnchorsManager : MonoBehaviour
 {
+    public bool enableLoadAnchorsFromPreviousSession = false;
+
     #region Nested classes
 
     /// <summary>
@@ -89,8 +91,12 @@ public class SpatialAnchorsManager : MonoBehaviour
     {
         m_createdAnchors = new Dictionary<ulong, AnchorData>();
 
-        //Restore the anchors from the previous session
-        LoadAnchorsFromPreviousSession();
+        // Notwendig für Testen ohne VR-Brille.
+        if (enableLoadAnchorsFromPreviousSession)
+        {
+            //Restore the anchors from the previous session
+            LoadAnchorsFromPreviousSession();
+        }
     }
 
     /// <summary>

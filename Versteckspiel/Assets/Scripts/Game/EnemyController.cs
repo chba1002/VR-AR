@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.VFX;
-using UnityEngine.Experimental.VFX;
 
 public class EnemyController : MonoBehaviour
 {

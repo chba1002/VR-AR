@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction;
-using UnityEngine.SceneManagement;
-using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 
 public class ShootAtMoth : MonoBehaviour

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private bool pcControllIsActive = false;
+
     [SerializeField]
     private Transform CenterEyeAnchorTransform;
 
@@ -17,10 +19,22 @@ public class Player : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         anim = gameObject.GetComponentInChildren<Animator>();
+
+        if(controller == null)
+        {
+            Debug.Log("CharacterController on player is inactive.");
+        }
+        Debug.Log("Start Player Script");
     }
 
     void Update()
     {
+        if (Input.GetKeyDown("p"))
+        {
+            pcControllIsActive = !pcControllIsActive;
+            Debug.Log(pcControllIsActive ? "Steuerung für PC aktiv" : "Steuerung für PC inaktiv");
+        }
+
         if (Input.GetKey("w"))
         {
             anim.SetInteger("AnimationPar", 1);
@@ -30,16 +44,24 @@ public class Player : MonoBehaviour
             anim.SetInteger("AnimationPar", 0);
         }
 
-        if (controller.isGrounded)
+        if (controller?.isGrounded ?? false)
         {
             moveDirection = transform.forward * Input.GetAxis("Vertical") * speed;
         }
 
         // Information: If controll via pc is neccessary - use this transform input to controll.
-        // float turn = Input.GetAxis("Horizontal");
-        // transform.Rotate(0, turn * turnSpeed * Time.deltaTime, 0);
+        if (pcControllIsActive)
+        {
+            float turn = Input.GetAxis("Horizontal");
+            transform.Rotate(0, turn * turnSpeed * Time.deltaTime, 0);
+        }
+
         this.transform.position = CenterEyeAnchorTransform.position;
-        controller.Move(moveDirection * Time.deltaTime);
+
+        if (controller.enabled)
+        {
+            controller.Move(moveDirection * Time.deltaTime);
+        }
         moveDirection.y -= gravity * Time.deltaTime;
     }
 }

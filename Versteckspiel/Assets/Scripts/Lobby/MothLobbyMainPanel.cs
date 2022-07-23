@@ -43,7 +43,7 @@ namespace Moth.Scripts.Lobby
         public Button StartGameButton;
         public GameObject PlayerListEntryPrefab;
 
-        [Header("Handsl")]
+        [Header("Hands")]
         public GameObject LeftHand;
         public GameObject RightHand;
 
@@ -52,15 +52,15 @@ namespace Moth.Scripts.Lobby
         private PlayerListManager playerListManager;
         private RoomListManager roomListManager;
 
-        public void Awake()
+        public void Start()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
             playerListManager = new PlayerListManager(MothPlayerListEntries, PlayerListEntryPrefab, Instantiate, Destroy);
             roomListManager = new RoomListManager(
                 Instantiate,
-            Destroy,
-            RoomListEntryPrefab,
-            RoomListContent);
+                Destroy,
+                RoomListEntryPrefab,
+                RoomListContent);
 
             PlayerName.text = "Spieler " + Random.Range(1000, 10000);
             SetActivePanel(LoginPanel.name);
@@ -296,6 +296,8 @@ namespace Moth.Scripts.Lobby
 
         public void OnStartGameButtonClicked()
         {
+            if (!PhotonNetwork.IsMasterClient) return;
+
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.LoadLevel("Versteckspiel");
