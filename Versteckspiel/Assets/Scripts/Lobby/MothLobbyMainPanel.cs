@@ -204,14 +204,16 @@ namespace Moth.Scripts.Lobby
 
             // PLAYER_LIVES - Player is alive
 
-
-
             // PLAYER_READY
             if (changedProps.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
             {
                 Debug.Log($"{playerTypeString}  ist bereit: '{isPlayerReady}'.");
 
                 playerListManager.SetPlayerReadyInUi((bool)isPlayerReady, targetPlayer.ActorNumber);
+
+                InsideRoomPanel
+                    .GetComponent<InsideRoomPanel>()
+                    .UpdateMothPanelOfRemotePlayerIsReady(targetPlayer.ActorNumber, (bool)isPlayerReady);
 
                 if (playerListManager.AllPlayersAreReady)
                 {
@@ -233,7 +235,6 @@ namespace Moth.Scripts.Lobby
 
                 Debug.Log($"{playerTypeString} wählt Motte/Fledermaus '{playerMothBatState.MothBatType}' ('{playerMothBatState.IsSelected}') aus.");
 
-                // ToDo: Should be realizaed with other method, because on this way it is only selectable, but will not disappear, if another is selected
                 InsideRoomPanel
                     .GetComponent<InsideRoomPanel>()
                     .UpdateMothPanelOfRemotePlayer(playerMothBatState.MothBatType, playerMothBatState.LastMothBatType, playerMothBatState.IsSelected, targetPlayer.ActorNumber);

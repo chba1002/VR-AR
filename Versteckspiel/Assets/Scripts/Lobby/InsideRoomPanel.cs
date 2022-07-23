@@ -161,5 +161,14 @@ namespace Moth.Scripts.Lobby
                 .ForEach(p => p.SetSelected(active, optionalPlayerId.HasValue ? optionalPlayerId.Value : null)
             );
         }
+
+        internal void UpdateMothPanelOfRemotePlayerIsReady(int actorNumber, bool playerIsReady)
+        {
+            PlayerSelectionPanels
+                .Where(p => p.OptionalPlayerId == actorNumber)
+                .ToList()
+                .ForEach(p => p.SetReady(playerIsReady)
+            );
+        }
     }
 }
