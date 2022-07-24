@@ -1221,13 +1221,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndscreenBat: {fileID: 0}
   EndscreenMoths: {fileID: 0}
-  TimerScreen: {fileID: 0}
   WinningSound: {fileID: 0}
   TimePlayed: {fileID: 0}
   mytimerscript: {fileID: 0}
   aufloesenAktiv: 0
   dissolveAmount: 0
-  mothMesh: {fileID: 962580139273796158, guid: 4ee29c5868b08d44898eb4bddd54ef2a, type: 3}
+  mothMesh: {fileID: 0}
   dissolveShaderMaterial: {fileID: 2100000, guid: 43b2a2718f7be92478a5f6777a2bf32f,
     type: 2}
 --- !u!4 &8094602354482793499 stripped
