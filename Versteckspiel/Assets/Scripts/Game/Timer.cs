@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Timer : MonoBehaviour
 {
     public float timeValue = 300;
-    public Text timerText;
+    public TextMeshProUGUI timerText;
     public GameObject EndscreenBat;
     public GameObject EndscreenMoths;
+    public GameObject TimerScreen;
     public GameObject Blocking;
     public GameObject DeathScreen;
     public AudioSource WinningSound;
@@ -31,7 +33,8 @@ public class Timer : MonoBehaviour
             WinningSound.Play();
             EndscreenBat.SetActive(false);
             EndscreenMoths.SetActive(true);
-            Blocking.SetActive(false);
+            TimerScreen.SetActive(false);
+            //Blocking.SetActive(false);
             DeathScreen.SetActive(true);
         }
     }

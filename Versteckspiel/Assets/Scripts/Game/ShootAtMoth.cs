@@ -5,6 +5,7 @@ public class ShootAtMoth : MonoBehaviour
 {
     public GameObject EndscreenBat;
     public GameObject EndscreenMoths;
+    public GameObject TimerScreen;
     GameObject[] Prey;  // Anzahl der verbleibenden Motten
     public AudioSource WinningSound;
     public TMP_Text TimePlayed;
@@ -94,6 +95,7 @@ public class ShootAtMoth : MonoBehaviour
         {
             print("Alle Motten getroffen.");
             WinningSound.Play();
+            TimerScreen.SetActive(false);
             EndscreenBat.SetActive(true);
             EndscreenMoths.SetActive(false);
         }
