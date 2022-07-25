@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Moth
+  - MothGameManager
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Post Processing Fledermaus
+  - Post Processing Motte Tot
   - Water
   - UI
   - Post Processing Motte 1
