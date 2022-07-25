@@ -26,7 +26,7 @@ public class SelectionMenueController : MonoBehaviour
 
     public void SelectMoth(int mothTypeInt)
     {
-        var mothType = (MothType)mothTypeInt;
+        var mothType = (MothBatType)mothTypeInt;
 
         foreach (Transform child in SelectedPlayerPanel.transform)
         {
@@ -43,13 +43,13 @@ public class SelectionMenueController : MonoBehaviour
         MothSelectionFieldController selectedFiled = SelectedMothSelectionField.GetComponent<MothSelectionFieldController>();
         switch (mothType)
         {
-            case MothType.MothGreen: selectedFiled.Initialize(mothImage1, mothName1);
+            case MothBatType.MothGreen: selectedFiled.Initialize(mothImage1, mothName1);
                 break;
-            case MothType.MothOrange: selectedFiled.Initialize(mothImage2, mothName2);
+            case MothBatType.MothOrange: selectedFiled.Initialize(mothImage2, mothName2);
                 break;
-            case MothType.MothBlue: selectedFiled.Initialize(mothImage3, mothName3);
+            case MothBatType.MothBlue: selectedFiled.Initialize(mothImage3, mothName3);
                 break;
-            case MothType.MothPurple: selectedFiled.Initialize(mothImage4, mothName4);
+            case MothBatType.MothPurple: selectedFiled.Initialize(mothImage4, mothName4);
                 break;
             default:
                 break;

@@ -29,7 +29,7 @@ namespace Moth.Scripts.Lobby.Managers
         /// </summary>
         /// <param name="instantiate">Unity method instantiate.</param>
         /// <param name="destroy">Unity method destroy.</param>
-        public PlayerListManager(GameObject mothPlayerListEntries, GameObject playerListEntryPrefab,  Func<GameObject, GameObject> instantiate, Action<GameObject> destroy)
+        public PlayerListManager(GameObject mothPlayerListEntries, GameObject playerListEntryPrefab, Func<GameObject, GameObject> instantiate, Action<GameObject> destroy)
         {
             this.playerListEntries = new Dictionary<int, GameObject>();
             this.playerDataProvider = new PlayerDataProvider();
@@ -77,7 +77,7 @@ namespace Moth.Scripts.Lobby.Managers
             entry.transform.localScale = Vector3.one;
             entry.GetComponent<MothPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
 
-            if(p?.ActorNumber == null)
+            if (p?.ActorNumber == null)
             {
                 Debug.LogWarning("Actor numer isnt set.");
             }
@@ -100,6 +100,12 @@ namespace Moth.Scripts.Lobby.Managers
         /// <param name="targetPlayerActorNumber"></param>
         public void SetPlayerReadyInUi(PlayerData playerData)
         {
+            if(playerData?.PlayerMothBatState == null || playerData?.PlayerMothBatState?.MothBatType == 0)
+            {
+                Debug.Log("Cannot SetPlayerReadyInUi. Has no moth selected.");
+                return;
+            }
+
             if (!playerData.PlayerIsReady.HasValue)
             {
                 Debug.Log("Cannot SetPlayerReadyInUi. PlayerIsReady has no value.");
@@ -151,5 +157,36 @@ namespace Moth.Scripts.Lobby.Managers
                 return entries;
             }
         }
+
+        /// <summary>
+        /// Überprüfe ob die Minimalanforderungen für ein Spiel gegeben sind. 
+        /// Also, dass mindestens eine Motte und eine Fledermaus von Spielern
+        /// auswählt sind.
+        /// </summary>
+        /// <param name="playerList">Liste aller aktiven Spieler.</param>
+        /// <returns>true, wenn Minimalanforderungen gegeben.</returns>
+        public bool CheckIfMinimumOneMothAndOneBatAreSelected(Photon.Realtime.Player[] playerList)
+        {
+            List<int> mothBatList = new();
+
+            foreach (Photon.Realtime.Player p in playerList)
+            {
+                var playerData = playerDataProvider.Provide(p);
+
+                if (playerData.PlayerMothBatState?.MothBatType != null)
+                {
+                    mothBatList.Add(playerData.PlayerMothBatState.MothBatType);
+                }
+            }
+
+            return mothBatList.Contains(MothBatType.Bat.GetHashCode())
+                && mothBatList.Any(m => new List<int> {
+                    MothBatType.MothGreen.GetHashCode(),
+                    MothBatType.MothOrange.GetHashCode(),
+                    MothBatType.MothBlue.GetHashCode(),
+                    MothBatType.MothPurple.GetHashCode()
+                }.Contains(m));
+        }
+
     }
 }

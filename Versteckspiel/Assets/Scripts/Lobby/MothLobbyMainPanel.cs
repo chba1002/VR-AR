@@ -9,6 +9,7 @@ using Moth.Scripts.Lobby.Managers;
 using System.Linq;
 using Assets.Scripts.Lobby.Mappers;
 using Assets.Scripts.Shared.Managers;
+using Assets.Scripts.Text;
 
 namespace Moth.Scripts.Lobby
 {
@@ -43,7 +44,7 @@ namespace Moth.Scripts.Lobby
         public GameObject InsideRoomPanel;
         public GameObject MothPlayerListEntries;
 
-        public Button StartGameButton;
+       // public Button StartGameButton;
         public GameObject PlayerListEntryPrefab;
 
         [Header("Hands")]
@@ -94,7 +95,7 @@ namespace Moth.Scripts.Lobby
                 if (Input.GetKeyDown("5")) InsideRoomPanel.GetComponent<InsideRoomPanel>().TrySetMothBat(100);
                 if (Input.GetKeyDown("b")) InsideRoomPanel.GetComponent<InsideRoomPanel>().OnCLickPlayerReadyButton();
                 if (Input.GetKeyDown("v")) OnLeaveGameButtonClicked();
-                if (Input.GetKeyDown("s")) OnStartGameButtonClicked();
+                //if (Input.GetKeyDown("s")) OnStartGameButtonClicked();
             }
 
             if (Input.GetKeyDown("h"))
@@ -124,7 +125,7 @@ namespace Moth.Scripts.Lobby
                 playerListManager.Create(p);
             }
 
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
+            //StartGameButton.gameObject.SetActive(CheckPlayersReady());
 
             var props = new Hashtable
             {
@@ -138,7 +139,7 @@ namespace Moth.Scripts.Lobby
         {
             Debug.Log($"Remote: Spieler {newRemotePlayer.ActorNumber} betritt Raum");
             playerListManager.Create(newRemotePlayer);
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
+            //StartGameButton.gameObject.SetActive(CheckPlayersReady());
         }
 
         // 5. OnPlayerLeftRoom --> Remote Player left room
@@ -147,7 +148,7 @@ namespace Moth.Scripts.Lobby
             Debug.Log($"Remote: Spieler {otherPlayer.ActorNumber} verlässt Raum");
             playerListManager.Remove(otherPlayer.ActorNumber);
 
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
+           // StartGameButton.gameObject.SetActive(CheckPlayersReady());
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -198,7 +199,7 @@ namespace Moth.Scripts.Lobby
         {
             if (PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber)
             {
-                StartGameButton.gameObject.SetActive(CheckPlayersReady());
+                //StartGameButton.gameObject.SetActive(CheckPlayersReady());
             }
         }
 
@@ -217,14 +218,31 @@ namespace Moth.Scripts.Lobby
             if (changedPlayerData.PlayerIsReady.HasValue)
             {
                 var playerIsReady = changedPlayerData.PlayerIsReady.Value;
-                Debug.Log($"{playerTypeString}  ist bereit: '{playerIsReady}'.");
+                Debug.Log($"{playerTypeString} ist bereit: '{playerIsReady}'.");
 
                 playerListManager.SetPlayerReadyInUi(changedPlayerData);
                 InsideRoomPanel
                     .GetComponent<InsideRoomPanel>()
                     .UpdateMothPanelOfRemotePlayerIsReady(changedPlayerData);
 
-                if (playerListManager.AllPlayersAreReady)
+
+                var mothAndBatSelected = playerListManager
+                    .CheckIfMinimumOneMothAndOneBatAreSelected(PhotonNetwork.PlayerList);
+
+                // Wenn nicht mindest 1 Fledermaus und 1 Motte ausgewählt,
+                // Meldung anzeigen, dass diese mindestens ausgewählt sein müssen.
+                if (!mothAndBatSelected)
+                {
+                    InsideRoomPanel.GetComponent<InsideRoomPanel>()
+                        .SetInfoMessage(UiText.LOBBY_REQUIRES_BAT_AND_1_MOTH);
+                }
+                else if (!playerListManager.AllPlayersAreReady)
+                {
+                    // Meldung anzeigen. Sobald alle Spieler bereit sind startet spiel automatisch
+                    InsideRoomPanel.GetComponent<InsideRoomPanel>()
+                        .SetInfoMessage(UiText.LOBBY_WHEN_ALL_PLAYER_READY_GAME_STARTS);
+                }
+                else if (playerListManager.AllPlayersAreReady && mothAndBatSelected)
                 {
                     OnStartGameButtonClicked();
                 }
@@ -304,13 +322,12 @@ namespace Moth.Scripts.Lobby
 
         #endregion
 
-        private bool CheckPlayersReady()
-        {
-            return playerListManager.AllPlayersAreReady; //CheckAllPlayersAreReady(PhotonNetwork.PlayerList, PhotonNetwork.IsMasterClient);
-        }
+        //private bool CheckPlayersReady()
+        //{
+        //    return playerListManager.AllPlayersAreReady; //CheckAllPlayersAreReady(PhotonNetwork.PlayerList, PhotonNetwork.IsMasterClient);
+        //}
 
-        public void LocalPlayerPropertiesUpdated() =>
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
+        //public void LocalPlayerPropertiesUpdated() => StartGameButton.gameObject.SetActive(CheckPlayersReady());
 
         private void SetActivePanel(string activePanel)
         {

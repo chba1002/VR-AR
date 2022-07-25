@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Lobby.Mappers;
 using Moth.Scripts;
+using Moth.Scripts.Lobby.Types;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,18 +11,21 @@ namespace Assets.Scripts.Lobby.Managers
         private Photon.Realtime.Player[] playerList;
         private Photon.Realtime.Player localPlayer;
         private System.Action<int, int, bool> setLocalPlayerMothBatIdInNetwork;
-        private System.Action<int, int, bool, int?> updatePlayerSelectionPanelsSetMothBat;
+        private System.Action<PlayerMothBatState, int?> updatePlayerSelectionPanelsSetMothBat;
+        private GameObject playerReadyButton_go;
 
         public MothBatSetter(
             Photon.Realtime.Player[] playerList, 
             Photon.Realtime.Player localPlayer, 
             System.Action<int, int, bool> setLocalPlayerMothBatIdInNetwork, 
-            System.Action<int, int, bool, int?> updatePlayerSelectionPanelsSetMothBat)
+            System.Action<PlayerMothBatState, int?> updatePlayerSelectionPanelsSetMothBat,
+            GameObject playerReadyButton_go)
         {
             this.playerList = playerList;
             this.localPlayer = localPlayer;
             this.setLocalPlayerMothBatIdInNetwork = setLocalPlayerMothBatIdInNetwork;
             this.updatePlayerSelectionPanelsSetMothBat = updatePlayerSelectionPanelsSetMothBat;
+            this.playerReadyButton_go = playerReadyButton_go;
         }
 
         public void Set(int mothBatId)
@@ -57,8 +61,17 @@ namespace Assets.Scripts.Lobby.Managers
                 if (mothBatIdIsAlreadySelectedByLocalPlayer)
                 {
                     setLocalPlayerMothBatIdInNetwork(MothGame.PLAYER_DEFAULT_MOTH_BAT_TYPE, playerMothBatState.MothBatType, false);
-                    updatePlayerSelectionPanelsSetMothBat(mothBatId, playerMothBatState.MothBatType, false, null);
+
+                    var newPlayerMothBatState = new PlayerMothBatState()
+                    {
+                        MothBatType = mothBatId,
+                        LastMothBatType = playerMothBatState.MothBatType,
+                        IsSelected = false
+                    };
+
+                    updatePlayerSelectionPanelsSetMothBat(newPlayerMothBatState, null);
                     Debug.Log("Set default moth bat type");
+                    playerReadyButton_go.SetActive(false);
                     return;
                 }
 
@@ -85,7 +98,17 @@ namespace Assets.Scripts.Lobby.Managers
             }
 
             setLocalPlayerMothBatIdInNetwork(mothBatId, 0, true);
-            updatePlayerSelectionPanelsSetMothBat(mothBatId, 0, true, localPlayer.ActorNumber);
+
+            var newPlayerMothBatState2 = new PlayerMothBatState()
+            {
+                MothBatType = mothBatId,
+                LastMothBatType = 0,
+                IsSelected = true
+            };
+
+            updatePlayerSelectionPanelsSetMothBat(newPlayerMothBatState2, localPlayer.ActorNumber);
+
+            playerReadyButton_go.SetActive(true);
 
             //  if (localPlayer)
             //      {

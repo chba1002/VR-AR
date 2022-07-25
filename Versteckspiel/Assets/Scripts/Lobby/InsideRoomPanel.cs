@@ -6,6 +6,7 @@ using Assets.Scripts.Lobby.Mappers;
 using Assets.Scripts.Lobby.Managers;
 using Assets.Scripts.Shared.Managers;
 using Moth.Scripts.Lobby.Types;
+using TMPro;
 
 namespace Moth.Scripts.Lobby
 {
@@ -13,7 +14,12 @@ namespace Moth.Scripts.Lobby
     {
         private bool isPlayerReady;
 
+        private PlayerDataProvider playerDataProvider;
         private PlayerSelectionPanelListManager playerSelectionPanelManager;
+
+        [SerializeField]
+        private TMP_Text InfoMessage;
+
 
         public Button PlayerReadyButton; 
         public GameObject PlayerSelectionPanelElements;
@@ -21,6 +27,9 @@ namespace Moth.Scripts.Lobby
 
         void Start()
         {
+            playerDataProvider = new PlayerDataProvider();
+            PlayerReadyButton.gameObject.SetActive(false);
+            SetInfoMessage("-");
             var initialProps = new ExitGames.Client.Photon.Hashtable() {
                     {MothGame.PLAYER_READY, isPlayerReady},
                     {MothGame.PLAYER_LIVES, MothGame.PLAYER_MAX_LIVES},
@@ -34,6 +43,13 @@ namespace Moth.Scripts.Lobby
 
         public void OnCLickPlayerReadyButton()
         {
+            var playerData = playerDataProvider.Provide(PhotonNetwork.LocalPlayer);
+
+            if(playerData?.PlayerMothBatState?.MothBatType == null 
+                || playerData.PlayerMothBatState.MothBatType == 0) {
+                return;
+            }
+
             isPlayerReady = !isPlayerReady;
 
             var props = new ExitGames.Client.Photon.Hashtable() { { MothGame.PLAYER_READY, isPlayerReady } };
@@ -41,7 +57,7 @@ namespace Moth.Scripts.Lobby
 
             if (PhotonNetwork.IsMasterClient)
             {
-                FindObjectOfType<MothLobbyMainPanel>().LocalPlayerPropertiesUpdated();
+                //FindObjectOfType<MothLobbyMainPanel>().LocalPlayerPropertiesUpdated();
             }
         }
 
@@ -55,9 +71,16 @@ namespace Moth.Scripts.Lobby
                 PhotonNetwork.PlayerList,
                 PhotonNetwork.LocalPlayer,
                 SetLocalPlayerMothBatIdInNetwork,
-                UpdatePlayerSelectionPanelsSetMothBat);
+                UpdatePlayerSelectionPanelsSetMothBat,
+                PlayerReadyButton.gameObject);
 
+            
             mothBatSetter.Set(mothBatId);
+        }
+
+        public void SetInfoMessage(string infoMessage)
+        {
+            InfoMessage.text = infoMessage;
         }
 
         private void SetLocalPlayerMothBatIdInNetwork(int mothBatId, int lastMothBatId, bool active)
@@ -70,16 +93,15 @@ namespace Moth.Scripts.Lobby
 
         public void UpdateMothPanelOfRemotePlayer(PlayerMothBatState playerMothBatState, int? optionalPlayerId)
         {
-            UpdatePlayerSelectionPanelsSetMothBat(
+            UpdatePlayerSelectionPanelsSetMothBat(playerMothBatState, optionalPlayerId);
+        }
+         
+        private void UpdatePlayerSelectionPanelsSetMothBat(PlayerMothBatState playerMothBatState, int? optionalPlayerId = null)
+            => playerSelectionPanelManager.SetMothBat(
                 playerMothBatState.MothBatType, 
                 playerMothBatState.LastMothBatType, 
                 playerMothBatState.IsSelected, 
                 optionalPlayerId);
-        }
-            
-
-        private void UpdatePlayerSelectionPanelsSetMothBat(int mothBatId, int lastMothBatId, bool active, int? optionalPlayerId = null)
-            => playerSelectionPanelManager.SetMothBat(mothBatId, lastMothBatId, active, optionalPlayerId);
 
         internal void UpdateMothPanelOfRemotePlayerIsReady(PlayerData playerData)
         {
