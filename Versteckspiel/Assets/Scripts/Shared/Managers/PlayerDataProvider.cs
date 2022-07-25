@@ -12,6 +12,7 @@ namespace Assets.Scripts.Shared.Managers
         {
             bool? _playerIsReady = null;
             PlayerMothBatState _playerMothBatState = null;
+            string _playerName = null;
 
             if (player.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
             {
@@ -23,13 +24,19 @@ namespace Assets.Scripts.Shared.Managers
                 _playerMothBatState = MothBatStateSerializer.Deserialize(((string)playerMothBatStateObject));
             }
 
-            return new PlayerData(_playerIsReady, _playerMothBatState, player.ActorNumber);
+            if (player.CustomProperties.TryGetValue(MothGame.PLAYER_NAME, out object playerNameObject))
+            {
+                _playerName =((string)playerNameObject);
+            }
+
+            return new PlayerData(_playerIsReady, _playerMothBatState, _playerName, player.ActorNumber);
         }
 
         public PlayerData Provide(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
         {
             bool? _playerIsReady = null;
             PlayerMothBatState _playerMothBatState = null;
+            string _playerName = null;
 
             if (changedProps.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
             {
@@ -46,22 +53,33 @@ namespace Assets.Scripts.Shared.Managers
                 }
             }
 
-            return new PlayerData(_playerIsReady, _playerMothBatState, targetPlayer.ActorNumber);
+            if (changedProps.TryGetValue(MothGame.PLAYER_NAME, out object playerNameObject))
+            {
+                _playerName = ((string)playerNameObject);
+            }
+
+            return new PlayerData(_playerIsReady, _playerMothBatState, _playerName, targetPlayer.ActorNumber);
         }
     }
 
     public class PlayerData
     {
-        public PlayerData(bool? playerIsReady, PlayerMothBatState playerMothBatState, int actorNumber)
+        public PlayerData(bool? playerIsReady, PlayerMothBatState playerMothBatState, string playerName, int actorNumber)
         {
             PlayerIsReady = playerIsReady;
             PlayerMothBatState = playerMothBatState;
+            PlayerName = playerName;
             ActorNumber = actorNumber;
         }
 
         public bool? PlayerIsReady { get; private set; }
         public PlayerMothBatState PlayerMothBatState { get; private set; }
+        public string PlayerName { get; private set; }
         public int ActorNumber { get; private set; }
 
+        internal void SetPlayerMothBatState(PlayerMothBatState playerMothBatState)
+        {
+            PlayerMothBatState = playerMothBatState;
+        }
     }
 }

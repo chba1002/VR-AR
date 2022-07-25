@@ -6,10 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Moth.Scripts.Lobby.Managers;
-using System.Linq;
-using Assets.Scripts.Lobby.Mappers;
 using Assets.Scripts.Shared.Managers;
 using Assets.Scripts.Text;
+using Assets.Scripts.Shared;
 
 namespace Moth.Scripts.Lobby
 {
@@ -70,8 +69,15 @@ namespace Moth.Scripts.Lobby
                 Destroy,
                 RoomListEntryPrefab,
                 RoomListContent);
+            var personKey = new PersonKey();
 
-            PlayerName.text = "Spieler " + Random.Range(1000, 10000);
+            var props = new Hashtable
+            {
+                {MothGame.PLAYER_NAME, personKey.Name}
+            };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+            PlayerName.text = personKey.Name;
             SetActivePanel(LoginPanel.name);
         }
 
@@ -153,6 +159,8 @@ namespace Moth.Scripts.Lobby
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
+            Debug.Log($"OnRoomListUpdate: {roomList.Count} rooms");
+
             roomListManager.ClearRoomListView();
             roomListManager.UpdateCachedRoomList(roomList);
             roomListManager.UpdateRoomListView();
@@ -257,7 +265,7 @@ namespace Moth.Scripts.Lobby
 
                 InsideRoomPanel
                     .GetComponent<InsideRoomPanel>()
-                    .UpdateMothPanelOfRemotePlayer(playerMothBatState, targetPlayer.ActorNumber);
+                    .UpdateMothPanelOfRemotePlayer(changedPlayerData, targetPlayer.ActorNumber);
             }
 
             //  PLAYER_LOADED_LEVEL

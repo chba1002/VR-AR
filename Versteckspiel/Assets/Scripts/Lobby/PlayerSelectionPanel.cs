@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Assets.Scripts.Shared.Managers;
 
 public class PlayerSelectionPanel : MonoBehaviour
 {
@@ -10,9 +11,7 @@ public class PlayerSelectionPanel : MonoBehaviour
 
     public TMP_Text PlayerName;
 
-
     public TMP_Text ButtonText;
-
 
     [SerializeField]
     private GameObject IsReadyPanel;
@@ -30,12 +29,20 @@ public class PlayerSelectionPanel : MonoBehaviour
         IsReadyPanel.SetActive(false);
     }
 
-    internal void SetSelected(bool active, int? optionalPlayerId = null)
+    internal void SetSelected(PlayerData playerData, int? optionalPlayerId = null)
     {
+        var active = playerData.PlayerIsReady ?? false;
+
         this.optionalPlayerId = optionalPlayerId;
         Debug.Log($"SetSelected: MothBatId: {MothBatId}, active {active},  optionalPlayerId: {optionalPlayerId}");
 
-        PlayerName.text = !active || optionalPlayerId  == null ? "-" : "Player " +optionalPlayerId.ToString();
+        if(playerData.PlayerName == null)
+        {
+            Debug.LogWarning("playerData.PlayerName is null, but shouln't be.");
+            return;
+        }
+
+        PlayerName.text = active || optionalPlayerId  == null || playerData.PlayerName == null ? "-" : playerData.PlayerName;
     }
 
     internal void SetReady(bool ready)

@@ -91,17 +91,13 @@ namespace Moth.Scripts.Lobby
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
-        public void UpdateMothPanelOfRemotePlayer(PlayerMothBatState playerMothBatState, int? optionalPlayerId)
+        public void UpdateMothPanelOfRemotePlayer(PlayerData playerData, int? optionalPlayerId)
         {
-            UpdatePlayerSelectionPanelsSetMothBat(playerMothBatState, optionalPlayerId);
+            UpdatePlayerSelectionPanelsSetMothBat(playerData, optionalPlayerId);
         }
          
-        private void UpdatePlayerSelectionPanelsSetMothBat(PlayerMothBatState playerMothBatState, int? optionalPlayerId = null)
-            => playerSelectionPanelManager.SetMothBat(
-                playerMothBatState.MothBatType, 
-                playerMothBatState.LastMothBatType, 
-                playerMothBatState.IsSelected, 
-                optionalPlayerId);
+        private void UpdatePlayerSelectionPanelsSetMothBat(PlayerData playerData, int? optionalPlayerId = null)
+            => playerSelectionPanelManager.SetMothBat(playerData, optionalPlayerId);
 
         internal void UpdateMothPanelOfRemotePlayerIsReady(PlayerData playerData)
         {

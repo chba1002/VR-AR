@@ -26,8 +26,6 @@ namespace Moth.Scripts.Lobby
             if (Input.GetKeyDown(number)) OnJoinRoomButtonClicked();
         }
 
-
-
         public void Initialize(int number, string name, byte currentPlayers, byte maxPlayers)
         {
             switch (number)

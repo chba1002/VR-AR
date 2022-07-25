@@ -66,7 +66,7 @@ namespace Moth.Scripts.Lobby
             Debug.Log($"{playerTypeString}: UI - Spieler {PlayerActorNumber} {isReadyString}.");
 
             isPlayerReady = ready;
-            PlayerReadyImage.enabled = ready;
+            //PlayerReadyImage.enabled = ready;
         }
     }
 }

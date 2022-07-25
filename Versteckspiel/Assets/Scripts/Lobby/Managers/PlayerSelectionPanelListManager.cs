@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Assets.Scripts.Shared.Managers;
+using Moth.Scripts.Lobby.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,17 +27,19 @@ namespace Assets.Scripts.Lobby.Managers
             }
         }
 
-        internal void SetMothBat(int mothBatId, int lastMothBatId, bool active, int? optionalPlayerId)
+        internal void SetMothBat(PlayerData playerData, int? optionalPlayerId)
         {
-            //Debug.Log("UpdatePlayerSelectionPanelsSetMothBat mothBatId:" + mothBatId + " active:" + active + " [PlayerSelectionPanels.length: " + PlayerSelectionPanels.Count + "]");
+            var mothBatId = playerData.PlayerMothBatState.MothBatType;
+            var lastMothBatId = playerData.PlayerMothBatState.LastMothBatType;
+            var active = playerData.PlayerMothBatState.IsSelected;
 
             var allMothBatIdentifier = string.Join(" ", PlayerSelectionPanels);
-            Debug.Log("allMothBatIdentifier: " + allMothBatIdentifier + " active: " + active + " ");
+            Debug.Log("allMothBatIdentifier: " + allMothBatIdentifier + " active: " + active + " playerData.PlayerName" + playerData.PlayerName);
 
             PlayerSelectionPanels
                 .Where(p => p.MothBatIdentifier == mothBatId || (lastMothBatId != 0 && mothBatId == 0 && optionalPlayerId.HasValue && p.OptionalPlayerId == optionalPlayerId.Value)) // Problem if mothBatId == 0
                 .ToList()
-                .ForEach(p => p.SetSelected(active, optionalPlayerId.HasValue ? optionalPlayerId.Value : null)
+                .ForEach(p => p.SetSelected(playerData, optionalPlayerId.HasValue ? optionalPlayerId.Value : null)
             );
         }
 

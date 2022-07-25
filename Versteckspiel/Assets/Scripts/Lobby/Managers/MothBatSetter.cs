@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Lobby.Mappers;
+using Assets.Scripts.Shared.Managers;
 using Moth.Scripts;
 using Moth.Scripts.Lobby.Types;
 using System.Collections.Generic;
@@ -11,16 +12,18 @@ namespace Assets.Scripts.Lobby.Managers
         private Photon.Realtime.Player[] playerList;
         private Photon.Realtime.Player localPlayer;
         private System.Action<int, int, bool> setLocalPlayerMothBatIdInNetwork;
-        private System.Action<PlayerMothBatState, int?> updatePlayerSelectionPanelsSetMothBat;
+        private System.Action<PlayerData, int?> updatePlayerSelectionPanelsSetMothBat;
         private GameObject playerReadyButton_go;
+        private PlayerDataProvider playerDataProvider;
 
         public MothBatSetter(
             Photon.Realtime.Player[] playerList, 
             Photon.Realtime.Player localPlayer, 
             System.Action<int, int, bool> setLocalPlayerMothBatIdInNetwork, 
-            System.Action<PlayerMothBatState, int?> updatePlayerSelectionPanelsSetMothBat,
+            System.Action<PlayerData, int?> updatePlayerSelectionPanelsSetMothBat,
             GameObject playerReadyButton_go)
         {
+            this.playerDataProvider = new PlayerDataProvider();
             this.playerList = playerList;
             this.localPlayer = localPlayer;
             this.setLocalPlayerMothBatIdInNetwork = setLocalPlayerMothBatIdInNetwork;
@@ -38,15 +41,15 @@ namespace Assets.Scripts.Lobby.Managers
 
             foreach (Photon.Realtime.Player p in playerList)
             {
-                if (!p.CustomProperties.TryGetValue(
-                    MothGame.PLAYER_MOTH_BAT_STATE,
-                    out object playerMothBatStateObject))
+                var playerData = playerDataProvider.Provide(p);
+
+                if (playerData.PlayerMothBatState == null)
                 {
                     continue;
                 }
 
-                // ToDo: Parse save
-                var playerMothBatState = MothBatStateSerializer.Deserialize((string)playerMothBatStateObject);
+                var playerMothBatState = playerData.PlayerMothBatState;
+
 
                 Debug.Log("parsedMothBatType: " + playerMothBatState.MothBatType + " => isSelected: " + playerMothBatState.IsSelected);
 
@@ -60,6 +63,7 @@ namespace Assets.Scripts.Lobby.Managers
 
                 if (mothBatIdIsAlreadySelectedByLocalPlayer)
                 {
+                    // ToDo: ?? Does this line makes sense?
                     setLocalPlayerMothBatIdInNetwork(MothGame.PLAYER_DEFAULT_MOTH_BAT_TYPE, playerMothBatState.MothBatType, false);
 
                     var newPlayerMothBatState = new PlayerMothBatState()
@@ -69,7 +73,9 @@ namespace Assets.Scripts.Lobby.Managers
                         IsSelected = false
                     };
 
-                    updatePlayerSelectionPanelsSetMothBat(newPlayerMothBatState, null);
+                    playerData.SetPlayerMothBatState(newPlayerMothBatState);
+
+                    updatePlayerSelectionPanelsSetMothBat(playerData, null);
                     Debug.Log("Set default moth bat type");
                     playerReadyButton_go.SetActive(false);
                     return;
@@ -99,14 +105,18 @@ namespace Assets.Scripts.Lobby.Managers
 
             setLocalPlayerMothBatIdInNetwork(mothBatId, 0, true);
 
-            var newPlayerMothBatState2 = new PlayerMothBatState()
+            var localPlayerData = playerDataProvider.Provide(localPlayer);
+
+            var localPlayerMothBatState = new PlayerMothBatState()
             {
                 MothBatType = mothBatId,
                 LastMothBatType = 0,
                 IsSelected = true
             };
 
-            updatePlayerSelectionPanelsSetMothBat(newPlayerMothBatState2, localPlayer.ActorNumber);
+            localPlayerData.SetPlayerMothBatState(localPlayerMothBatState);
+
+            updatePlayerSelectionPanelsSetMothBat(localPlayerData, localPlayer.ActorNumber);
 
             playerReadyButton_go.SetActive(true);
 
