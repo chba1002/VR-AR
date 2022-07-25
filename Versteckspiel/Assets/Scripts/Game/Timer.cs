@@ -15,6 +15,12 @@ public class Timer : MonoBehaviour
     public GameObject DeathScreen;
     public AudioSource WinningSound;
 
+
+    private void Start()
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {

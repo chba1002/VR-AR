@@ -4,6 +4,8 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Assets.Scripts.Lobby.Mappers;
 using Assets.Scripts.Lobby.Managers;
+using Assets.Scripts.Shared.Managers;
+using Moth.Scripts.Lobby.Types;
 
 namespace Moth.Scripts.Lobby
 {
@@ -66,13 +68,23 @@ namespace Moth.Scripts.Lobby
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
-        public void UpdateMothPanelOfRemotePlayer(int mothBatId, int lastMothBatId, bool active, int? optionalPlayerId) 
-            => UpdatePlayerSelectionPanelsSetMothBat(mothBatId, lastMothBatId, active, optionalPlayerId);
+        public void UpdateMothPanelOfRemotePlayer(PlayerMothBatState playerMothBatState, int? optionalPlayerId)
+        {
+            UpdatePlayerSelectionPanelsSetMothBat(
+                playerMothBatState.MothBatType, 
+                playerMothBatState.LastMothBatType, 
+                playerMothBatState.IsSelected, 
+                optionalPlayerId);
+        }
+            
 
         private void UpdatePlayerSelectionPanelsSetMothBat(int mothBatId, int lastMothBatId, bool active, int? optionalPlayerId = null)
             => playerSelectionPanelManager.SetMothBat(mothBatId, lastMothBatId, active, optionalPlayerId);
 
-        internal void UpdateMothPanelOfRemotePlayerIsReady(int actorNumber, bool playerIsReady)
-            => playerSelectionPanelManager.UpdatePlayerIsReady(actorNumber, playerIsReady);
+        internal void UpdateMothPanelOfRemotePlayerIsReady(PlayerData playerData)
+        {
+            if (!playerData.PlayerIsReady.HasValue) return;
+            playerSelectionPanelManager.UpdatePlayerIsReady(playerData.ActorNumber, playerData.PlayerIsReady.Value);
+        }
     }
 }

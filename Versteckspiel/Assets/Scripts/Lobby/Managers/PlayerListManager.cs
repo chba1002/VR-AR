@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Assets.Scripts.Shared.Managers;
 
 namespace Moth.Scripts.Lobby.Managers
 {
@@ -21,6 +22,7 @@ namespace Moth.Scripts.Lobby.Managers
         private readonly GameObject mothPlayerListEntries;
 
         private GameObject playerListEntryPrefab;
+        private PlayerDataProvider playerDataProvider;
 
         /// <summary>
         /// Create a new instance of PlayerListManager.
@@ -30,6 +32,7 @@ namespace Moth.Scripts.Lobby.Managers
         public PlayerListManager(GameObject mothPlayerListEntries, GameObject playerListEntryPrefab,  Func<GameObject, GameObject> instantiate, Action<GameObject> destroy)
         {
             this.playerListEntries = new Dictionary<int, GameObject>();
+            this.playerDataProvider = new PlayerDataProvider();
             this.mothPlayerListEntries = mothPlayerListEntries;
             this.playerListEntryPrefab = playerListEntryPrefab;
             Instantiate = instantiate;
@@ -81,9 +84,10 @@ namespace Moth.Scripts.Lobby.Managers
 
             PlayerListEntries.Add(p.ActorNumber, entry);
 
-            if (p.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
+            var playerData = playerDataProvider.Provide(p);
+            if (playerData.PlayerIsReady.HasValue)
             {
-                SetPlayerReadyInUi((bool)isPlayerReady, p.ActorNumber);
+                SetPlayerReadyInUi(playerData);
             }
 
             return entry;
@@ -94,12 +98,18 @@ namespace Moth.Scripts.Lobby.Managers
         /// </summary>
         /// <param name="playerReady"></param>
         /// <param name="targetPlayerActorNumber"></param>
-        public void SetPlayerReadyInUi(bool playerReady, int targetPlayerActorNumber)
+        public void SetPlayerReadyInUi(PlayerData playerData)
         {
+            if (!playerData.PlayerIsReady.HasValue)
+            {
+                Debug.Log("Cannot SetPlayerReadyInUi. PlayerIsReady has no value.");
+                return;
+            }
+
             CurrentMothPlayerListEntries
-                .Where(predicate: m => m.PlayerActorNumber == targetPlayerActorNumber)
+                .Where(predicate: m => m.PlayerActorNumber == playerData.ActorNumber)
                 .FirstOrDefault()
-                ?.SetPlayerReadyInUi(playerReady);
+                ?.SetPlayerReadyInUi(playerData.PlayerIsReady.Value);
         }
 
         public bool AllPlayersAreReady => CurrentMothPlayerListEntries.All(m => m.IsReady);

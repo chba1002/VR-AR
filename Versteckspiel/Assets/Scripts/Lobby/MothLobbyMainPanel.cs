@@ -8,11 +8,14 @@ using TMPro;
 using Moth.Scripts.Lobby.Managers;
 using System.Linq;
 using Assets.Scripts.Lobby.Mappers;
+using Assets.Scripts.Shared.Managers;
 
 namespace Moth.Scripts.Lobby
 {
     public class MothLobbyMainPanel : MonoBehaviourPunCallbacks
     {
+        private PlayerDataProvider playerDataProvider;
+
         [Header("Login Panel")]
         public GameObject LoginPanel;
 
@@ -51,6 +54,11 @@ namespace Moth.Scripts.Lobby
 
         private PlayerListManager playerListManager;
         private RoomListManager roomListManager;
+
+        public void Awake()
+        {
+            playerDataProvider = new PlayerDataProvider();
+        }
 
         public void Start()
         {
@@ -203,17 +211,18 @@ namespace Moth.Scripts.Lobby
 
 
             // PLAYER_LIVES - Player is alive
+            var changedPlayerData = playerDataProvider.Provide(targetPlayer, changedProps);
 
             // PLAYER_READY
-            if (changedProps.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
+            if (changedPlayerData.PlayerIsReady.HasValue)
             {
-                Debug.Log($"{playerTypeString}  ist bereit: '{isPlayerReady}'.");
+                var playerIsReady = changedPlayerData.PlayerIsReady.Value;
+                Debug.Log($"{playerTypeString}  ist bereit: '{playerIsReady}'.");
 
-                playerListManager.SetPlayerReadyInUi((bool)isPlayerReady, targetPlayer.ActorNumber);
-
+                playerListManager.SetPlayerReadyInUi(changedPlayerData);
                 InsideRoomPanel
                     .GetComponent<InsideRoomPanel>()
-                    .UpdateMothPanelOfRemotePlayerIsReady(targetPlayer.ActorNumber, (bool)isPlayerReady);
+                    .UpdateMothPanelOfRemotePlayerIsReady(changedPlayerData);
 
                 if (playerListManager.AllPlayersAreReady)
                 {
@@ -222,28 +231,18 @@ namespace Moth.Scripts.Lobby
             }
 
             //  PLAYER_MOTH_BAT_TYPE
-            if (changedProps.TryGetValue(MothGame.PLAYER_MOTH_BAT_STATE, out object playerMothBatStateObject))
+            if (changedPlayerData.PlayerMothBatState != null)
             {
-                // ToDo: Parse save
-                var playerMothBatState = MothBatStateSerializer.Deserialize(((string)playerMothBatStateObject));
-
-                if (playerMothBatState == null)
-                {
-                    Debug.LogError($"{playerMothBatState.MothBatType} konnte nicht geparsed werden.");
-                    return;
-                }
-
-                Debug.Log($"{playerTypeString} wählt Motte/Fledermaus '{playerMothBatState.MothBatType}' ('{playerMothBatState.IsSelected}') aus.");
+                var playerMothBatState = changedPlayerData.PlayerMothBatState;
+                Debug.Log($"{playerTypeString} wählt Motte/Fledermaus " +
+                    $"'{playerMothBatState.MothBatType}' ('{playerMothBatState.IsSelected}') aus.");
 
                 InsideRoomPanel
                     .GetComponent<InsideRoomPanel>()
-                    .UpdateMothPanelOfRemotePlayer(playerMothBatState.MothBatType, playerMothBatState.LastMothBatType, playerMothBatState.IsSelected, targetPlayer.ActorNumber);
+                    .UpdateMothPanelOfRemotePlayer(playerMothBatState, targetPlayer.ActorNumber);
             }
 
             //  PLAYER_LOADED_LEVEL
-
-
-
 
             // ToDo: Check  if all player are ready and if moths AND bats are selected
             // ToDo: Should be done via 'PlayerListManager'
