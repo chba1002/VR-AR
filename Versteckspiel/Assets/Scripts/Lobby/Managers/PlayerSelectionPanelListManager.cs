@@ -27,7 +27,7 @@ namespace Assets.Scripts.Lobby.Managers
             }
         }
 
-        internal void SetMothBat(PlayerData playerData, int? optionalPlayerId)
+        internal void SetMothBat(PlayerData playerData, Photon.Realtime.Player optionalPlayer = null)
         {
             var mothBatId = playerData.PlayerMothBatState.MothBatType;
             var lastMothBatId = playerData.PlayerMothBatState.LastMothBatType;
@@ -35,11 +35,15 @@ namespace Assets.Scripts.Lobby.Managers
 
             var allMothBatIdentifier = string.Join(" ", PlayerSelectionPanels);
             Debug.Log("allMothBatIdentifier: " + allMothBatIdentifier + " active: " + active + " playerData.PlayerName" + playerData.PlayerName);
+            Debug.Log("optionalPlayer?.ActorNumber: " + optionalPlayer?.ActorNumber);
 
             PlayerSelectionPanels
-                .Where(p => p.MothBatIdentifier == mothBatId || (lastMothBatId != 0 && mothBatId == 0 && optionalPlayerId.HasValue && p.OptionalPlayerId == optionalPlayerId.Value)) // Problem if mothBatId == 0
+                .Where(p => optionalPlayer?.ActorNumber == p.OptionalPlayerId
+                    || p.PlayerName.text == optionalPlayer.NickName // ToDo: This is really ugly .. but it works .. finally
+                    || p.MothBatIdentifier == mothBatId 
+                    || (lastMothBatId != 0 && mothBatId == 0 && optionalPlayer != null && p.OptionalPlayerId == optionalPlayer.ActorNumber)) // Problem if mothBatId == 0
                 .ToList()
-                .ForEach(p => p.SetSelected(playerData, optionalPlayerId.HasValue ? optionalPlayerId.Value : null)
+                .ForEach(p => p.SetSelected(playerData, optionalPlayer)
             );
         }
 

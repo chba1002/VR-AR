@@ -29,20 +29,29 @@ public class PlayerSelectionPanel : MonoBehaviour
         IsReadyPanel.SetActive(false);
     }
 
-    internal void SetSelected(PlayerData playerData, int? optionalPlayerId = null)
+    internal void SetSelected(PlayerData playerData, Photon.Realtime.Player optionalPlayer= null)
     {
         var active = playerData.PlayerIsReady ?? false;
+
+        Debug.Log("NICK NAME:" + optionalPlayer?.NickName);
 
         this.optionalPlayerId = optionalPlayerId;
         Debug.Log($"SetSelected: MothBatId: {MothBatId}, active {active},  optionalPlayerId: {optionalPlayerId}");
 
+        /*
         if(playerData.PlayerName == null)
         {
-            Debug.LogWarning("playerData.PlayerName is null, but shouln't be.");
+            Debug.LogWarning("playerData.PlayerName is null, but shouln't be."); -> Wrong: playerData.PlayerName  can be null, if it is change data and player name didn't change (... player name never change..)
             return;
         }
+        */
 
-        PlayerName.text = active || optionalPlayerId  == null || playerData.PlayerName == null ? "-" : playerData.PlayerName;
+        Debug.Log($"playerData.PlayerMothBatState.LastMothBatType: {playerData.PlayerMothBatState.LastMothBatType}, playerData.PlayerMothBatState.MothBatType {playerData.PlayerMothBatState.MothBatType}");
+        PlayerName.text = active 
+            || playerData.PlayerMothBatState.LastMothBatType != 0 && playerData.PlayerMothBatState.MothBatType == 0
+            || (optionalPlayer?.ActorNumber == null || playerData.PlayerName == null) && optionalPlayer?.NickName == null 
+                ? "-" 
+                : optionalPlayer.NickName;
     }
 
     internal void SetReady(bool ready)

@@ -70,8 +70,11 @@ namespace Moth.Scripts.Lobby.Managers
 
         }
 
-        internal GameObject Create(Photon.Realtime.Player p)
+        internal void Create(Photon.Realtime.Player p)
         {
+            if (PlayerListEntries.ContainsKey(p.ActorNumber)) return; //return null;
+
+
             GameObject entry = Instantiate(playerListEntryPrefab);
             entry.transform.SetParent(mothPlayerListEntries.transform);
             entry.transform.localScale = Vector3.one;
@@ -90,7 +93,7 @@ namespace Moth.Scripts.Lobby.Managers
                 SetPlayerReadyInUi(playerData);
             }
 
-            return entry;
+           //return entry;
         }
 
         /// <summary>

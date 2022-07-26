@@ -10,7 +10,7 @@ using Assets.Scripts.Shared.Managers;
 using Assets.Scripts.Text;
 using Assets.Scripts.Shared;
 
-namespace Moth.Scripts.Lobby
+namespace Moth.Scripts.Lobby // 350 rows
 {
     public class MothLobbyMainPanel : MonoBehaviourPunCallbacks
     {
@@ -23,12 +23,12 @@ namespace Moth.Scripts.Lobby
 
         [Header("Selection Panel")]
         public GameObject SelectionPanel;
+        public TMP_Text PlayerNameSelectionPanel;
 
         [Header("Create Room Panel")]
         public GameObject CreateRoomPanel;
 
         public InputField RoomNameInputField;
-        public InputField MaxPlayersInputField;
 
         [Header("Join Random Room Panel")]
         public GameObject JoinRandomRoomPanel;
@@ -50,10 +50,19 @@ namespace Moth.Scripts.Lobby
         public GameObject LeftHand;
         public GameObject RightHand;
 
+        [Header("Testmode")]
+        public TMP_Text TestOutput;
+        public TMP_Text PingText;
+
         #region UNITY
 
         private PlayerListManager playerListManager;
         private RoomListManager roomListManager;
+        private NetworkManager networkManager;
+
+        private PersonKey personKey;
+
+        private float durationTillNextPingCheck = 1f;
 
         public void Awake()
         {
@@ -62,14 +71,45 @@ namespace Moth.Scripts.Lobby
 
         public void Start()
         {
-            PhotonNetwork.AutomaticallySyncScene = true;
+            networkManager = gameObject.GetComponent<NetworkManager>();
+            networkManager.Initialize(TestOutput);
+            TestOutput.gameObject.SetActive(false);
+
             playerListManager = new PlayerListManager(MothPlayerListEntries, PlayerListEntryPrefab, Instantiate, Destroy);
             roomListManager = new RoomListManager(
                 Instantiate,
                 Destroy,
                 RoomListEntryPrefab,
                 RoomListContent);
-            var personKey = new PersonKey();
+
+
+            SetActivePanel(LoginPanel.name);
+
+            personKey = new PersonKey();
+            PlayerName.text = personKey.Name;
+            PlayerNameSelectionPanel.text = personKey.Name;
+            ConnectToServer();
+        }
+
+
+        public void FixedUpdate()
+        {
+            durationTillNextPingCheck -= Time.deltaTime;
+
+            if (durationTillNextPingCheck <= 0)
+            {
+                PingText.text = "Ping: "+PhotonNetwork.GetPing() + "ms";
+                durationTillNextPingCheck = 1f;
+            }
+            
+        }
+
+        int GetPing() => PhotonNetwork.GetPing();
+
+
+        private void ConnectToServer()
+        {
+            PhotonNetwork.LocalPlayer.NickName = personKey.Name;
 
             var props = new Hashtable
             {
@@ -77,8 +117,17 @@ namespace Moth.Scripts.Lobby
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
-            PlayerName.text = personKey.Name;
-            SetActivePanel(LoginPanel.name);
+            //PhotonNetwork.ConnectUsingSettings();
+            Debug.Log($"Try to connect '{personKey.Name}' to server...");
+
+            bool success = PhotonNetwork.ConnectUsingSettings();
+
+
+            var serverData = $"ServerAddress: (success: {success})" + PhotonNetwork.ServerAddress + " - Server: " + PhotonNetwork.Server + " UserId: " + PhotonNetwork.AuthValues?.UserId + " Token: " + PhotonNetwork.AuthValues?.Token;
+            Debug.Log(serverData);
+
+            TestOutput.text = serverData;
+
         }
 
         void Update()
@@ -108,6 +157,11 @@ namespace Moth.Scripts.Lobby
             {
                 LeftHand.SetActive(!LeftHand.activeSelf);
                 RightHand.SetActive(!RightHand.activeSelf);
+            }
+
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                TestOutput.gameObject.SetActive(!TestOutput.gameObject.activeSelf);
             }
         }
 
@@ -260,12 +314,21 @@ namespace Moth.Scripts.Lobby
             if (changedPlayerData.PlayerMothBatState != null)
             {
                 var playerMothBatState = changedPlayerData.PlayerMothBatState;
-                Debug.Log($"{playerTypeString} wählt Motte/Fledermaus " +
-                    $"'{playerMothBatState.MothBatType}' ('{playerMothBatState.IsSelected}') aus.");
+                Debug.Log($"('{changedPlayerData.PlayerName}'){playerTypeString} wählt Motte/Fledermaus " +
+                    $"'{playerMothBatState.MothBatType}' ('{playerMothBatState.IsSelected}')  aus.");
+
+                if (changedPlayerData.PlayerMothBatState.MothBatType == 0)
+                {
+                    playerListManager.Create(targetPlayer);
+                }else if (changedPlayerData.PlayerMothBatState.MothBatType != 0 && changedPlayerData.PlayerMothBatState.LastMothBatType == 0)
+                {
+                    playerListManager.Remove(changedPlayerData.ActorNumber);
+                }
+
 
                 InsideRoomPanel
                     .GetComponent<InsideRoomPanel>()
-                    .UpdateMothPanelOfRemotePlayer(changedPlayerData, targetPlayer.ActorNumber);
+                    .UpdateMothPanelOfRemotePlayer(changedPlayerData, targetPlayer);
             }
 
             //  PLAYER_LOADED_LEVEL
@@ -286,8 +349,11 @@ namespace Moth.Scripts.Lobby
 
         public void OnCreateRoomButtonClicked()
         {
-            (var roomName, var roomOptions) = roomListManager.CreateRoom(RoomNameInputField.text, MaxPlayersInputField.text, Random.Range);
-            PhotonNetwork.CreateRoom(roomName, roomOptions);
+            (var roomName, var roomOptions) = roomListManager.GetRoomProperties(RoomNameInputField.text, 5, Random.Range);
+
+            var successfullyCreatedRoom = PhotonNetwork.CreateRoom(roomName, roomOptions);
+
+            Debug.Log($"Successfully ({successfullyCreatedRoom}) created room {roomName}.");
         }
 
         public void OnJoinRandomRoomButtonClicked()
@@ -300,22 +366,12 @@ namespace Moth.Scripts.Lobby
 
         public void OnLoginButtonClicked()
         {
-            string playerName = PlayerName.text;
-
-            if (!playerName.Equals(""))
-            {
-                PhotonNetwork.LocalPlayer.NickName = playerName;
-                PhotonNetwork.ConnectUsingSettings();
-            }
-            else
-            {
-                Debug.LogError("Player Name is invalid.");
-            }
+           // networkManager.Login(personKey.Name);
         }
 
         public void OnRoomListButtonClicked()
         {
-            if (!PhotonNetwork.InLobby) PhotonNetwork.JoinLobby();
+            //if (!PhotonNetwork.InLobby) PhotonNetwork.JoinLobby();
             SetActivePanel(RoomListPanel.name);
         }
 

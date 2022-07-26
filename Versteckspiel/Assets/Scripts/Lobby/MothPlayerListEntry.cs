@@ -11,7 +11,9 @@ namespace Moth.Scripts.Lobby
         [Header("UI References")]
         public Text PlayerNameText;
 
-        public Image PlayerColorImage;
+        [SerializeField]
+        private Image PlayerColorImage;
+
        // public Button PlayerReadyButton;
         public Image PlayerReadyImage;
 
@@ -47,6 +49,7 @@ namespace Moth.Scripts.Lobby
 
         private void OnPlayerNumberingChanged()
         {
+            /*
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
             {
                 if (p.ActorNumber == PlayerActorNumber)
@@ -54,6 +57,7 @@ namespace Moth.Scripts.Lobby
                     PlayerColorImage.color = MothGame.GetColor(p.GetPlayerNumber());
                 }
             }
+            */
         }
 
         /// <summary>

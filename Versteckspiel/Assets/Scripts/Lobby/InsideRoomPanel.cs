@@ -5,7 +5,6 @@ using Photon.Pun.UtilityScripts;
 using Assets.Scripts.Lobby.Mappers;
 using Assets.Scripts.Lobby.Managers;
 using Assets.Scripts.Shared.Managers;
-using Moth.Scripts.Lobby.Types;
 using TMPro;
 
 namespace Moth.Scripts.Lobby
@@ -91,13 +90,13 @@ namespace Moth.Scripts.Lobby
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
-        public void UpdateMothPanelOfRemotePlayer(PlayerData playerData, int? optionalPlayerId)
+        public void UpdateMothPanelOfRemotePlayer(PlayerData playerData, Photon.Realtime.Player optionalPlayer)
         {
-            UpdatePlayerSelectionPanelsSetMothBat(playerData, optionalPlayerId);
+            UpdatePlayerSelectionPanelsSetMothBat(playerData, optionalPlayer);
         }
          
-        private void UpdatePlayerSelectionPanelsSetMothBat(PlayerData playerData, int? optionalPlayerId = null)
-            => playerSelectionPanelManager.SetMothBat(playerData, optionalPlayerId);
+        private void UpdatePlayerSelectionPanelsSetMothBat(PlayerData playerData, Photon.Realtime.Player optionalPlayer = null)
+            => playerSelectionPanelManager.SetMothBat(playerData, optionalPlayer);
 
         internal void UpdateMothPanelOfRemotePlayerIsReady(PlayerData playerData)
         {

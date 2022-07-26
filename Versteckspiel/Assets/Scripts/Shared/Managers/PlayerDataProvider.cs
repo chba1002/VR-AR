@@ -27,6 +27,7 @@ namespace Assets.Scripts.Shared.Managers
             if (player.CustomProperties.TryGetValue(MothGame.PLAYER_NAME, out object playerNameObject))
             {
                 _playerName =((string)playerNameObject);
+                Debug.Log($"TryGetValue PLAYER_NAME: {(string)playerNameObject}");
             }
 
             return new PlayerData(_playerIsReady, _playerMothBatState, _playerName, player.ActorNumber);
@@ -56,6 +57,7 @@ namespace Assets.Scripts.Shared.Managers
             if (changedProps.TryGetValue(MothGame.PLAYER_NAME, out object playerNameObject))
             {
                 _playerName = ((string)playerNameObject);
+                Debug.Log($"TryGetValue PLAYER_NAME (changedProps): {(string)playerNameObject}");
             }
 
             return new PlayerData(_playerIsReady, _playerMothBatState, _playerName, targetPlayer.ActorNumber);

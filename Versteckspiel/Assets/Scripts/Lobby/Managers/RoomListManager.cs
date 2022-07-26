@@ -92,17 +92,11 @@ namespace Moth.Scripts.Lobby.Managers
             return "Room " + UnityEngine.Random.Range(1000, 10000);
         }
 
-        internal (string, RoomOptions) CreateRoom(string roomName, string maxPlayersString, Func<float, float, float> randomRange)
+        internal (string, RoomOptions) GetRoomProperties(string roomName, int maxPlayers, Func<float, float, float> randomRange)
         {
             roomName = (roomName.Equals(string.Empty)) ? "Room " + randomRange(1000, 10000) : roomName;
-
-            byte maxPlayers;
-            byte.TryParse(maxPlayersString, out maxPlayers);
-            maxPlayers = (byte)Mathf.Clamp(maxPlayers, 2, 8);
-
-            RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers, PlayerTtl = 10000 };
+            var options = new RoomOptions { MaxPlayers = (byte)maxPlayers, PlayerTtl = 10000 };
             return (roomName, options);
         }
     }
-
 }

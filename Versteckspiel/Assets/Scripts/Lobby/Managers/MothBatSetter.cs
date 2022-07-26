@@ -12,7 +12,7 @@ namespace Assets.Scripts.Lobby.Managers
         private Photon.Realtime.Player[] playerList;
         private Photon.Realtime.Player localPlayer;
         private System.Action<int, int, bool> setLocalPlayerMothBatIdInNetwork;
-        private System.Action<PlayerData, int?> updatePlayerSelectionPanelsSetMothBat;
+        private System.Action<PlayerData, Photon.Realtime.Player> updatePlayerSelectionPanelsSetMothBat;
         private GameObject playerReadyButton_go;
         private PlayerDataProvider playerDataProvider;
 
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Lobby.Managers
             Photon.Realtime.Player[] playerList, 
             Photon.Realtime.Player localPlayer, 
             System.Action<int, int, bool> setLocalPlayerMothBatIdInNetwork, 
-            System.Action<PlayerData, int?> updatePlayerSelectionPanelsSetMothBat,
+            System.Action<PlayerData, Photon.Realtime.Player> updatePlayerSelectionPanelsSetMothBat,
             GameObject playerReadyButton_go)
         {
             this.playerDataProvider = new PlayerDataProvider();
@@ -116,7 +116,8 @@ namespace Assets.Scripts.Lobby.Managers
 
             localPlayerData.SetPlayerMothBatState(localPlayerMothBatState);
 
-            updatePlayerSelectionPanelsSetMothBat(localPlayerData, localPlayer.ActorNumber);
+            updatePlayerSelectionPanelsSetMothBat(localPlayerData, localPlayer);
+
 
             playerReadyButton_go.SetActive(true);
 
