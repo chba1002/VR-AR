@@ -8,10 +8,10 @@ public class Timer : MonoBehaviour
 {
     public float timeValue = 300;
     public TextMeshProUGUI timerText;
+    public TextMeshProUGUI timerTextBatWins;
     public GameObject EndscreenBat;
     public GameObject EndscreenMoths;
     public GameObject TimerScreen;
-    public GameObject Blocking;
     public GameObject DeathScreen;
     public AudioSource WinningSound;
 
@@ -37,11 +37,18 @@ public class Timer : MonoBehaviour
         if (timeValue == 0)
         {
             WinningSound.Play();
+            TimerScreen.SetActive(false);
             EndscreenBat.SetActive(false);
             EndscreenMoths.SetActive(true);
-            TimerScreen.SetActive(false);
-            //Blocking.SetActive(false);
-            DeathScreen.SetActive(true);
+        }
+
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+        {
+            WinningSound.Play();
+            TimerScreen.SetActive(false); 
+            EndscreenBat.SetActive(true);
+            EndscreenMoths.SetActive(false);
+            return;
         }
     }
 
@@ -56,5 +63,11 @@ public class Timer : MonoBehaviour
         float seconds = Mathf.FloorToInt(TimeToDisplay % 60);
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timerTextBatWins.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void BackToLobby()
+    {
+        //Am Ende kann man wieder in die Lobby laden
     }
 }
