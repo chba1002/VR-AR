@@ -5438,6 +5438,7 @@ MonoBehaviour:
   RightHand: {fileID: 1861310040}
   TestOutput: {fileID: 1489945460}
   PingText: {fileID: 1771413942}
+  toStartGameMothAndBatMustBeSelected: 1
 --- !u!114 &1310044701
 MonoBehaviour:
   m_ObjectHideFlags: 0

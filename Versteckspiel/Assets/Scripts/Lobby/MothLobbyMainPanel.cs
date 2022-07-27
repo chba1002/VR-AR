@@ -53,7 +53,8 @@ namespace Moth.Scripts.Lobby // 350 rows
         [Header("Testmode")]
         public TMP_Text TestOutput;
         public TMP_Text PingText;
-
+        [SerializeField]
+        private bool toStartGameMothAndBatMustBeSelected = true;
         #region UNITY
 
         private PlayerListManager playerListManager;
@@ -290,6 +291,11 @@ namespace Moth.Scripts.Lobby // 350 rows
 
                 var mothAndBatSelected = playerListManager
                     .CheckIfMinimumOneMothAndOneBatAreSelected(PhotonNetwork.PlayerList);
+
+                if (!toStartGameMothAndBatMustBeSelected)
+                {
+                    mothAndBatSelected = true;
+                }
 
                 // Wenn nicht mindest 1 Fledermaus und 1 Motte ausgewählt,
                 // Meldung anzeigen, dass diese mindestens ausgewählt sein müssen.
