@@ -13,6 +13,14 @@ public class NetworkPlayer : MonoBehaviour
     [SerializeField]
     private OVRManager OVRManager;
 
+    [SerializeField]
+    private OVRCameraRig OVRCameraRig;
+
+    [SerializeField]
+    private OVRHeadsetEmulator OVRHeadsetEmulator;
+
+    [SerializeField]
+    private OVRSystemPerfMetrics OVRSystemPerfMetrics;
 
     // private Transform BodyRig;
 
@@ -27,12 +35,18 @@ public class NetworkPlayer : MonoBehaviour
 
         if (photonView.IsMine)
         {
-            OVRManager.gameObject.SetActive(true);
+            OVRManager.enabled = true;
+            OVRCameraRig.enabled = true;
+            OVRHeadsetEmulator.enabled = true;
+           // OVRSystemPerfMetrics. = true;
             Body.gameObject.SetActive(false);
         }
         else
         {
-            OVRManager.gameObject.SetActive(false);
+            OVRManager.enabled = false;
+            OVRCameraRig.enabled = false;
+            OVRHeadsetEmulator.enabled = false;
+            Body.gameObject.SetActive(true);
         }
     }
 
