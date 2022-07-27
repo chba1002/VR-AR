@@ -10,6 +10,10 @@ public class NetworkPlayer : MonoBehaviour
     public Transform BodyRig_CenterEyeAnchor;
     private PhotonView photonView;
 
+    [SerializeField]
+    private OVRManager OVRManager;
+
+
     // private Transform BodyRig;
 
 
@@ -23,7 +27,12 @@ public class NetworkPlayer : MonoBehaviour
 
         if (photonView.IsMine)
         {
+            OVRManager.gameObject.SetActive(true);
             Body.gameObject.SetActive(false);
+        }
+        else
+        {
+            OVRManager.gameObject.SetActive(false);
         }
     }
 

@@ -70,6 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 5609444822900916021, guid: a5abf8843255a0348a595920dcd3f94c, type: 3}
   BodyRig_CenterEyeAnchor: {fileID: 8094602354482861407}
+  OVRManager: {fileID: 8094602354471877789}
 --- !u!1 &8093749348148310181
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +683,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8094602354482628985}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e933e81d3c20c74ea6fdc708a67e3a5, type: 3}
   m_Name: 
