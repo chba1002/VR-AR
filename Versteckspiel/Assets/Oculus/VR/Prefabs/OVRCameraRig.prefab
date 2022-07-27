@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 2037080}
   m_Layer: 0
   m_Name: CenterEyeAnchor
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -583,6 +583,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6423929750307261772, guid: f5e40151d509c794e8bf6ebd5a07bab7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6822068809533803159, guid: f5e40151d509c794e8bf6ebd5a07bab7,
         type: 3}
       propertyPath: m_RootOrder
@@ -663,7 +668,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6423929750307261771, guid: f5e40151d509c794e8bf6ebd5a07bab7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f5e40151d509c794e8bf6ebd5a07bab7, type: 3}
 --- !u!4 &4205703539719053634 stripped
 Transform:

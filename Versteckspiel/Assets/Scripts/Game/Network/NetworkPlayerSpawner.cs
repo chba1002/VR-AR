@@ -46,7 +46,7 @@ public class NetworkPlayerSpawner : MonoBehaviourPunCallbacks
                 case 2: playerPrefabName = "Moth_2_Network_Player"; break;
                 case 3: playerPrefabName = "Moth_3_Network_Player"; break;
                 case 4: playerPrefabName = "Moth_4_Network_Player"; break;
-                case 5: playerPrefabName = "Bat_Network_Player"; break;
+                case 100: playerPrefabName = "Bat_Network_Player"; break;
             }
 
             if(playerPrefabName == "")

@@ -35,7 +35,6 @@ public class PlayerSelectionPanel : MonoBehaviour
 
         Debug.Log("NICK NAME:" + optionalPlayer?.NickName);
 
-        this.optionalPlayerId = optionalPlayerId;
         Debug.Log($"SetSelected: MothBatId: {MothBatId}, active {active},  optionalPlayerId: {optionalPlayerId}");
 
         /*

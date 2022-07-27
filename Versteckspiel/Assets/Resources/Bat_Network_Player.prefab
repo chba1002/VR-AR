@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4053920518657263021}
   - component: {fileID: 8094602353384880303}
   m_Layer: 0
-  m_Name: Bat_NetworkPlayer
+  m_Name: Bat_Network_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

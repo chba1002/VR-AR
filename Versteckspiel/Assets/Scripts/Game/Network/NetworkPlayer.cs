@@ -23,10 +23,12 @@ public class NetworkPlayer : MonoBehaviour
             //     MapPosition(Body, BodyRig);
         }
     }
+/*
 
     void MapPosition(Transform target, Transform rigTransform)
     {
         target.position = rigTransform.position;
         target.rotation = rigTransform.rotation;
     }
+*/
 }
