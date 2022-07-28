@@ -41,8 +41,8 @@ public class SonarFx : MonoBehaviour
     public Vector3 origin { get { return _origin; } set { _origin = value; } }
 
     // Base color (albedo)
-    //[SerializeField] Color _baseColor = new Color(0.2f, 0.2f, 0.2f, 0);
-    //public Color baseColor { get { return _baseColor; } set { _baseColor = value; } }
+    [SerializeField] Color _baseColor = new Color(0.2f, 0.2f, 0.2f, 0);
+    public Color baseColor { get { return _baseColor; } set { _baseColor = value; } }
 
     // Wave color
     [SerializeField] Color _waveColor = new Color(1.0f, 0.2f, 0.2f, 0);
@@ -74,7 +74,7 @@ public class SonarFx : MonoBehaviour
     [SerializeField] Shader shader;
 
     // Private shader variables
-    //int baseColorID;
+    int baseColorID;
     int waveColorID;
     int waveParamsID;
     int waveVectorID;
@@ -86,7 +86,7 @@ public class SonarFx : MonoBehaviour
 
     void Awake()
     {
-        //baseColorID = Shader.PropertyToID("_SonarBaseColor");
+        baseColorID = Shader.PropertyToID("_SonarBaseColor");
         waveColorID = Shader.PropertyToID("_SonarWaveColor");
         waveParamsID = Shader.PropertyToID("_SonarWaveParams");
         waveVectorID = Shader.PropertyToID("_SonarWaveVector");
@@ -114,7 +114,7 @@ public class SonarFx : MonoBehaviour
     void Update()
     {
         //Schrei schaut nach Position von CenterEyeAnchor im OVRCameraRig, möglicherweise umbenennen, da mehrere Spieler in Szene.
-        origin = GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<Transform>().position;
+        origin = GameObject.Find("Bat_Network_Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<Transform>().position;
 
         GetComponent<Camera>().SetReplacementShader(shader, null);
 
@@ -123,7 +123,7 @@ public class SonarFx : MonoBehaviour
         {
             period = 0f;
             print("Fledermaus schreit");
-            GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<AudioSource>().Play();
+            GameObject.Find("Bat_Network_Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<AudioSource>().Play();
         }
 
         // Zum Testen mit dem Oculus Controller (hat noch nicht funktioniert...)
@@ -141,7 +141,7 @@ public class SonarFx : MonoBehaviour
         }*/
 
 
-        //Shader.SetGlobalColor(baseColorID, _baseColor);
+        Shader.SetGlobalColor(baseColorID, _baseColor);
         Shader.SetGlobalColor(waveColorID, _waveColor);
         Shader.SetGlobalColor(addColorID, _addColor);
 
@@ -171,7 +171,7 @@ public class SonarFx : MonoBehaviour
         //After we have waited 5 seconds print the time again.
         Debug.Log("Finished Coroutine at timestamp : " + Time.time); 
         print("Fledermaus schreit");
-        GameObject.Find("Network Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<AudioSource>().Play();
+        GameObject.Find("Bat_Network_Player/OVRCameraRig/TrackingSpace/CenterEyeAnchor").GetComponent<AudioSource>().Play();
     }
 
 }

@@ -290,7 +290,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8094602354482728896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShootAtMoth, Assembly-CSharp
         m_MethodName: ShootMoth
         m_Mode: 1
@@ -1022,10 +1022,7 @@ GameObject:
   - component: {fileID: 8094602354474637181}
   - component: {fileID: 8094602354481224325}
   - component: {fileID: 8094602354413418057}
-  - component: {fileID: 8094602354413418053}
   - component: {fileID: 8094602354413418058}
-  - component: {fileID: 8094602354413418060}
-  - component: {fileID: 8094602354482728896}
   m_Layer: 3
   m_Name: CenterEyeAnchor
   m_TagString: Untagged
@@ -1197,29 +1194,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8094602354413418053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8094602354482628991}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c725fe963b534280bc779c2e7f23fb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mode: 1
-  _direction: {x: 0, y: 0, z: 1}
-  _origin: {x: 0, y: 0, z: 0}
-  _waveColor: {r: 0.41673547, g: 0.1527234, b: 0.8301887, a: 0}
-  _waveAmplitude: 3
-  _waveExponent: 15
-  _waveInterval: 15
-  _waveSpeed: 5
-  _addColor: {r: 0, g: 0, b: 0, a: 1}
-  shader: {fileID: 4800000, guid: 6d12e7ab487bf49d18b89038af741a18, type: 3}
-  period: 1
 --- !u!114 &8094602354413418058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,43 +1254,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!114 &8094602354413418060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8094602354482628991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca78c1e4fb0748b4e843747cc9a2c00f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectsToHide:
-  - {fileID: 1273594641753984, guid: d4e3024a78cdcf14a9678e1afa4eede8, type: 3}
---- !u!114 &8094602354482728896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8094602354482628991}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f16de68da459674da694cd80036731a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EndscreenBat: {fileID: 0}
-  EndscreenMoths: {fileID: 0}
-  TimerScreen: {fileID: 0}
-  WinningSound: {fileID: 0}
-  TimePlayed: {fileID: 0}
-  mytimerscript: {fileID: 0}
-  aufloesenAktiv: 0
-  dissolveAmount: 0
-  mothMesh: {fileID: 0}
-  dissolveShaderMaterial: {fileID: 2100000, guid: 43b2a2718f7be92478a5f6777a2bf32f,
-    type: 2}
 --- !u!1 &8094602354482636065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,7 +1504,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8094602354482728896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShootAtMoth, Assembly-CSharp
         m_MethodName: ShootMoth
         m_Mode: 1
