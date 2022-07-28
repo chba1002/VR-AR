@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18835184, g: 0.16028246, b: 0.13535888, a: 1}
+  m_IndirectSpecularColor: {r: 0.18835187, g: 0.16028255, b: 0.13535894, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -564,7 +564,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
+    m_Font: {fileID: 12800000, guid: 924268418bc6575478c52eb3f970cda7, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -576,7 +576,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Verf\xFCgbare Spiele anzeigen"
+  m_Text: show existing games
 --- !u!222 &167093382
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -880,7 +880,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
+    m_Font: {fileID: 12800000, guid: 924268418bc6575478c52eb3f970cda7, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -892,7 +892,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Spiel Starten
+  m_Text: start
 --- !u!222 &300358610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1598,6 +1598,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSelectionPanel_4
       objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7370815
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.73708
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.73708
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8761866506625387702, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_Sprite
@@ -2179,6 +2204,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSelectionPanel_2
       objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7869925
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7869925
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7869925
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -95
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8761866506625387702, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_Sprite
@@ -2653,7 +2703,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
+    m_Font: {fileID: 12800000, guid: 924268418bc6575478c52eb3f970cda7, type: 3}
     m_FontSize: 92
     m_FontStyle: 0
     m_BestFit: 0
@@ -2665,7 +2715,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Moths & Bats
+  m_Text: 'moths + bats
 
 '
 --- !u!222 &635595327
@@ -3144,6 +3194,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSelectionPanel_3
       objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.730814
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.73081
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.73081
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -57
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8864568109002396625, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3542,7 +3617,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
+    m_Font: {fileID: 12800000, guid: 924268418bc6575478c52eb3f970cda7, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -4093,7 +4168,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
+    m_Font: {fileID: 12800000, guid: 924268418bc6575478c52eb3f970cda7, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -4105,7 +4180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Spiel verlassen
+  m_Text: leave game
 --- !u!222 &971815290
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4541,8 +4616,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
-    m_FontSize: 40
+    m_Font: {fileID: 12800000, guid: 924268418bc6575478c52eb3f970cda7, type: 3}
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -4553,7 +4628,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Spiel erstellen
+  m_Text: create game
 --- !u!222 &1251081875
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5076,6 +5151,36 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f64012d874b7d4943bdadaba308f2e6a, type: 2}
+    - target: {fileID: -6099250440030476878, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8852955
+      objectReference: {fileID: 0}
+    - target: {fileID: -6099250440030476878, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8852955
+      objectReference: {fileID: 0}
+    - target: {fileID: -6099250440030476878, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8852955
+      objectReference: {fileID: 0}
+    - target: {fileID: -6099250440030476878, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4025
+      objectReference: {fileID: 0}
+    - target: {fileID: -6099250440030476878, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0855
+      objectReference: {fileID: 0}
+    - target: {fileID: -6099250440030476878, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.3131
+      objectReference: {fileID: 0}
     - target: {fileID: -6074148143025647830, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5086,6 +5191,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3f7d3a7922758664a84184f0bdfe1d9f, type: 2}
+    - target: {fileID: -4063778448505354486, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2828
+      objectReference: {fileID: 0}
+    - target: {fileID: -4063778448505354486, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2828
+      objectReference: {fileID: 0}
+    - target: {fileID: -4063778448505354486, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2828
+      objectReference: {fileID: 0}
+    - target: {fileID: -4063778448505354486, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0801
+      objectReference: {fileID: 0}
     - target: {fileID: -3882452993529989426, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5131,6 +5256,31 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3f7d3a7922758664a84184f0bdfe1d9f, type: 2}
+    - target: {fileID: -53134136938241095, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9665385
+      objectReference: {fileID: 0}
+    - target: {fileID: -53134136938241095, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9665385
+      objectReference: {fileID: 0}
+    - target: {fileID: -53134136938241095, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9665385
+      objectReference: {fileID: 0}
+    - target: {fileID: -53134136938241095, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4286
+      objectReference: {fileID: 0}
+    - target: {fileID: -53134136938241095, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.3473
+      objectReference: {fileID: 0}
     - target: {fileID: 279143392339867540, guid: 32b728e8a14851f45909ea2cdb7b0ad1,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6379,7 +6529,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
+    m_Font: {fileID: 12800000, guid: 924268418bc6575478c52eb3f970cda7, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -6391,7 +6541,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Bereit?
+  m_Text: ready?
 --- !u!222 &1647231733
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7155,6 +7305,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerSelectionPanel_Bat
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7650101
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.76501
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.76501
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8761866506625387702, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -8191,7 +8366,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
-    m_FontSize: 24
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -8202,7 +8377,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Credits: In erster Linie Peter :) Bonnie, Chiara, Solenn'
+  m_Text: "Credits: Peter, Bonnie Zielinski, Chiara Bayerlein, Solenn Hoffmann                                                                                                            
+    betreut von: Prof. Dipl.- Ing. Matthias Pfaff, Prof. Dipl.- Des. Thomas Wagner\r,
+    M.A. Thomas Beisiegel\r"
 --- !u!222 &2027093908
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8574,6 +8751,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerSelectionPanel_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6884421
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6884421
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6884421
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -82
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8761866506625387702, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
