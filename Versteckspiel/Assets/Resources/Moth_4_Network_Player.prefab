@@ -73,6 +73,13 @@ MonoBehaviour:
   OVRManager: {fileID: 8094602354471877789}
   OVRCameraRig: {fileID: 8094602354471877783}
   OVRHeadsetEmulator: {fileID: 8197533324928297945}
+  AudioListener: {fileID: 0}
+  AudioSource: {fileID: 0}
+  CenterEyeAnchor_Camera: {fileID: 0}
+  CenterEyeAnchor_AudioSource: {fileID: 0}
+  CenterEyeAnchor_PostProcessLayer: {fileID: 0}
+  LeftHandAnchor: {fileID: 0}
+  RightHandAnchor: {fileID: 0}
 --- !u!1 &8093749348148310181
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8094602353891028578
 Transform:
   m_ObjectHideFlags: 0

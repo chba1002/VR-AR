@@ -683,8 +683,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5896806827837760481}
   - component: {fileID: 519468966148831643}
-  - component: {fileID: 6223715115707278397}
-  - component: {fileID: 6223715115707278394}
   m_Layer: 0
   m_Name: Low Poly Bat
   m_TagString: Untagged
@@ -729,39 +727,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!143 &6223715115707278397
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6529790914845374811}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 3
-  m_Radius: 1
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: -0.5, z: 0}
---- !u!114 &6223715115707278394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6529790914845374811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33cbc936aed87e449a8d4922b389cc6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 25
-  turnSpeed: 200
-  gravity: 20
 --- !u!1 &6797823400152700510
 GameObject:
   m_ObjectHideFlags: 0

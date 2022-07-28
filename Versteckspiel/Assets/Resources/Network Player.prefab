@@ -69,6 +69,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 5609444822900916021, guid: a5abf8843255a0348a595920dcd3f94c, type: 3}
+  BodyRig_CenterEyeAnchor: {fileID: 0}
+  OVRManager: {fileID: 0}
+  OVRCameraRig: {fileID: 0}
+  OVRHeadsetEmulator: {fileID: 0}
+  AudioListener: {fileID: 0}
+  AudioSource: {fileID: 0}
+  CenterEyeAnchor_Camera: {fileID: 0}
+  CenterEyeAnchor_AudioSource: {fileID: 0}
+  CenterEyeAnchor_PostProcessLayer: {fileID: 0}
+  LeftHandAnchor: {fileID: 0}
+  RightHandAnchor: {fileID: 0}
 --- !u!1 &8094602353891028605
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +96,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8094602353891028578
 Transform:
   m_ObjectHideFlags: 0
@@ -1125,6 +1136,7 @@ MonoBehaviour:
   _mode: 1
   _direction: {x: 0, y: 0, z: 1}
   _origin: {x: 0, y: 0, z: 0}
+  _baseColor: {r: 0.2, g: 0.2, b: 0.2, a: 0}
   _waveColor: {r: 0.41673547, g: 0.1527234, b: 0.8301887, a: 0}
   _waveAmplitude: 3
   _waveExponent: 15
@@ -1221,6 +1233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndscreenBat: {fileID: 0}
   EndscreenMoths: {fileID: 0}
+  TimerScreen: {fileID: 0}
   WinningSound: {fileID: 0}
   TimePlayed: {fileID: 0}
   mytimerscript: {fileID: 0}

@@ -3,6 +3,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Animator anim;
+
+    [SerializeField]
+    private GameObject BatMothModel;
     /*
     private bool pcControllIsActive = false;
 
@@ -19,7 +22,7 @@ public class Player : MonoBehaviour
     void Start()
     {
        // controller = GetComponent<CharacterController>();
-        anim = gameObject.GetComponentInChildren<Animator>();
+        anim = BatMothModel.GetComponentInChildren<Animator>();
 
         /*
         if(controller == null)

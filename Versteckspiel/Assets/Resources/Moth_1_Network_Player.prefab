@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 314278053426811717}
   - component: {fileID: 4053920518657263021}
   - component: {fileID: 8094602353384880303}
+  - component: {fileID: 5323386469970006653}
+  - component: {fileID: 2892236185398791351}
   m_Layer: 0
   m_Name: Moth_1_Network_Player
   m_TagString: Untagged
@@ -68,11 +70,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee79562f8955d747b46c42e1fa80109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Body: {fileID: 5609444822900916021, guid: a5abf8843255a0348a595920dcd3f94c, type: 3}
-  BodyRig_CenterEyeAnchor: {fileID: 8094602354482861407}
+  Body: {fileID: 8094602354482861407}
+  MothBatModal: {fileID: 5334624682517032607}
   OVRManager: {fileID: 8094602354471877789}
   OVRCameraRig: {fileID: 8094602354471877783}
   OVRHeadsetEmulator: {fileID: 8197533324928297945}
+  AudioListener: {fileID: 8094602353635512596}
+  AudioSource: {fileID: 8094602353635512601}
+  CenterEyeAnchor_PostProcessLayer: {fileID: 8094602354413418058}
+  CenterEyeAnchor_AudioSource: {fileID: 8094602354413418057}
+  CenterEyeAnchor_Camera: {fileID: 8094602354481224325}
+  LeftHandAnchor: {fileID: 8094602354482636065}
+  RightHandAnchor: {fileID: 8094602354482639797}
+--- !u!114 &5323386469970006653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314278053426811718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33cbc936aed87e449a8d4922b389cc6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BatMothModel: {fileID: 4702800686793176101}
+--- !u!114 &2892236185398791351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314278053426811718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0cb9aa70a22847b5925ee5f067c10a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 8094602354481224325}
+  m_OriginBaseGameObject: {fileID: 314278053426811718}
+  m_CameraFloorOffsetObject: {fileID: 8094602354482628985}
+  m_RequestedTrackingOriginMode: 0
+  m_CameraYOffset: 1.1176
 --- !u!1 &8093749348148310181
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8094602353891028578
 Transform:
   m_ObjectHideFlags: 0
@@ -770,7 +809,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8094602354482628985}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 1dd706bb85d8aef4e83a6229dbd62c36,
     type: 2}
@@ -1104,7 +1143,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8094602354482628991}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 1dd706bb85d8aef4e83a6229dbd62c36,
     type: 2}
@@ -1201,7 +1240,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8094602354482628991}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
@@ -1269,7 +1308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8094602354482779279
 Transform:
   m_ObjectHideFlags: 0
@@ -1301,7 +1340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8094602354482782347
 Transform:
   m_ObjectHideFlags: 0
@@ -1845,6 +1884,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5e40151d509c794e8bf6ebd5a07bab7, type: 3}
+--- !u!1 &4702800686793176101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6189929146655215661, guid: f5e40151d509c794e8bf6ebd5a07bab7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1487524391448060936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5334624682517032607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6822068809533803159, guid: f5e40151d509c794e8bf6ebd5a07bab7,
