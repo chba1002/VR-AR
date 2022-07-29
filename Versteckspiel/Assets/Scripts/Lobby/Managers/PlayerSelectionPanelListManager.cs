@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Shared.Managers;
+﻿using Assets.Scripts.Shared.Types;
 using Moth.Scripts.Lobby.Types;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-using Assets.Scripts.Shared.Managers;
+using Assets.Scripts.Shared.Types;
 
 public class PlayerSelectionPanel : MonoBehaviour
 {

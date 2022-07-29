@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Lobby.Mappers;
 using Assets.Scripts.Shared.Managers;
+using Assets.Scripts.Shared.Types;
 using Moth.Scripts;
 using Moth.Scripts.Lobby.Types;
 using System.Collections.Generic;

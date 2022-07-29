@@ -6,6 +6,7 @@ using Assets.Scripts.Lobby.Mappers;
 using Assets.Scripts.Lobby.Managers;
 using Assets.Scripts.Shared.Managers;
 using TMPro;
+using Assets.Scripts.Shared.Types;
 
 namespace Moth.Scripts.Lobby
 {

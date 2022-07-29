@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Lobby.Mappers;
+using Assets.Scripts.Shared.Types;
 using Moth.Scripts;
 using Moth.Scripts.Lobby.Types;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Shared.Managers
@@ -61,27 +61,6 @@ namespace Assets.Scripts.Shared.Managers
             }
 
             return new PlayerData(_playerIsReady, _playerMothBatState, _playerName, targetPlayer.ActorNumber);
-        }
-    }
-
-    public class PlayerData
-    {
-        public PlayerData(bool? playerIsReady, PlayerMothBatState playerMothBatState, string playerName, int actorNumber)
-        {
-            PlayerIsReady = playerIsReady;
-            PlayerMothBatState = playerMothBatState;
-            PlayerName = playerName;
-            ActorNumber = actorNumber;
-        }
-
-        public bool? PlayerIsReady { get; private set; }
-        public PlayerMothBatState PlayerMothBatState { get; private set; }
-        public string PlayerName { get; private set; }
-        public int ActorNumber { get; private set; }
-
-        internal void SetPlayerMothBatState(PlayerMothBatState playerMothBatState)
-        {
-            PlayerMothBatState = playerMothBatState;
         }
     }
 }

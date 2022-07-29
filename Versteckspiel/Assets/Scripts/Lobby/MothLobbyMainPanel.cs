@@ -83,7 +83,6 @@ namespace Moth.Scripts.Lobby // 350 rows
                 RoomListEntryPrefab,
                 RoomListContent);
 
-
             SetActivePanel(LoginPanel.name);
 
             personKey = new PersonKey();
@@ -92,21 +91,16 @@ namespace Moth.Scripts.Lobby // 350 rows
             ConnectToServer();
         }
 
-
         public void FixedUpdate()
         {
             durationTillNextPingCheck -= Time.deltaTime;
 
             if (durationTillNextPingCheck <= 0)
             {
-                PingText.text = "Ping: "+PhotonNetwork.GetPing() + "ms";
+                PingText.text = $"Ping: {PhotonNetwork.GetPing()} ms";
                 durationTillNextPingCheck = 1f;
             }
-            
         }
-
-        int GetPing() => PhotonNetwork.GetPing();
-
 
         private void ConnectToServer()
         {
@@ -273,7 +267,6 @@ namespace Moth.Scripts.Lobby // 350 rows
                 : $"RemotePlayer {targetPlayer.ActorNumber}:";
             Debug.Log($"{playerTypeString} {targetPlayer.ActorNumber} Eigenschaften aktualisiert");
 
-
             // PLAYER_LIVES - Player is alive
             var changedPlayerData = playerDataProvider.Provide(targetPlayer, changedProps);
 
@@ -330,7 +323,6 @@ namespace Moth.Scripts.Lobby // 350 rows
                 {
                     playerListManager.Remove(changedPlayerData.ActorNumber);
                 }
-
 
                 InsideRoomPanel
                     .GetComponent<InsideRoomPanel>()
