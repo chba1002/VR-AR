@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Moth-LobbyScene.unity
     guid: 2f7b378e45d20322f931336ec661bc5c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Versteckspiel.unity
     guid: 0e00ca3ad60cb76438f3f71091b3ba3d
+  - enabled: 1
+    path: Assets/Scenes/Test Scene.unity
+    guid: 797ee501636d9e440b7711efda0c1836
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: a36f680f71326db40bcdf6741f3b0621,
       type: 2}
