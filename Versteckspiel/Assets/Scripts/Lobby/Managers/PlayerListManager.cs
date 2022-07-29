@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using Assets.Scripts.Shared.Managers;
+using Assets.Scripts.Shared.Types;
 
 namespace Moth.Scripts.Lobby.Managers
 {

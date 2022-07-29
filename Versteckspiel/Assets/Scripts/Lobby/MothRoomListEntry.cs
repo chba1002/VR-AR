@@ -17,7 +17,7 @@ namespace Moth.Scripts.Lobby
         {
             JoinRoomButton.onClick.AddListener(() =>
             {
-
+                OnJoinRoomButtonClicked();
             });
         }
 
@@ -39,7 +39,6 @@ namespace Moth.Scripts.Lobby
             }
 
             roomName = name;
-
             RoomNameText.text = name;
             RoomPlayersText.text = currentPlayers + " / " + maxPlayers;
         }

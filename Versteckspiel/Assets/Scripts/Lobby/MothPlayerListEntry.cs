@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 
@@ -14,7 +13,6 @@ namespace Moth.Scripts.Lobby
         [SerializeField]
         private Image PlayerColorImage;
 
-       // public Button PlayerReadyButton;
         public Image PlayerReadyImage;
 
         public int PlayerActorNumber {get; private set;}
