@@ -33,7 +33,7 @@ public class NetworkPlayer_Test : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-            head.gameObject.SetActive(false);
+            //head.gameObject.SetActive(false);
             //rightHand.gameObject.SetActive(false);
             //leftHand.gameObject.SetActive(false);
 
