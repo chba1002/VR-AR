@@ -387,7 +387,7 @@ namespace Moth.Scripts.Lobby // 350 rows
 
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
-            PhotonNetwork.LoadLevel("Versteckspiel");
+            PhotonNetwork.LoadLevel(false ? "Versteckspiel" : "Test Scene");
         }
 
         #endregion
