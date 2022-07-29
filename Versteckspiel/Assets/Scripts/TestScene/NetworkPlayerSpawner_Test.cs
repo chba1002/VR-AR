@@ -8,8 +8,10 @@ public class NetworkPlayerSpawner_Test : MonoBehaviourPunCallbacks
     private GameObject spawnedPlayerPrefab;
     private MothGameManager mothGameManager;
 
-    public override void OnJoinedRoom()
+    private void Start()
     {
+        Debug.Log("OnJoinedRoom");
+
         mothGameManager = GameObject.FindGameObjectWithTag("MothGameManager")?.GetComponent<MothGameManager>();
 
         if (mothGameManager == null)
