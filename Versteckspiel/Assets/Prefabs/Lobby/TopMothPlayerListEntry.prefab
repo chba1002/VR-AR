@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 11413184}
   - component: {fileID: 5923356496462856999}
   m_Layer: 5
-  m_Name: MothPlayerListEntry
+  m_Name: TopMothPlayerListEntry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -15,7 +15,16 @@ namespace Moth.Scripts.Lobby
         private bool isPlayerReady;
 
         private PlayerDataProvider playerDataProvider;
-        private PlayerSelectionPanelListManager playerSelectionPanelManager;
+        private PlayerSelectionPanelListManager _playerSelectionPanelManager;
+
+        private PlayerSelectionPanelListManager playerSelectionPanelManager
+        {
+            get
+            {
+                if(_playerSelectionPanelManager == null) _playerSelectionPanelManager = new PlayerSelectionPanelListManager(PlayerSelectionPanelElements);
+                return _playerSelectionPanelManager;
+            }
+        }
 
         [SerializeField]
         private TMP_Text InfoMessage;
@@ -23,7 +32,7 @@ namespace Moth.Scripts.Lobby
 
         public Button PlayerReadyButton; 
         public GameObject PlayerSelectionPanelElements;
-        public GameObject MothPlayerListEntries;
+        public GameObject TopMothPlayerListEntries;
 
         void Start()
         {
@@ -38,7 +47,7 @@ namespace Moth.Scripts.Lobby
             PhotonNetwork.LocalPlayer.SetCustomProperties(initialProps);
             PhotonNetwork.LocalPlayer.SetScore(0);
 
-            playerSelectionPanelManager = new PlayerSelectionPanelListManager(PlayerSelectionPanelElements);
+            _playerSelectionPanelManager = new PlayerSelectionPanelListManager(PlayerSelectionPanelElements);
         }
 
         public void OnCLickPlayerReadyButton()
