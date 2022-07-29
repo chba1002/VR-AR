@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
 public class NetworkManager_Test : MonoBehaviourPunCallbacks
 {
+    private TMPro.TMP_Text testOutput;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +17,17 @@ public class NetworkManager_Test : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
         Debug.Log("Try connect to Server");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        var serverData = $"OnJoinedRoom> ServerAddress: " + PhotonNetwork.ServerAddress + " - Server: " + PhotonNetwork.Server + " UserId: " + PhotonNetwork.AuthValues?.UserId + " Token: " + PhotonNetwork.AuthValues?.Token;
+        Debug.Log(serverData);
+
+       // testOutput.text = serverData;
+
+        Debug.Log("Joined a Room");
+        base.OnJoinedRoom();
     }
 
     public override void OnConnectedToMaster()
@@ -31,17 +42,15 @@ public class NetworkManager_Test : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom("Room 1", roomOptions, TypedLobby.Default);
     }
 
-    public override void OnJoinedRoom()
+    private void OnPlayerConnected(NetworkPlayer player)
     {
-        Debug.Log("Joined a Room");
-        base.OnJoinedRoom();
+        Debug.Log("OnPlayerConnected: " + player.name);
     }
+
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         Debug.Log("A new Player joined the Room");
         base.OnPlayerEnteredRoom(newPlayer);
     }
-
-
 }
