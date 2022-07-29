@@ -23,9 +23,9 @@ public class NetworkPlayer_Test : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         XROrigin rig = FindObjectOfType<XROrigin>();
-        headRig = rig.transform.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor");
-        leftHandRig = rig.transform.Find("OVRCameraRig/TrackingSpace/LeftHandAnchor");
-        rightHandRig = rig.transform.Find("OVRCameraRig/TrackingSpace/RightHandAnchor");
+        headRig = rig.transform.Find("Camera Offset/Main Camera");
+        leftHandRig = rig.transform.Find("Camera Offset/LeftHand Controller");
+        rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
     }
 
     // Update is called once per frame
