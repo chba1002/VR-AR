@@ -4980,7 +4980,7 @@ PrefabInstance:
     - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.361
+      value: -1.264
       objectReference: {fileID: 0}
     - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
         type: 3}
@@ -4990,7 +4990,7 @@ PrefabInstance:
     - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.582
+      value: -2.644
       objectReference: {fileID: 0}
     - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
         type: 3}
@@ -8642,15 +8642,15 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 290
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "credits: peter, bonnie zielinski, chiara bayerlein, solenn hoffmann                                                                                                            
+  m_Text: "credits: bonnie zielinski, chiara bayerlein, solenn hoffmann                                                                                                                             
     supervised by: prof. dipl.- ing. matthias pfaff, prof. dipl.- des. thomas wagner\r,
-    m.a. thomas beisiegel\r"
+    m.a. thomas beisiegel\r\nspecial thanks to peter grittner"
 --- !u!222 &2027093908
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8746,17 +8746,17 @@ PrefabInstance:
     - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.551
+      value: -2.36
       objectReference: {fileID: 0}
     - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.658
+      value: 1.994
       objectReference: {fileID: 0}
     - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.196
+      value: -2.34
       objectReference: {fileID: 0}
     - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
         type: 3}
