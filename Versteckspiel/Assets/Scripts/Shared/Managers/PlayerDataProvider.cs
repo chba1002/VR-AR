@@ -26,7 +26,7 @@ namespace Assets.Scripts.Shared.Managers
 
             if (player.CustomProperties.TryGetValue(MothGame.PLAYER_NAME, out object playerNameObject))
             {
-                _playerName =((string)playerNameObject);
+                _playerName = ((string)playerNameObject);
                 Debug.Log($"TryGetValue PLAYER_NAME: {(string)playerNameObject}");
             }
 
@@ -61,6 +61,24 @@ namespace Assets.Scripts.Shared.Managers
             }
 
             return new PlayerData(_playerIsReady, _playerMothBatState, _playerName, targetPlayer.ActorNumber);
+        }
+
+        public MothBatActionType TryProvideMothBatActionType(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+        {
+            MothBatActionType mothBatActionType = null;
+
+            if (changedProps.TryGetValue(MothGame.PLAYER_MOTH_BAT_ACTION_TYPE, out object serializedPlayerMothBatActionType))
+            {
+
+                var deserializedValue = Serializer.StringToObject(serializedPlayerMothBatActionType as string);
+
+                if(deserializedValue != null)
+                {
+                    mothBatActionType = deserializedValue as MothBatActionType;
+                }
+            }
+
+            return mothBatActionType;
         }
     }
 }

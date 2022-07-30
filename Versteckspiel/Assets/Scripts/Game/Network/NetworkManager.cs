@@ -57,10 +57,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
     }
 
-    private void OnPlayerConnected(NetworkPlayer player)
-    {
-        Debug.Log("OnPlayerConnected: " + player.name);
-    }
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {

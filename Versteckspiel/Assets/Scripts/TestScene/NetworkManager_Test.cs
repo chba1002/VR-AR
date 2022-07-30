@@ -9,7 +9,11 @@ public class NetworkManager_Test : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        ConnectToServer();
+        // 
+        if (!PhotonNetwork.IsConnected)
+        {
+            ConnectToServer();
+        }
     }
 
     // Update is called once per frame
@@ -42,10 +46,6 @@ public class NetworkManager_Test : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom("Room 1", roomOptions, TypedLobby.Default);
     }
 
-    private void OnPlayerConnected(NetworkPlayer player)
-    {
-        Debug.Log("OnPlayerConnected: " + player.name);
-    }
 
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)

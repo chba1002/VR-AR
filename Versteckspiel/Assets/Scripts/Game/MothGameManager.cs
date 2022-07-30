@@ -1,4 +1,5 @@
-using System.Collections;
+using Moth.Scripts.Lobby.Types;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,9 @@ public class MothGameManager : MonoBehaviour
     [SerializeField] private GameObject StartPositions_3;
     [SerializeField] private GameObject StartPositions_4;
     [SerializeField] private GameObject StartPositions_5;
+
+    [Header("Network")]
+    [SerializeField] private MothBatNetworkSynchronizer mothBatNetworkSynchronizer;
 
     private Dictionary<int, Vector3> positions;
 
@@ -43,5 +47,46 @@ public class MothGameManager : MonoBehaviour
 
         Debug.LogError($"Unknown MothBatType {mothBatId}. Couldnt find position.");
         return Vector3.zero;
+    }
+
+
+    internal void MothBarExecuteInteraction(int actorNumber, MothBatType mothBatType)
+    {
+        Debug.Log($"MothBarExecuteInteraction: Player {actorNumber}, mothBatType {mothBatType}");
+        var mothBatActionTyoe = new MothBatActionType { ActorNumber = actorNumber, MothBatType = mothBatType };
+
+        switch (mothBatType)
+        {
+            case MothBatType.MothGreen:
+                mothBatActionTyoe.AttackType = AttackType.Attack1;
+                Debug.Log(" kann Spielzeit heruntersetzen (je später im Spiel, desto mehr)," +
+                    "am Ende des Spiels (also wenn Zeit um ist oder alle Motten tot) " +
+                    "nach ca. 20s werden alle Spieler wieder in Lobby geschickt" +
+                    "(siehe Scoreboard, da kannst du gerne auch drüberschaun), ");
+                break;
+            case MothBatType.MothOrange:
+                mothBatActionTyoe.AttackType = AttackType.Attack2;
+                Debug.Log("alle x Sekunden Sichtfeld von Fledermaus mit PostProVol stören");
+                break;
+            case MothBatType.MothBlue:
+                mothBatActionTyoe.AttackType = AttackType.Attack3;
+                Debug.Log("ist für x Sekunden unverwundbar");
+                break;
+            case MothBatType.MothPurple:
+                mothBatActionTyoe.AttackType = AttackType.Attack4;
+                Debug.Log("Bild von Glühwürmchen leuchtet mit Farbverlauf (weiß zu rot?), wenn Fledermaus näher kommt");
+                break;
+            case MothBatType.Bat:
+                break;
+            default:
+                break;
+        }
+
+        mothBatNetworkSynchronizer.SetLocalPlayerMothBatActionType(mothBatActionTyoe);
+
+        //  private void OnDestroy()
+        //   {
+        //       OnItemSelected -= HandleItemSelected;
+        //    }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO;
+using Assets.Scripts.Shared.Managers;
 using Moth.Scripts.Lobby.Types;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Assets.Scripts.Lobby.Mappers
 {
@@ -18,7 +17,7 @@ namespace Assets.Scripts.Lobby.Mappers
                 LastMothBatType = lastMothBatType
             };
 
-            return (ObjectToString(state));
+            return (Serializer.ObjectToString(state));
         }
 
         public static PlayerMothBatState Deserialize(string serializedObject)
@@ -26,7 +25,7 @@ namespace Assets.Scripts.Lobby.Mappers
             // ToDo: Handle exception
             try
             {
-                var deserialziedObject = StringToObject(serializedObject);
+                var deserialziedObject = Serializer.StringToObject(serializedObject);
                 return deserialziedObject as PlayerMothBatState;
             }
             catch (Exception)
@@ -35,24 +34,6 @@ namespace Assets.Scripts.Lobby.Mappers
             }
         }
 
-        private static string ObjectToString(object obj)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                new BinaryFormatter().Serialize(ms, obj);
-                return Convert.ToBase64String(ms.ToArray());
-            }
-        }
 
-        private static object StringToObject(string base64String)
-        {
-            byte[] bytes = Convert.FromBase64String(base64String);
-            using (MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length))
-            {
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Position = 0;
-                return new BinaryFormatter().Deserialize(ms);
-            }
-        }
     }
 }

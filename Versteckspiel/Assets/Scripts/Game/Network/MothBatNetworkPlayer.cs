@@ -5,9 +5,14 @@ using UnityEngine.XR;
 using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
 using Unity.XR.CoreUtils;
+using Moth.Scripts.Lobby.Managers;
+using static OVRInput;
 
-public class NetworkPlayer_Test : MonoBehaviour
+public class MothBatNetworkPlayer : MonoBehaviour
 {
+    [SerializeField]
+    private MothBatType mothBatType;
+    
     public Transform head;
     public Transform leftHand;
     public Transform rightHand;
@@ -18,9 +23,15 @@ public class NetworkPlayer_Test : MonoBehaviour
     private Transform leftHandRig;
     private Transform rightHandRig;
 
+    private MothGameManager mothGameManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        mothGameManager = GameObject
+            .FindGameObjectWithTag(TagProvider.MothGameManager)?
+            .GetComponent<MothGameManager>();
+
         photonView = GetComponent<PhotonView>();
         XROrigin rig = FindObjectOfType<XROrigin>();
         headRig = rig.transform.Find("Camera Offset/Main Camera");
@@ -33,6 +44,14 @@ public class NetworkPlayer_Test : MonoBehaviour
     {
         if (photonView.IsMine)
         {
+                var actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+
+            if (Input.GetKeyDown("e"))
+            {
+                Debug.Log("0");
+                mothGameManager.MothBarExecuteInteraction(actorNumber, mothBatType);
+            }
+
             //head.gameObject.SetActive(false);
             //rightHand.gameObject.SetActive(false);
             //leftHand.gameObject.SetActive(false);
