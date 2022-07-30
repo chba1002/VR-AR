@@ -43,7 +43,7 @@ public class ShootAtMoth : MonoBehaviour
         //Motten gewinnen, sobald Zeit abläuft, FM gewinnt, sobald innerhalb der Zeit alle Motten gefroffen wurden, dann jeweiliges Menü anzeigen
 
         print("Motte getroffen!");
-        //aufloesenAktiv = true;
+        aufloesenAktiv = true;
         //Destroy(mothMesh.gameObject); //oder deaktivieren
 
     }
@@ -52,21 +52,20 @@ public class ShootAtMoth : MonoBehaviour
 
     public void Update()
     {
+        Prey = GameObject.FindGameObjectsWithTag("Moth");
+
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             aufloesenAktiv = true;
         }
 
-        if (OVRInput.GetDown(OVRInput.GetButtonDown.PrimaryHandTrigger) && OVRInput.GetDown(OVRInput.GetButtonDown.SecondaryHandTrigger)) //oder besser GetKey?
+        // Die Motte soll erst als getroffen zählen, wenn beide Strahen auf sie schießen, das unten reicht noch nicht
+        if (OVRInput.GetDown(OVRInput.GetButtonDown.PrimaryHandTrigger) && OVRInput.GetDown(OVRInput.GetButtonDown.SecondaryHandTrigger)) 
         {
             print("Two buttons pressed");
             aufloesenAktiv = true;
         }
-
-        /*if (OVRInput.GetDown(OVRInput.GetButtonDown.SecondaryHandTrigger)) 
-        {
-            aufloesenAktiv = true;
-        }*/
 
         if (aufloesenAktiv == true)
         {
@@ -84,11 +83,6 @@ public class ShootAtMoth : MonoBehaviour
             Destroy(mothMesh.gameObject); //das Objekt, aus das geschossen wurde
         }
 
-        string StartTime = mytimerscript.timeValue.ToString("f0");
-        TimePlayed.text = StartTime;
-
-
-        Prey = GameObject.FindGameObjectsWithTag("Moth");
 
         // Sobald alle Motten abgeschossen wurden , taucht der Endbildschirm auf.
         if (Prey.Length == 0)
