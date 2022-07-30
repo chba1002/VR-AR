@@ -22,7 +22,7 @@
 //
 using UnityEngine;
 using System.Collections;
-
+using Photon.Pun;
 
 [RequireComponent(typeof(Camera))]
 public class SonarFx : MonoBehaviour
@@ -82,6 +82,7 @@ public class SonarFx : MonoBehaviour
 
     private float nextActionTime = 3f;
     public float period;
+    private PhotonView photonView;
 
     void Awake()
     {
@@ -106,12 +107,16 @@ public class SonarFx : MonoBehaviour
 
     void Start()
     {
+        photonView = GetComponent<PhotonView>();
+        
         //Start the coroutine we define below named SchreiTon.
         StartCoroutine(SchreiTon());
     }
 
     void Update()
     {
+        if (!photonView.IsMine) return;
+        
         //Schrei schaut nach Position von CenterEyeAnchor im OVRCameraRig, möglicherweise umbenennen, da mehrere Spieler in Szene.
         origin = GameObject.Find("Bat_Network_Player(Clone)/Head").GetComponent<Transform>().position;
 
