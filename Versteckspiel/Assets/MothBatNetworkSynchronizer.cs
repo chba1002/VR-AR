@@ -9,6 +9,8 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
 {
     private PlayerDataProvider playerDataProvider;
 
+    public GameObject TestPostprocessing;
+
     void Start()
     {
         playerDataProvider = new PlayerDataProvider();
@@ -26,6 +28,11 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
                 $"ActorNumber:{playerMothBatActionType.ActorNumber} " +
                 $"AttackType:{playerMothBatActionType.AttackType} " +
                 $"MothBatType:{playerMothBatActionType.MothBatType}");
+
+            if(playerMothBatActionType.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                TestPostprocessing.SetActive(true);
+            }
         }
     }
 
