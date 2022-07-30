@@ -1561,8 +1561,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "Nutze die besondere F\xE4higkeit dieser Motte um die Zeit zu manipulieren.
-        Verk\xFCrze im richtigen Moment die Spielzeit um der Fledermaus ein Strich
-        durch die Rechnung zu machen!"
+        Verk\xFCrze im richtigen Moment die Spielzeit um schneller der Fledermaus
+        einen Strich durch die Rechnung zu machen!"
       objectReference: {fileID: 0}
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -5969,8 +5969,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -318, y: 161}
-  m_SizeDelta: {x: 468.11, y: 468.1}
+  m_AnchoredPosition: {x: -324, y: 199}
+  m_SizeDelta: {x: 614.5, y: 614.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1496080349
 MonoBehaviour:
@@ -5992,7 +5992,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 55f28b02d6d1c6f40b4d150ffbbd50e0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2665fa342e682d945ab66a3f44e59597, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
