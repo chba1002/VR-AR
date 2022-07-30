@@ -30,8 +30,6 @@ public class ShootAtMoth : MonoBehaviour
 
         // Speichere das Material in der variable 'material' zwischen.
         material = mothMesh.GetComponent<Renderer>().sharedMaterial;
-
-
     }
 
     public void ShootMoth()

@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 5410173052306016758}
   - component: {fileID: -4542822159012198251}
   - component: {fileID: 3752412289851081118}
+  - component: {fileID: 2391505942719298227}
   m_Layer: 0
   m_Name: Bat_Network_Player
   m_TagString: Untagged
@@ -125,6 +126,28 @@ MonoBehaviour:
   head: {fileID: 803815736632545759}
   leftHand: {fileID: 7887985486653094388}
   rightHand: {fileID: 1801034649628393730}
+--- !u!114 &2391505942719298227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2410852244534958366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f16de68da459674da694cd80036731a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndscreenBat: {fileID: 0}
+  EndscreenMoths: {fileID: 0}
+  TimerScreen: {fileID: 0}
+  WinningSound: {fileID: 0}
+  TimePlayed: {fileID: 0}
+  mytimerscript: {fileID: 0}
+  aufloesenAktiv: 0
+  dissolveAmount: 0
+  mothMesh: {fileID: 0}
+  dissolveShaderMaterial: {fileID: 0}
 --- !u!1 &6079095280544736761
 GameObject:
   m_ObjectHideFlags: 0
