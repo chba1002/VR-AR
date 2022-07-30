@@ -23,6 +23,8 @@
 using UnityEngine;
 using System.Collections;
 using Photon.Pun;
+using Assets.Scripts.Shared.Managers;
+using Assets.Scripts.Shared.Types;
 
 [RequireComponent(typeof(Camera))]
 public class SonarFx : MonoBehaviour
@@ -82,17 +84,29 @@ public class SonarFx : MonoBehaviour
 
     private float nextActionTime = 3f;
     public float period;
-    private PhotonView photonView;
+    private PlayerData playerData;
+    private PlayerDataProvider playerDataProvider;
+
 
     void Awake()
     {
+        playerDataProvider = new PlayerDataProvider();
+        playerData = playerDataProvider.Provide(PhotonNetwork.LocalPlayer);
+
+        if(playerData?.PlayerMothBatState == null)
+        {
+            Debug.LogWarning("Moth bat state isn't defined. SonarFx will be deactivated.");
+            enabled = false;
+            return;
+        }
+        var localPlayerIsBat = playerData.PlayerMothBatState.MothBatType == MothBatType.Bat.GetHashCode();
+        if (!localPlayerIsBat) enabled = false;
+
         baseColorID = Shader.PropertyToID("_SonarBaseColor");
         waveColorID = Shader.PropertyToID("_SonarWaveColor");
         waveParamsID = Shader.PropertyToID("_SonarWaveParams");
         waveVectorID = Shader.PropertyToID("_SonarWaveVector");
         addColorID = Shader.PropertyToID("_SonarAddColor");
-
-        //Motte = GameObject.FindWithTag("Moth");
     }
 
     void OnEnable()
@@ -107,15 +121,12 @@ public class SonarFx : MonoBehaviour
 
     void Start()
     {
-        photonView = GetComponent<PhotonView>();
-        
         //Start the coroutine we define below named SchreiTon.
         StartCoroutine(SchreiTon());
     }
 
     void Update()
     {
-        if (!photonView.IsMine) return;
         
         //Schrei schaut nach Position von CenterEyeAnchor im OVRCameraRig, möglicherweise umbenennen, da mehrere Spieler in Szene.
         origin = GameObject.Find("Bat_Network_Player(Clone)/Head").GetComponent<Transform>().position;
