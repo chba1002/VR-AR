@@ -1564,6 +1564,17 @@ PrefabInstance:
         Verk\xFCrze im richtigen Moment die Spielzeit um der Fledermaus ein Strich
         durch die Rechnung zu machen!"
       objectReference: {fileID: 0}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4,
+        type: 2}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
     - target: {fileID: 5800720640804475945, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_Sprite
@@ -1589,12 +1600,12 @@ PrefabInstance:
     - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -187
+      value: -189
       objectReference: {fileID: 0}
     - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -2207,6 +2218,17 @@ PrefabInstance:
         kurzzeitig ausser gefecht gesetzt wird. Nutze dann die Chance dir ein neues
         Versteck zu suchen! "
       objectReference: {fileID: 0}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4,
+        type: 2}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
     - target: {fileID: 5800720640804475945, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_Sprite
@@ -3152,11 +3174,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "Eine liebe Motte die von ihren Gl\xFChw\xFCrmchen Freunden stets gesch\xE4tzt
-        wird. Wenn die Motte sie zu sich ruft, sammeln sich die Gl\xFChw\xFCrmchen
+        wird. Wenn die Motte sie zu sich ruft, versammeln sich die Gl\xFChw\xFCrmchen
         bis zur Abklingzeit t\xE4nzelnd um sie herum. Achte dann auf ihr Leuchten,
         sie geben dir Warnung sobald die Fledermaus sich im Umkreis von 2 Metern
         zu dir befindet. "
       objectReference: {fileID: 0}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4,
+        type: 2}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
     - target: {fileID: 5800720640804475945, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_Sprite
@@ -7345,11 +7378,22 @@ PrefabInstance:
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_text
-      value: "Schl\xFCpfe in die Rolle des Nachtj\xE4gers, dessen Jagdinstinkt in
-        der Dunkelheit am st\xE4rksten ist. Unterst\xFCtze die Fledermaus in ihrem
-        Verlangen ihre Beute zu schnappen. Mit wie vielen Motten kannst du den Hunger
-        der Fledermaus stillen?"
+      value: "Schl\xFCpfe in die Rolle der Fledermaus, dessen Jagdinstinkt in der
+        Dunkelheit am st\xE4rksten ist. Unterst\xFCtze den Nachtj\xE4ger dabei seine
+        Beute zu schnappen. Denn am Ende z\xE4hlt mit wie vielen Motten du seinen
+        Hunger stillen kannst!"
       objectReference: {fileID: 0}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4,
+        type: 2}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
     - target: {fileID: 5800720640804475945, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_Sprite
@@ -7369,13 +7413,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 7
+      value: 7.100006
       objectReference: {fileID: 0}
     - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -197
+      value: -203.5
       objectReference: {fileID: 0}
     - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -8854,11 +8903,22 @@ PrefabInstance:
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_text
-      value: "Eine intelligente Motte diie sich gut zu Sch\xFCtzen wei\xDF. Innerhalb
-        der Abklingzeit kann die Motte jeden Angriffsversuch der Fledermaus abwehren,
+      value: "Eine intelligente Motte die sich gut zu Sch\xFCtzen wei\xDF. Innerhalb
+        der Abklingzeit kann die Motte jeden Angriffsversuch der Fledermaus abwehren
         in dem sie ein Schutzschild aufbaut. Dies verschafft dir genug Zeit dir einen
         neuen Fluchtweg zu \xFCberlegen!"
       objectReference: {fileID: 0}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4,
+        type: 2}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
     - target: {fileID: 5800720640804475945, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_Sprite
