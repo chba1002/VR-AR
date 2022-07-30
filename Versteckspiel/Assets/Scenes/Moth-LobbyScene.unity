@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18835184, g: 0.16028246, b: 0.13535888, a: 1}
+  m_IndirectSpecularColor: {r: 0.18835187, g: 0.16028255, b: 0.13535894, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -289,6 +289,10 @@ PrefabInstance:
     - target: {fileID: 100008, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_Name
       value: OVRPlayerController
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_RootOrder
@@ -1352,6 +1356,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2120473709}
     m_Modifications:
+    - target: {fileID: 146031193363794770, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -34
+      objectReference: {fileID: 0}
     - target: {fileID: 593902628195062418, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -1560,9 +1569,12 @@ PrefabInstance:
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_text
-      value: "Nutze die besondere F\xE4higkeit dieser Motte um die Zeit zu manipulieren.
-        Verk\xFCrze im richtigen Moment die Spielzeit um schneller der Fledermaus
-        einen Strich durch die Rechnung zu machen!"
+      value: 'The green moth has power over the time, you and your friends have to
+        survive.
+
+
+        Use your talent wisely, because you can trigger it only
+        once in a game.'
       objectReference: {fileID: 0}
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -1605,7 +1617,7 @@ PrefabInstance:
     - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -189
+      value: -218
       objectReference: {fileID: 0}
     - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -1892,19 +1904,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4802744215004400, guid: a9d2de84afb308a4796cc671d3432b4d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.06402681
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4802744215004400, guid: a9d2de84afb308a4796cc671d3432b4d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.06402681
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4802744215004400, guid: a9d2de84afb308a4796cc671d3432b4d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.06402681
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4802744215004400, guid: a9d2de84afb308a4796cc671d3432b4d, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802744215004400, guid: a9d2de84afb308a4796cc671d3432b4d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4897607310870066, guid: a9d2de84afb308a4796cc671d3432b4d, type: 3}
       propertyPath: m_RootOrder
@@ -2005,6 +2021,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2120473709}
     m_Modifications:
+    - target: {fileID: 146031193363794770, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -34
+      objectReference: {fileID: 0}
     - target: {fileID: 593902628195062418, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -2213,10 +2234,17 @@ PrefabInstance:
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_text
-      value: "Manipulation lautet das Talent dieser Motte. Mit ihrer besonderen F\xE4higkeit
-        kannst du die Fledermaus innerhalb der Abklingzeit so verwirren, dass sie
-        kurzzeitig ausser gefecht gesetzt wird. Nutze dann die Chance dir ein neues
-        Versteck zu suchen! "
+      value: 'The orange moth has a talent for manipulation.
+
+
+        You have the
+        ability to confuse the bat, by decreasing its sight. Take this chance to
+        look for a new place to hide.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -2226,9 +2254,19 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
+      propertyPath: m_fontSizeBase
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5800720640804475945, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_Sprite
@@ -2259,7 +2297,7 @@ PrefabInstance:
     - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -200
+      value: -228
       objectReference: {fileID: 0}
     - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -2657,7 +2695,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 33.88, y: 70.8}
+  m_AnchoredPosition: {x: 33.88, y: -56}
   m_SizeDelta: {x: 1121, y: 142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &635595326
@@ -2682,7 +2720,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 924268418bc6575478c52eb3f970cda7, type: 3}
-    m_FontSize: 100
+    m_FontSize: 134
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2693,9 +2731,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'moths + bats
-
-'
+  m_Text: nocturnal
 --- !u!222 &635595327
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2944,7 +2980,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '    Connection Status:'
+  m_Text: '    connection status:'
 --- !u!222 &759308737
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2960,6 +2996,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2120473709}
     m_Modifications:
+    - target: {fileID: 146031193363794770, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -34
+      objectReference: {fileID: 0}
     - target: {fileID: 593902628195062418, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -3173,11 +3214,12 @@ PrefabInstance:
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_text
-      value: "Eine liebe Motte die von ihren Gl\xFChw\xFCrmchen Freunden stets gesch\xE4tzt
-        wird. Wenn die Motte sie zu sich ruft, versammeln sich die Gl\xFChw\xFCrmchen
-        bis zur Abklingzeit t\xE4nzelnd um sie herum. Achte dann auf ihr Leuchten,
-        sie geben dir Warnung sobald die Fledermaus sich im Umkreis von 2 Metern
-        zu dir befindet. "
+      value: 'The purple moth has a tiny friend.
+
+
+        Pay attention to the firefly
+        during the game.The closer you are to the bats surroundings, the more it
+        starts to glow.'
       objectReference: {fileID: 0}
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -3220,7 +3262,7 @@ PrefabInstance:
     - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -225.1
+      value: -220
       objectReference: {fileID: 0}
     - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -4514,6 +4556,75 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!1001 &1056202963
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.033
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.101
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.357
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9599913
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.28003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 32.524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2985785294230151263, guid: 2f4c7c92f1532864c80cc22791edf83b,
+        type: 3}
+      propertyPath: m_Name
+      value: "lunamoth@fly gr\xFCn"
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2f4c7c92f1532864c80cc22791edf83b, type: 3}
 --- !u!1 &1139709626
 GameObject:
   m_ObjectHideFlags: 0
@@ -4562,7 +4673,7 @@ Transform:
   m_Children:
   - {fileID: 1982527308}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1165784656
 GameObject:
@@ -4854,6 +4965,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304c8eb0e7a4f5c43aafc130f8d2d717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1342421416
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.361
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.582
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9599913
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.28003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 32.524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2985785294230151263, guid: 4af170ad74437d640afef3ace785ed6d,
+        type: 3}
+      propertyPath: m_Name
+      value: lunamoth@fly orange
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4af170ad74437d640afef3ace785ed6d, type: 3}
 --- !u!1 &1370510199
 GameObject:
   m_ObjectHideFlags: 0
@@ -5024,7 +5204,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
+    m_Font: {fileID: 12800000, guid: 924268418bc6575478c52eb3f970cda7, type: 3}
     m_FontSize: 82
     m_FontStyle: 0
     m_BestFit: 0
@@ -5497,13 +5677,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -5969,7 +6149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -324, y: 199}
+  m_AnchoredPosition: {x: -362, y: 65}
   m_SizeDelta: {x: 614.5, y: 614.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1496080349
@@ -6613,7 +6793,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ready?
+  m_Text: ready
 --- !u!222 &1647231733
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7160,6 +7340,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2120473709}
     m_Modifications:
+    - target: {fileID: 146031193363794770, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -34
+      objectReference: {fileID: 0}
     - target: {fileID: 593902628195062418, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -7378,10 +7563,11 @@ PrefabInstance:
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_text
-      value: "Schl\xFCpfe in die Rolle der Fledermaus, dessen Jagdinstinkt in der
-        Dunkelheit am st\xE4rksten ist. Unterst\xFCtze den Nachtj\xE4ger dabei seine
-        Beute zu schnappen. Denn am Ende z\xE4hlt mit wie vielen Motten du seinen
-        Hunger stillen kannst!"
+      value: 'Playing the bat makes you the hunter.
+
+
+        Catch as many moths
+        as you can before the time is up!'
       objectReference: {fileID: 0}
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -7389,6 +7575,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4,
         type: 2}
+    - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_sharedMaterial
@@ -7424,7 +7615,7 @@ PrefabInstance:
     - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -203.5
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -8445,7 +8636,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
+    m_Font: {fileID: 12800000, guid: 924268418bc6575478c52eb3f970cda7, type: 3}
     m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
@@ -8457,9 +8648,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Credits: Peter, Bonnie Zielinski, Chiara Bayerlein, Solenn Hoffmann                                                                                                            
-    betreut von: Prof. Dipl.- Ing. Matthias Pfaff, Prof. Dipl.- Des. Thomas Wagner\r,
-    M.A. Thomas Beisiegel\r"
+  m_Text: "credits: peter, bonnie zielinski, chiara bayerlein, solenn hoffmann                                                                                                            
+    supervised by: prof. dipl.- ing. matthias pfaff, prof. dipl.- des. thomas wagner\r,
+    m.a. thomas beisiegel\r"
 --- !u!222 &2027093908
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8468,6 +8659,196 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027093905}
   m_CullTransparentMesh: 1
+--- !u!1 &2032348442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100012, guid: ce816f2e6abb0504092c23ed9b970dfd,
+    type: 3}
+  m_PrefabInstance: {fileID: 50804574}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2032348446 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400012, guid: ce816f2e6abb0504092c23ed9b970dfd,
+    type: 3}
+  m_PrefabInstance: {fileID: 50804574}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2032348447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032348442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 2032348446}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
+--- !u!1001 &2034067654
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.551
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.658
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.196
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9599913
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.28003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 32.524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460218063561964261, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2985785294230151263, guid: 789bbafcb4c488b45950e781e32d9c18,
+        type: 3}
+      propertyPath: m_Name
+      value: lunamoth@fly lila
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 789bbafcb4c488b45950e781e32d9c18, type: 3}
+--- !u!1 &2055184173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2055184175}
+  - component: {fileID: 2055184176}
+  m_Layer: 6
+  m_Name: Postprocessing Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2055184175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055184173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3983986, y: 0.8822847, z: -0.5269718}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2055184176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055184173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 752e99d3f3f43a8458a3ad7685b6f1d2, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!224 &2081133784 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 790916429224812444, guid: 0f8a1e9ae9405265f95478e336682a70,
@@ -8609,7 +8990,7 @@ PrefabInstance:
     - target: {fileID: 2460218063561964261, guid: 6b719b49132388c499e175e83a4dc902,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.812
+      value: -2.037
       objectReference: {fileID: 0}
     - target: {fileID: 2460218063561964261, guid: 6b719b49132388c499e175e83a4dc902,
         type: 3}
@@ -8619,7 +9000,7 @@ PrefabInstance:
     - target: {fileID: 2460218063561964261, guid: 6b719b49132388c499e175e83a4dc902,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.662
+      value: -2.753
       objectReference: {fileID: 0}
     - target: {fileID: 2460218063561964261, guid: 6b719b49132388c499e175e83a4dc902,
         type: 3}
@@ -8670,6 +9051,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2120473709}
     m_Modifications:
+    - target: {fileID: 146031193363794770, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -34
+      objectReference: {fileID: 0}
     - target: {fileID: 593902628195062418, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -8903,10 +9289,11 @@ PrefabInstance:
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_text
-      value: "Eine intelligente Motte die sich gut zu Sch\xFCtzen wei\xDF. Innerhalb
-        der Abklingzeit kann die Motte jeden Angriffsversuch der Fledermaus abwehren
-        in dem sie ein Schutzschild aufbaut. Dies verschafft dir genug Zeit dir einen
-        neuen Fluchtweg zu \xFCberlegen!"
+      value: 'The blue moth knows how to protect itself.
+
+
+        You can spawn
+        a shield, that protects you for a short amount of time.'
       objectReference: {fileID: 0}
     - target: {fileID: 5291836013395044757, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
@@ -8932,6 +9319,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
+        type: 3}
       propertyPath: m_SizeDelta.x
       value: -49.2
       objectReference: {fileID: 0}
@@ -8943,7 +9335,7 @@ PrefabInstance:
     - target: {fileID: 7847011498461553352, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -205
+      value: -212
       objectReference: {fileID: 0}
     - target: {fileID: 8096548627796226478, guid: 0f8a1e9ae9405265f95478e336682a70,
         type: 3}
