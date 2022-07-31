@@ -22569,8 +22569,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeValue: 300
+  possibleTimeReductionInSeconds: 5
+  timeReductionWasExecuted: 0
   timerText: {fileID: 8196378862540866704}
   timerTextBatWins: {fileID: 0}
+  timeReductionTime: {fileID: 0}
+  timeReductionText: {fileID: 0}
   EndscreenBat: {fileID: 0}
   EndscreenMoths: {fileID: 0}
   TimerScreen: {fileID: 0}
@@ -22641,6 +22645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3753a3a3b9badc540b1ca44e90d58b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DurationOfInvulneraibilityInSecondsInSeconds: 5
+  DurationOfBatFieldOfViewRestrictedInSeconds: 5
   postProcessExecutor: {fileID: 1747710813}
 --- !u!114 &8196378862455099780
 MonoBehaviour:
@@ -28099,8 +28105,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeValue: 300
+  possibleTimeReductionInSeconds: 5
+  timeReductionWasExecuted: 0
   timerText: {fileID: 8196378861919758005}
   timerTextBatWins: {fileID: 0}
+  timeReductionTime: {fileID: 0}
+  timeReductionText: {fileID: 0}
   EndscreenBat: {fileID: 0}
   EndscreenMoths: {fileID: 0}
   TimerScreen: {fileID: 0}
@@ -28260,6 +28270,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 818576065}
     m_Modifications:
+    - target: {fileID: 989305332096938659, guid: 86dc864c82773ad41a225f4b1ee465f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984538691908523310, guid: 86dc864c82773ad41a225f4b1ee465f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984538691908523311, guid: 86dc864c82773ad41a225f4b1ee465f4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.000000029802
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984538691908523311, guid: 86dc864c82773ad41a225f4b1ee465f4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984538691908523311, guid: 86dc864c82773ad41a225f4b1ee465f4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.2223
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984538692100658345, guid: 86dc864c82773ad41a225f4b1ee465f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3984538692570742768, guid: 86dc864c82773ad41a225f4b1ee465f4,
         type: 3}
       propertyPath: m_Name
@@ -28319,6 +28359,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576991187456787257, guid: 86dc864c82773ad41a225f4b1ee465f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86dc864c82773ad41a225f4b1ee465f4, type: 3}
@@ -28441,8 +28486,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeValue: 300
+  possibleTimeReductionInSeconds: 5
+  timeReductionWasExecuted: 0
   timerText: {fileID: 8196378862455099780}
   timerTextBatWins: {fileID: 0}
+  timeReductionTime: {fileID: 0}
+  timeReductionText: {fileID: 0}
   EndscreenBat: {fileID: 0}
   EndscreenMoths: {fileID: 0}
   TimerScreen: {fileID: 0}
@@ -28686,8 +28735,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeValue: 300
+  possibleTimeReductionInSeconds: 5
+  timeReductionWasExecuted: 0
   timerText: {fileID: 8196378863668852069}
   timerTextBatWins: {fileID: 0}
+  timeReductionTime: {fileID: 0}
+  timeReductionText: {fileID: 0}
   EndscreenBat: {fileID: 0}
   EndscreenMoths: {fileID: 0}
   TimerScreen: {fileID: 0}

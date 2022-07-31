@@ -4,7 +4,9 @@ namespace Assets.Scripts.Shared.Types
 {
     public class PlayerData
     {
-        public PlayerData(bool? playerIsReady, PlayerMothBatState playerMothBatState, string playerName, int actorNumber, bool? isAlive)
+        public PlayerData(
+            bool? playerIsReady, 
+            PlayerMothBatState playerMothBatState, string playerName, int actorNumber, bool? isAlive)
         {
             PlayerIsReady = playerIsReady;
             PlayerMothBatState = playerMothBatState;

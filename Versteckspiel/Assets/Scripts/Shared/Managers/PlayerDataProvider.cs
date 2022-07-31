@@ -85,7 +85,7 @@ namespace Assets.Scripts.Shared.Managers
 
                 var deserializedValue = Serializer.StringToObject(serializedPlayerMothBatActionType as string);
 
-                if(deserializedValue != null)
+                if (deserializedValue != null)
                 {
                     mothBatActionType = deserializedValue as MothBatActionType;
                 }

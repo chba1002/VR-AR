@@ -10,7 +10,7 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
 {
     private PlayerDataProvider playerDataProvider;
     private bool localPlayerIsBat;
-
+    private Timer timer;
     public int DurationOfInvulneraibilityInSecondsInSeconds = 5;
     public int DurationOfBatFieldOfViewRestrictedInSeconds = 5;
 
@@ -25,12 +25,25 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
                     .Select(player => playerDataProvider.Provide(player))
                     .FirstOrDefault(playerData => playerData?.PlayerMothBatState?.MothBatType == MothBatType.Bat.GetHashCode());
 
+        var greenMothPlayerData = PhotonNetwork.PlayerList
+            .ToList()
+            .Select(player => playerDataProvider.Provide(player))
+            .FirstOrDefault(playerData => playerData?.PlayerMothBatState?.MothBatType == MothBatType.MothGreen.GetHashCode());
+
         localPlayerIsBat = PhotonNetwork.LocalPlayer.ActorNumber == batPlayerData?.ActorNumber;
+        var localPlayerIsGreenMoth = PhotonNetwork.LocalPlayer.ActorNumber == greenMothPlayerData?.ActorNumber;
+
+        timer = GameObject.FindObjectOfType<Timer>();
 
         if (postProcessExecutor == null)
         {
             Debug.LogWarning("PostProcessExecutor isnt set in MothBatNetworkSynchronizer");
             return;
+        }
+
+        if (localPlayerIsGreenMoth)
+        {
+            timer.ShowTimeReductionInfo();
         }
 
         if (localPlayerIsBat)
@@ -53,7 +66,7 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
         {
             Debug.Log($"Moth with actor number {targetPlayer.ActorNumber} was killed");
 
-            if(PhotonNetwork.LocalPlayer.ActorNumber == targetPlayer.ActorNumber)
+            if (PhotonNetwork.LocalPlayer.ActorNumber == targetPlayer.ActorNumber)
             {
                 postProcessExecutor.SetPostProcessing(MothBatPostProcessingType.MothDead);
             }
@@ -84,7 +97,7 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
                 if (playerMothBatActionType.AttackType == AttackType.DisturbBatFieldOfView)
                 {
                     postProcessExecutor.SetPostProcessing(
-                        DurationOfBatFieldOfViewRestrictedInSeconds, 
+                        DurationOfBatFieldOfViewRestrictedInSeconds,
                         MothBatPostProcessingType.BatFieldOfViewRestricted);
                 }
             }
@@ -105,6 +118,11 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
                         .FirstOrDefault(mothBatNetworkPlayer => mothBatNetworkPlayer.PlayerData.ActorNumber == targetPlayer.ActorNumber)
                         .SetInvulnerable(durationOfInvulneraibilityInSeconds);
                 }
+
+                else if (playerMothBatActionType.AttackType == AttackType.ShortenRemainingTime)
+                {
+                    timer.ExecutePossibleTimeReduction();
+                }
             }
         }
 
@@ -123,5 +141,4 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
         var props = new Hashtable() { { MothGame.PLAYER_MOTH_IS_INVULNERABLE, isInvulnerable } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }
-
 }

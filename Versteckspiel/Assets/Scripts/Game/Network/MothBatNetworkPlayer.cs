@@ -74,7 +74,8 @@ public class MothBatNetworkPlayer : MonoBehaviour
         playerData = PhotonNetwork.PlayerList
             .ToList()
             .Select(player => playerDataProvider.Provide(player))
-            .Where(playerData => {
+            .Where(playerData =>
+            {
                 return playerData?.PlayerMothBatState.MothBatType == mothBatType.GetHashCode();
             }).FirstOrDefault();
 
@@ -114,7 +115,7 @@ public class MothBatNetworkPlayer : MonoBehaviour
                 break;
             case MothBatType.Bat:
                 //mothBatAttackIsReadyScript.gameObject.SetActive(true);
-               // mothBatDistanceIndicatorScript.gameObject.SetActive(false);
+                // mothBatDistanceIndicatorScript.gameObject.SetActive(false);
                 break;
             default:
                 break;
@@ -142,17 +143,17 @@ public class MothBatNetworkPlayer : MonoBehaviour
                 secondsUntillNextActionIsExecutable -= Time.deltaTime;
             }
 
-            if(mothBatType != MothBatType.Bat)
+            if (mothBatType != MothBatType.Bat)
             {
                 mothBatDistanceIndicatorScript.SetMoth(gameObject);
             }
         }
-        
-        if(invulnerabillityDuration > 0)
+
+        if (invulnerabillityDuration > 0)
         {
             invulnerabillityDuration -= Time.deltaTime;
         }
-        else if(IsInvulnerable)
+        else if (IsInvulnerable)
         {
             invulnerabillityDuration = 0;
             IsInvulnerable = false;
@@ -161,14 +162,11 @@ public class MothBatNetworkPlayer : MonoBehaviour
 
     public void IsHittenByBat()
     {
-        Debug.Log("Moth is hitten by bat "+gameObject.name);
-
-        _isAlive = false;
-        PlayerDataSetter.KillPlayerMoth(player);
+        Debug.Log("Moth is hitten by bat " + gameObject.name);
 
         // Set Dead
-        // --> if all are dead go to 
-        // Show PostProcessing
+        _isAlive = false;
+        PlayerDataSetter.KillPlayerMoth(player);
     }
 
     public void SetInvulnerable(int durationInSeconds)
@@ -188,6 +186,11 @@ public class MothBatNetworkPlayer : MonoBehaviour
             Debug.Log("ExecuteMothBatAction !");
             mothGameManager.MothBarExecuteInteraction(actorNumber, mothBatType);
             secondsUntillNextActionIsExecutable = breakDurationBetweenActionsInSeconds;
+
+            if(mothBatType == MothBatType.MothGreen)
+            {
+                mothBatAttackIsReadyScript.gameObject.SetActive(false);
+            }
         }
     }
 
