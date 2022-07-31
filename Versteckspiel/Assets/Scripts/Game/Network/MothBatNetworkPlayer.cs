@@ -79,8 +79,9 @@ public class MothBatNetworkPlayer : MonoBehaviour
     private void ExecuteMothBatAction()
     {
         var actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+        var primaryOvrTrigegrPressed = OVRInput.GetDown(OVRInput.GetButtonDown.PrimaryHandTrigger);
 
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKeyDown("e") || primaryOvrTrigegrPressed)
         {
             Debug.Log("ExecuteMothBatAction !");
             mothGameManager.MothBarExecuteInteraction(actorNumber, mothBatType);

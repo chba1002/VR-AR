@@ -80,5 +80,16 @@ namespace Assets.Scripts.Shared.Managers
 
             return mothBatActionType;
         }
+
+        public bool? TryProvidePlayerIsAlive(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+        {
+            bool? _playerIsAlive = null;
+
+            if (changedProps.TryGetValue(MothGame.PLAYER_IS_ALIVE, out object playerIsAlive))
+            {
+                _playerIsAlive = playerIsAlive as bool?;
+            }
+            return _playerIsAlive;
+        }
     }
 }

@@ -33,17 +33,21 @@ public class PostProcessExecutor : MonoBehaviour
 
         lastActivePostProcessing = ActivePostProcessing;
 
+        
+
         if (postProcessingIsActive)
         {
+            Debug.Log("remainingPostProcessingDurationInSeconds: " + remainingPostProcessingDurationInSeconds);
             if (remainingPostProcessingDurationInSeconds >= 0)
             {
-                remainingPostProcessingDurationInSeconds = -Time.deltaTime;
+                remainingPostProcessingDurationInSeconds -= Time.deltaTime;
             }
             else
             {
+                Debug.Log("Reset Post Processing: ");
                 remainingPostProcessingDurationInSeconds = 0;
                 postProcessingIsActive = false;
-                ActivePostProcessing = MothBatPostProcessingType.Nothing.GetHashCode();
+                ActivePostProcessing = MothBatPostProcessingType.BatDefault.GetHashCode();
             }
         }
     }
@@ -54,6 +58,11 @@ public class PostProcessExecutor : MonoBehaviour
 
         postProcessingIsActive = true;
         remainingPostProcessingDurationInSeconds = durationInSeconds;
+        ActivePostProcessing = mothBatPostProcessingType.GetHashCode();
+    }
+
+    public void SetPostProcessing(MothBatPostProcessingType mothBatPostProcessingType)
+    {
         ActivePostProcessing = mothBatPostProcessingType.GetHashCode();
     }
 
@@ -75,6 +84,8 @@ public class PostProcessExecutor : MonoBehaviour
 public enum MothBatPostProcessingType
 {
     Nothing = 0,
-    Blur = 1,
-    MothBatEffect = 64
+    MothDead = 8,
+    BatDefault = 32,
+    MothDefault = 64,
+    BatFieldOfViewRestricted = 256
 }

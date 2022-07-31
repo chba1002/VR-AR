@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Moth
   - MothGameManager
+  - Bat
   layers:
   - Default
   - TransparentFX

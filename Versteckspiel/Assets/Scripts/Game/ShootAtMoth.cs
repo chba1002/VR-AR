@@ -21,8 +21,14 @@ public class ShootAtMoth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (dissolveShaderMaterial == null)
+        {
+            Debug.LogWarning("DissolveShaderMaterial isnt set. Shoot AT Moth doesn't work.");
+            return;
+        }
+
         // Erstelle neues Material auf basis des Prefab Materials, damit jeder Enemy eigenes Material hat.
-        var dissolverShader = new Material(dissolveShaderMaterial);
+        var dissolverShader = new Material(dissolveShaderMaterial); 
 
         // Weise neu erstelltes Material dem Moth Mesh zu.
         mothMesh.GetComponent<Renderer>().sharedMaterial = dissolverShader;
@@ -46,11 +52,21 @@ public class ShootAtMoth : MonoBehaviour
 
     }
 
-
+    bool checkedIfMaterialNull = false;
 
     public void Update()
     {
         Prey = GameObject.FindGameObjectsWithTag("Moth");
+
+        if(material == null)
+        {
+            if (!checkedIfMaterialNull)
+            {
+                Debug.LogWarning($"{nameof(material)} in ShootAtMoth gameobject {gameObject.name} is null");
+                checkedIfMaterialNull = true;
+            }
+            return;
+        }
 
 
         if (Input.GetKeyDown(KeyCode.T))

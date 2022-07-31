@@ -1,9 +1,9 @@
 ﻿[System.Serializable]
 public enum MothBatType
 {
-    MothGreen = 1, 
+    MothBlue = 1,
     MothOrange = 2, 
-    MothBlue = 3, 
-    MothPurple = 4, 
+    MothPurple = 3,
+    MothGreen = 4,
     Bat = 100
 }

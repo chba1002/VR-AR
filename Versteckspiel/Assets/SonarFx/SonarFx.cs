@@ -127,9 +127,17 @@ public class SonarFx : MonoBehaviour
 
     void Update()
     {
-        
         //Schrei schaut nach Position von CenterEyeAnchor im OVRCameraRig, möglicherweise umbenennen, da mehrere Spieler in Szene.
-        origin = GameObject.Find("Bat_Network_Player(Clone)/Head").GetComponent<Transform>().position;
+        var networkplayerHead = GameObject.Find("Bat_Network_Player(Clone)/Head");
+
+        if(networkplayerHead != null)
+        {
+            origin = networkplayerHead.GetComponent<Transform>().position;
+        }
+        else
+        {
+            origin = Vector3.zero;
+        }
 
         GetComponent<Camera>().SetReplacementShader(shader, null);
 
@@ -138,7 +146,7 @@ public class SonarFx : MonoBehaviour
         {
             period = 0f;
             print("Fledermaus schreit");
-            GameObject.Find("XROrigin/Camera Offset/Main Camera").GetComponent<AudioSource>().Play();
+            //GameObject.Find("XROrigin/Camera Offset/Main Camera").GetComponent<AudioSource>().Play();
         }
 
         // Zum Testen mit dem Oculus Controller (hat noch nicht funktioniert...)
@@ -186,7 +194,7 @@ public class SonarFx : MonoBehaviour
         //After we have waited 5 seconds print the time again.
         Debug.Log("Finished Coroutine at timestamp : " + Time.time); 
         print("Fledermaus schreit");
-        GameObject.Find("Bat_Network_Player(Clone)/Head").GetComponent<AudioSource>().Play();
+        // GameObject.Find("Bat_Network_Player(Clone)/Head").GetComponent<AudioSource>().Play();
     }
 
 }

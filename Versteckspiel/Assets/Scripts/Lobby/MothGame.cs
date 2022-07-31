@@ -10,6 +10,7 @@ namespace Moth.Scripts
 
         public const string PLAYER_NAME = "PlayerName";
         public const string PLAYER_LIVES = "PlayerLives";
+        public const string PLAYER_IS_ALIVE = "PlayerIsAlive";
         public const string PLAYER_READY = "IsPlayerReady";
         public const string PLAYER_LOADED_LEVEL = "PlayerLoadedLevel";
         public const string PLAYER_MOTH_BAT_STATE = "PlayerMothBatState";

@@ -80,14 +80,14 @@ public class MothGameManager : MonoBehaviour
         switch (mothBatType)
         {
             case MothBatType.MothGreen:
-                mothBatActionTyoe.AttackType = AttackType.DisturbBatFieldOfView;
+                mothBatActionTyoe.AttackType = AttackType.ShortenRemainingTime;
                 Debug.Log(" kann Spielzeit heruntersetzen (je später im Spiel, desto mehr)," +
                     "am Ende des Spiels (also wenn Zeit um ist oder alle Motten tot) " +
                     "nach ca. 20s werden alle Spieler wieder in Lobby geschickt" +
                     "(siehe Scoreboard, da kannst du gerne auch drüberschaun), ");
                 break;
             case MothBatType.MothOrange:
-                mothBatActionTyoe.AttackType = AttackType.ShowMothBatDistance;
+                mothBatActionTyoe.AttackType = AttackType.DisturbBatFieldOfView;
                 Debug.Log("alle x Sekunden Sichtfeld von Fledermaus mit PostProVol stören");
                 break;
             case MothBatType.MothBlue:
@@ -95,7 +95,7 @@ public class MothGameManager : MonoBehaviour
                 Debug.Log("ist für x Sekunden unverwundbar");
                 break;
             case MothBatType.MothPurple:
-                mothBatActionTyoe.AttackType = AttackType.ShortenRemainingTime;
+                mothBatActionTyoe.AttackType = AttackType.ShowMothBatDistance;
                 Debug.Log("Bild von Glühwürmchen leuchtet mit Farbverlauf (weiß zu rot?), wenn Fledermaus näher kommt");
                 break;
             case MothBatType.Bat:
