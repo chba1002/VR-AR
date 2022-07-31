@@ -32,7 +32,8 @@ public class MothBatNetworkPlayer : MonoBehaviour
     private Transform rightHandRig;
 
     private MothGameManager mothGameManager;
-
+    private MothBatDistanceIndicatorScript mothBatDistanceIndicatorScript;
+    private MothBatAttackIsReadyScript mothBatAttackIsReadyScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +50,38 @@ public class MothBatNetworkPlayer : MonoBehaviour
 
         if (photonView.IsMine)
         {
+            mothBatDistanceIndicatorScript = GameObject.FindObjectOfType<MothBatDistanceIndicatorScript>();
+            mothBatAttackIsReadyScript = GameObject.FindObjectOfType<MothBatAttackIsReadyScript>();
             mothGameManager.SetLocalMothBatPlayer(this);
+        }
+
+        Debug.Log("mothBatType: " + mothBatType.ToString() + " " + mothBatType.GetHashCode());
+
+
+        switch (mothBatType)
+        {
+            case MothBatType.MothBlue:
+                mothBatAttackIsReadyScript.gameObject.SetActive(true);
+                mothBatDistanceIndicatorScript.gameObject.SetActive(false);
+                break;
+            case MothBatType.MothOrange:
+                mothBatAttackIsReadyScript.gameObject.SetActive(true);
+                mothBatDistanceIndicatorScript.gameObject.SetActive(false);
+                break;
+            case MothBatType.MothPurple:
+                mothBatAttackIsReadyScript.gameObject.SetActive(false);
+                mothBatDistanceIndicatorScript.gameObject.SetActive(true);
+                break;
+            case MothBatType.MothGreen:
+                mothBatAttackIsReadyScript.gameObject.SetActive(true);
+                mothBatDistanceIndicatorScript.gameObject.SetActive(false);
+                break;
+            case MothBatType.Bat:
+                //mothBatAttackIsReadyScript.gameObject.SetActive(true);
+               // mothBatDistanceIndicatorScript.gameObject.SetActive(false);
+                break;
+            default:
+                break;
         }
     }
 
@@ -72,6 +104,11 @@ public class MothBatNetworkPlayer : MonoBehaviour
             else
             {
                 secondsUntillNextActionIsExecutable -= Time.deltaTime;
+            }
+
+            if(mothBatType != MothBatType.Bat)
+            {
+                mothBatDistanceIndicatorScript.SetMoth(gameObject);
             }
         }
     }

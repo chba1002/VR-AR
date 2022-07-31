@@ -8,7 +8,7 @@ public class SelectionMenueController : MonoBehaviour
     [SerializeField]
     private GameObject MothSelectionFieldPrefab;
 
-    [Header("Moth Green")]
+    [Header("Moth Blue")]
     [SerializeField] public Sprite mothImage1;
     [SerializeField] private string mothName1;
 
@@ -16,11 +16,11 @@ public class SelectionMenueController : MonoBehaviour
     [SerializeField] public Sprite mothImage2;
     [SerializeField] private string mothName2;
 
-    [Header("Moth Blue")]
+    [Header("Moth Purple")]
     [SerializeField] public Sprite mothImage3;
     [SerializeField] private string mothName3;
 
-    [Header("Moth Purple")]
+    [Header("Moth Green")]
     [SerializeField] public Sprite mothImage4;
     [SerializeField] private string mothName4;
 
