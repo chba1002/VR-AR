@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mothBatType: 100
   breakDurationBetweenActionsInSeconds: 5
+  IsInvulnerable: 0
   head: {fileID: 803815736632545759}
   leftHand: {fileID: 7887985486653094388}
   rightHand: {fileID: 1801034649628393730}
