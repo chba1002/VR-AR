@@ -15,6 +15,7 @@ public class MothBatNetworkPlayer : MonoBehaviour
     public MothBatType MothBatType => mothBatType;
 
     public PlayerData PlayerData => playerData;
+    private Photon.Realtime.Player player;
 
     /// <summary>
     /// Zeitraum nach einer von Motte / Fledermaus ausgeführten Aktion,
@@ -30,6 +31,10 @@ public class MothBatNetworkPlayer : MonoBehaviour
     public float InvulnerabillityDuration => invulnerabillityDuration;
 
     public bool IsInvulnerable;
+
+    private bool _isAlive = true;
+    public bool IsAlice => _isAlive;
+
 
     public float NextAttackIsReadyInPercent =>
         (breakDurationBetweenActionsInSeconds - secondsUntillNextActionIsExecutable) / breakDurationBetweenActionsInSeconds;
@@ -72,6 +77,11 @@ public class MothBatNetworkPlayer : MonoBehaviour
             .Where(playerData => {
                 return playerData?.PlayerMothBatState.MothBatType == mothBatType.GetHashCode();
             }).FirstOrDefault();
+
+        player = PhotonNetwork.PlayerList
+            .ToList()
+            .Where(player => playerDataProvider.Provide(player)?.PlayerMothBatState?.MothBatType == mothBatType.GetHashCode())
+            .FirstOrDefault();
 
 
         if (photonView.IsMine)
@@ -147,6 +157,18 @@ public class MothBatNetworkPlayer : MonoBehaviour
             invulnerabillityDuration = 0;
             IsInvulnerable = false;
         }
+    }
+
+    public void IsHittenByBat()
+    {
+        Debug.Log("Moth is hitten by bat "+gameObject.name);
+
+        _isAlive = false;
+        PlayerDataSetter.KillPlayerMoth(player);
+
+        // Set Dead
+        // --> if all are dead go to 
+        // Show PostProcessing
     }
 
     public void SetInvulnerable(int durationInSeconds)

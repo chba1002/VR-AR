@@ -18,6 +18,15 @@ namespace Assets.Scripts.Shared.Managers
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
+        public static void KillPlayerMoth(Photon.Realtime.Player player)
+        {
+            var props = new Hashtable
+            {
+                {MothGame.PLAYER_IS_ALIVE, false},
+            };
+            player.SetCustomProperties(props);
+        }
+
         internal static void SetLevelLoaded(bool isLoaded)
         {
             var props = new Hashtable

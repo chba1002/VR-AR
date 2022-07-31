@@ -13,6 +13,7 @@ namespace Assets.Scripts.Shared.Managers
             bool? _playerIsReady = null;
             PlayerMothBatState _playerMothBatState = null;
             string _playerName = null;
+            bool? _playerIsAlive = null;
 
             if (player.CustomProperties.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
             {
@@ -30,7 +31,13 @@ namespace Assets.Scripts.Shared.Managers
                 Debug.Log($"TryGetValue PLAYER_NAME: {(string)playerNameObject}");
             }
 
-            return new PlayerData(_playerIsReady, _playerMothBatState, _playerName, player.ActorNumber);
+            if (player.CustomProperties.TryGetValue(MothGame.PLAYER_IS_ALIVE, out object playerIsAlive))
+            {
+                _playerIsAlive = playerIsAlive as bool?;
+            }
+
+
+            return new PlayerData(_playerIsReady, _playerMothBatState, _playerName, player.ActorNumber, _playerIsAlive);
         }
 
         public PlayerData Provide(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -38,6 +45,7 @@ namespace Assets.Scripts.Shared.Managers
             bool? _playerIsReady = null;
             PlayerMothBatState _playerMothBatState = null;
             string _playerName = null;
+            bool? _playerIsAlive = null;
 
             if (changedProps.TryGetValue(MothGame.PLAYER_READY, out object isPlayerReady))
             {
@@ -60,7 +68,12 @@ namespace Assets.Scripts.Shared.Managers
                 Debug.Log($"TryGetValue PLAYER_NAME (changedProps): {(string)playerNameObject}");
             }
 
-            return new PlayerData(_playerIsReady, _playerMothBatState, _playerName, targetPlayer.ActorNumber);
+            if (changedProps.TryGetValue(MothGame.PLAYER_IS_ALIVE, out object playerIsAlive))
+            {
+                _playerIsAlive = playerIsAlive as bool?;
+            }
+
+            return new PlayerData(_playerIsReady, _playerMothBatState, _playerName, targetPlayer.ActorNumber, _playerIsAlive);
         }
 
         public MothBatActionType TryProvideMothBatActionType(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)

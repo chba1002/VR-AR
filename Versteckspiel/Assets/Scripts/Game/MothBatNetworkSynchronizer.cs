@@ -45,37 +45,32 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
 
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, Hashtable changedProps)
     {
-        Debug.Log("Called OnPlayerPropertiesUpdate");
-
         var playerMothBatActionType = playerDataProvider.TryProvideMothBatActionType(targetPlayer, changedProps);
         var playerMothBatIsAlive = playerDataProvider.TryProvidePlayerIsAlive(targetPlayer, changedProps);
         var playerMothBatIsInvulnerable = playerDataProvider.TryProvidePlayerIsInvulnerable(targetPlayer, changedProps);
 
         if (playerMothBatIsAlive != null && playerMothBatIsAlive.Value == false)
         {
+            Debug.Log($"Moth with actor number {targetPlayer.ActorNumber} was killed");
+
             if(PhotonNetwork.LocalPlayer.ActorNumber == targetPlayer.ActorNumber)
             {
                 postProcessExecutor.SetPostProcessing(MothBatPostProcessingType.MothDead);
             }
+
+            bool anyMothIsAlive = PhotonNetwork.PlayerList
+                .ToList()
+                .Select(player => playerDataProvider.Provide(player))
+                .Where(playerData => playerData.PlayerMothBatState.MothBatType != MothBatType.Bat.GetHashCode())
+                .Any(playerData => playerData.IsAlive.HasValue ? playerData.IsAlive.Value : false);
+
+            if (!anyMothIsAlive)
+            {
+                Debug.Log("ACHTUNG!!!!! Alle Motten sind tot. Die Fledermaus hat gewonnen!");
+                // ToDo: Add here End Game and show bat win.
+            }
         }
 
-
-        Debug.Log("playerMothBatIsInvulnerable.Value: " + playerMothBatIsInvulnerable);
-        /*
-        if (playerMothBatIsInvulnerable != null && playerMothBatIsInvulnerable.Value == true)
-        {
-            int durationOfInvulneraibilityInSeconds = 5;
-            Debug.Log($"Player {targetPlayer.NickName} - {targetPlayer.ActorNumber} will be invulnerable (after implementation) for {durationOfInvulneraibilityInSeconds}");
-            // ToDo: Toggle Player is invulverable
-
-            var mothGameobjects = GameObject.FindGameObjectsWithTag("Moth");
-            mothGameobjects
-                .Select(mothGameobject => mothGameobject.GetComponent<MothBatNetworkPlayer>())
-                .FirstOrDefault(mothBatNetworkPlayer => mothBatNetworkPlayer.PlayerData.ActorNumber == targetPlayer.ActorNumber)
-                .SetInvulnerable(durationOfInvulneraibilityInSeconds);
-
-        }
-        */
         if (playerMothBatActionType != null)
         {
 
