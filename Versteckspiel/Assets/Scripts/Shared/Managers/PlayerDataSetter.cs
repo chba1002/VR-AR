@@ -1,11 +1,6 @@
-﻿using Assets.Scripts.Lobby.Mappers;
-using Assets.Scripts.Shared.Types;
-using ExitGames.Client.Photon;
+﻿using ExitGames.Client.Photon;
 using Moth.Scripts;
-using Moth.Scripts.Lobby.Types;
 using Photon.Pun;
-using System;
-using UnityEngine;
 
 namespace Assets.Scripts.Shared.Managers
 {
@@ -17,7 +12,8 @@ namespace Assets.Scripts.Shared.Managers
 
             var props = new Hashtable
             {
-                {MothGame.PLAYER_NAME, playerName}
+                {MothGame.PLAYER_NAME, playerName},
+                {MothGame.PLAYER_MOTH_IS_INVULNERABLE, false }
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }

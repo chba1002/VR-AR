@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 145182393406564232}
   m_Layer: 0
   m_Name: Moth_1_Network_Player
-  m_TagString: Untagged
+  m_TagString: Moth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,6 +139,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98196c522b7bc94fb4dec65d58d672e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RpcActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  RpcDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  RpcSelect:
+    m_PersistentCalls:
+      m_Calls: []
+  useGravity: 1
+  RpcDeselect:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6079095280544736761
 GameObject:
   m_ObjectHideFlags: 0

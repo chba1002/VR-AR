@@ -3,11 +3,18 @@ using Photon.Pun;
 using Unity.XR.CoreUtils;
 using Moth.Scripts.Lobby.Managers;
 using static OVRInput;
+using System.Linq;
+using Assets.Scripts.Shared.Managers;
+using Assets.Scripts.Shared.Types;
 
 public class MothBatNetworkPlayer : MonoBehaviour
 {
     [SerializeField]
     private MothBatType mothBatType;
+
+    public MothBatType MothBatType => mothBatType;
+
+    public PlayerData PlayerData => playerData;
 
     /// <summary>
     /// Zeitraum nach einer von Motte / Fledermaus ausgeführten Aktion,
@@ -17,6 +24,12 @@ public class MothBatNetworkPlayer : MonoBehaviour
     private float breakDurationBetweenActionsInSeconds = 5f;
 
     private float secondsUntillNextActionIsExecutable = 0f;
+
+    private float invulnerabillityDuration = 0;
+
+    public float InvulnerabillityDuration => invulnerabillityDuration;
+
+    public bool IsInvulnerable;
 
     public float NextAttackIsReadyInPercent =>
         (breakDurationBetweenActionsInSeconds - secondsUntillNextActionIsExecutable) / breakDurationBetweenActionsInSeconds;
@@ -34,12 +47,16 @@ public class MothBatNetworkPlayer : MonoBehaviour
     private MothGameManager mothGameManager;
     private MothBatDistanceIndicatorScript mothBatDistanceIndicatorScript;
     private MothBatAttackIsReadyScript mothBatAttackIsReadyScript;
-    // Start is called before the first frame update
+
+    private PlayerData playerData;
+
     void Start()
     {
         mothGameManager = GameObject
             .FindGameObjectWithTag(TagProvider.MothGameManager)?
             .GetComponent<MothGameManager>();
+
+        var playerDataProvider = new PlayerDataProvider();
 
         photonView = GetComponent<PhotonView>();
 
@@ -47,6 +64,15 @@ public class MothBatNetworkPlayer : MonoBehaviour
         headRig = rig.transform.Find("Camera Offset/Main Camera");
         leftHandRig = rig.transform.Find("Camera Offset/LeftHand Controller");
         rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
+
+
+        playerData = PhotonNetwork.PlayerList
+            .ToList()
+            .Select(player => playerDataProvider.Provide(player))
+            .Where(playerData => {
+                return playerData?.PlayerMothBatState.MothBatType == mothBatType.GetHashCode();
+            }).FirstOrDefault();
+
 
         if (photonView.IsMine)
         {
@@ -111,6 +137,18 @@ public class MothBatNetworkPlayer : MonoBehaviour
                 mothBatDistanceIndicatorScript.SetMoth(gameObject);
             }
         }
+        
+        if(invulnerabillityDuration > 0)
+        {
+            invulnerabillityDuration -= Time.deltaTime;
+        }
+    }
+
+    public void SetInvulnerable(int durationInSeconds)
+    {
+        Debug.Log($">> SetInvulnerable in MothBatNetworkplayer for {mothBatType} for {durationInSeconds}s");
+        invulnerabillityDuration = durationInSeconds;
+        IsInvulnerable = true;
     }
 
     private void ExecuteMothBatAction()

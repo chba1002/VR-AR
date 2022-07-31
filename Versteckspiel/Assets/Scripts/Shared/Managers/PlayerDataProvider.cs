@@ -91,5 +91,16 @@ namespace Assets.Scripts.Shared.Managers
             }
             return _playerIsAlive;
         }
+
+        public bool? TryProvidePlayerIsInvulnerable(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+        {
+            bool? _playerIsInvulnerable = null;
+
+            if (changedProps.TryGetValue(MothGame.PLAYER_MOTH_IS_INVULNERABLE, out object playerIsInvulnerable))
+            {
+                _playerIsInvulnerable = playerIsInvulnerable as bool?;
+            }
+            return _playerIsInvulnerable;
+        }
     }
 }

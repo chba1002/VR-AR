@@ -15,6 +15,7 @@ namespace Moth.Scripts
         public const string PLAYER_LOADED_LEVEL = "PlayerLoadedLevel";
         public const string PLAYER_MOTH_BAT_STATE = "PlayerMothBatState";
         public const string PLAYER_MOTH_BAT_ACTION_TYPE = "MothBatActionType";
+        public const string PLAYER_MOTH_IS_INVULNERABLE = "IsInvulnerable";
 
         public static Color GetColor(int colorChoice)
         {

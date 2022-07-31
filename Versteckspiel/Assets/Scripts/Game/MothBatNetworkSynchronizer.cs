@@ -45,13 +45,28 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
 
         var playerMothBatActionType = playerDataProvider.TryProvideMothBatActionType(targetPlayer, changedProps);
         var playerMothBatIsAlive = playerDataProvider.TryProvidePlayerIsAlive(targetPlayer, changedProps);
+        var playerMothBatIsInvulnerable = playerDataProvider.TryProvidePlayerIsInvulnerable(targetPlayer, changedProps);
 
-        if(playerMothBatIsAlive != null && playerMothBatIsAlive.Value == false)
+        if (playerMothBatIsAlive != null && playerMothBatIsAlive.Value == false)
         {
             if(PhotonNetwork.LocalPlayer.ActorNumber == targetPlayer.ActorNumber)
             {
                 postProcessExecutor.SetPostProcessing(MothBatPostProcessingType.MothDead);
             }
+        }
+
+        if (playerMothBatIsInvulnerable != null && playerMothBatIsInvulnerable.Value == true)
+        {
+            int durationOfInvulneraibilityInSeconds = 5;
+            Debug.Log($"Player {targetPlayer.NickName} - {targetPlayer.ActorNumber} will be invulnerable (after implementation) for {durationOfInvulneraibilityInSeconds}");
+            // ToDo: Toggle Player is invulverable
+
+            var mothGameobjects = GameObject.FindGameObjectsWithTag("Moth");
+            mothGameobjects
+                .Select(mothGameobject => mothGameobject.GetComponent<MothBatNetworkPlayer>())
+                .FirstOrDefault(mothBatNetworkPlayer => mothBatNetworkPlayer.PlayerData.ActorNumber == targetPlayer.ActorNumber)
+                .SetInvulnerable(durationOfInvulneraibilityInSeconds);
+
         }
 
         if (playerMothBatActionType != null)
@@ -81,7 +96,13 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
     {
         string serializedValue = Serializer.ObjectToString(mothBatActionType);
 
-        var props = new ExitGames.Client.Photon.Hashtable() { { MothGame.PLAYER_MOTH_BAT_ACTION_TYPE, serializedValue } };
+        var props = new Hashtable() { { MothGame.PLAYER_MOTH_BAT_ACTION_TYPE, serializedValue } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }
+    public void SetLocalPlayerInvulnerable(bool isInvulnerable)
+    {
+        var props = new Hashtable() { { MothGame.PLAYER_MOTH_IS_INVULNERABLE, isInvulnerable } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+    }
+
 }
