@@ -59,7 +59,6 @@ GameObject:
   - component: {fileID: 5410173052306016758}
   - component: {fileID: -4542822159012198251}
   - component: {fileID: 3752412289851081118}
-  - component: {fileID: -4853162432737577592}
   m_Layer: 0
   m_Name: Moth_4_Network_Player
   m_TagString: Moth
@@ -122,36 +121,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c05ba2d45c5284e910d2c9a0f0b9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mothBatType: 1
+  mothBatType: 4
   breakDurationBetweenActionsInSeconds: 5
+  IsInvulnerable: 0
   head: {fileID: 803815736632545759}
   leftHand: {fileID: 7887985486653094388}
   rightHand: {fileID: 1801034649628393730}
---- !u!114 &-4853162432737577592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2410852244534958366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c98196c522b7bc94fb4dec65d58d672e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RpcActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  RpcDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  RpcSelect:
-    m_PersistentCalls:
-      m_Calls: []
-  useGravity: 1
-  RpcDeselect:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &6079095280544736761
 GameObject:
   m_ObjectHideFlags: 0

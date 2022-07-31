@@ -20,7 +20,7 @@ public class MothBatAttackIsReadyScript : MonoBehaviour
         if (readyState < 1)
         {
             IsReady = false;
-            Debug.Log(IsReadyStateImage.color);
+            // Debug.Log(IsReadyStateImage.color);
             var baseColorIndex = 0.153f;
             baseColorIndex =+ (1 - baseColorIndex) * readyState;
             IsReadyStateImage.color = new Color(baseColorIndex, baseColorIndex, baseColorIndex);

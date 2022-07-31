@@ -10,6 +10,10 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
 {
     private PlayerDataProvider playerDataProvider;
     private bool localPlayerIsBat;
+
+    public int DurationOfInvulneraibilityInSecondsInSeconds = 5;
+    public int DurationOfBatFieldOfViewRestrictedInSeconds = 5;
+
     [SerializeField]
     private PostProcessExecutor postProcessExecutor;
 
@@ -55,6 +59,9 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
             }
         }
 
+
+        Debug.Log("playerMothBatIsInvulnerable.Value: " + playerMothBatIsInvulnerable);
+        /*
         if (playerMothBatIsInvulnerable != null && playerMothBatIsInvulnerable.Value == true)
         {
             int durationOfInvulneraibilityInSeconds = 5;
@@ -68,7 +75,7 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
                 .SetInvulnerable(durationOfInvulneraibilityInSeconds);
 
         }
-
+        */
         if (playerMothBatActionType != null)
         {
 
@@ -81,12 +88,28 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
             {
                 if (playerMothBatActionType.AttackType == AttackType.DisturbBatFieldOfView)
                 {
-                    postProcessExecutor.SetPostProcessing(5, MothBatPostProcessingType.BatFieldOfViewRestricted);
+                    postProcessExecutor.SetPostProcessing(
+                        DurationOfBatFieldOfViewRestrictedInSeconds, 
+                        MothBatPostProcessingType.BatFieldOfViewRestricted);
                 }
             }
             else
             {
 
+                if (playerMothBatActionType.AttackType == AttackType.MakeMothInvulnerable)
+                {
+                    int durationOfInvulneraibilityInSeconds = DurationOfInvulneraibilityInSecondsInSeconds;
+                    Debug.Log($"Player {targetPlayer.NickName} - {targetPlayer.ActorNumber} will be invulnerable (after implementation) for {durationOfInvulneraibilityInSeconds}");
+                    // ToDo: Toggle Player is invulverable
+
+                    var mothGameobjects = GameObject.FindGameObjectsWithTag("Moth");
+                    mothGameobjects
+                        .Select(mothGameobject => mothGameobject.GetComponent<MothBatNetworkPlayer>())
+                        .ToList()
+                        .Where(mothBatNetworkPlayer => mothBatNetworkPlayer != null)
+                        .FirstOrDefault(mothBatNetworkPlayer => mothBatNetworkPlayer.PlayerData.ActorNumber == targetPlayer.ActorNumber)
+                        .SetInvulnerable(durationOfInvulneraibilityInSeconds);
+                }
             }
         }
 
@@ -101,6 +124,7 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
     }
     public void SetLocalPlayerInvulnerable(bool isInvulnerable)
     {
+        Debug.Log("SetLocalPlayerInvulnerable: " + isInvulnerable);
         var props = new Hashtable() { { MothGame.PLAYER_MOTH_IS_INVULNERABLE, isInvulnerable } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }

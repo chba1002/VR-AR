@@ -142,6 +142,11 @@ public class MothBatNetworkPlayer : MonoBehaviour
         {
             invulnerabillityDuration -= Time.deltaTime;
         }
+        else if(IsInvulnerable)
+        {
+            invulnerabillityDuration = 0;
+            IsInvulnerable = false;
+        }
     }
 
     public void SetInvulnerable(int durationInSeconds)
