@@ -10,7 +10,8 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
 {
     private PlayerDataProvider playerDataProvider;
 
-    public GameObject TestPostprocessing;
+    [SerializeField]
+    private PostProcessExecutor postProcessExecutor;
 
     void Start()
     {
@@ -51,7 +52,7 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
         {
             if (playerMothBatActionType.AttackType == AttackType.DisturbBatFieldOfView)
             {
-                TestPostprocessing.SetActive(true);
+                postProcessExecutor.SetPostProcessing(5, MothBatPostProcessingType.Blur);
             }
         }
         else

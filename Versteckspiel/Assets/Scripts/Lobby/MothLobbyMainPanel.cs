@@ -74,7 +74,7 @@ namespace Moth.Scripts.Lobby // 350 rows
         public void Start()
         {
             networkManager = gameObject.GetComponent<NetworkManager>();
-            //networkManager.Initialize(TestOutput);
+           // networkManager.Initialize(TestOutput);
             //TestOutput.gameObject.SetActive(false);
 
             topPlayerListManager = new TopPlayerListManager(TopMothPlayerListEntries, TopPlayerListEntryPrefab, Instantiate, Destroy);
@@ -381,7 +381,7 @@ namespace Moth.Scripts.Lobby // 350 rows
         {
             Debug.Log("OnStartGameButtonClicked");
 
-            if (!PhotonNetwork.IsMasterClient) return;
+            //if (!PhotonNetwork.IsMasterClient) return;
 
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;

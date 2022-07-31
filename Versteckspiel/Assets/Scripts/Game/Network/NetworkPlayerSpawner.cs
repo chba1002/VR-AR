@@ -53,14 +53,13 @@ public class NetworkPlayerSpawner : MonoBehaviourPunCallbacks
                 Debug.LogWarning($"Spawnpositon for {playerMothBatState.MothBatType} wasn't set.");
             }
 
-
             spawnedPlayerPrefab = PhotonNetwork.Instantiate(playerPrefabName, spawnPosition, transform.rotation);
 
-            Debug.LogWarning($"Spawn player at ({spawnedPlayerPrefab.transform.position.x},{spawnedPlayerPrefab.transform.position.y},{spawnedPlayerPrefab.transform.position.z})");
+            Debug.Log($"Spawn player at ({spawnedPlayerPrefab.transform.position.x},{spawnedPlayerPrefab.transform.position.y},{spawnedPlayerPrefab.transform.position.z})");
         }
         else
         {
-            Debug.LogWarning("Couldn't find bat properties.");
+            Debug.LogWarning("Couldn't find bat properties. Please start scene from lobby to select moth/bat.");
         }
 
         base.OnJoinedRoom();

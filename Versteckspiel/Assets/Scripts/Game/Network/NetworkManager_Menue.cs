@@ -3,9 +3,9 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 
-public class NetworkManager_old : MonoBehaviourPunCallbacks
+public class NetworkManager_Menue : MonoBehaviourPunCallbacks
 {
-    /*
+    [SerializeField]
     private TMPro.TMP_Text testOutput;
 
     public override void OnConnectedToMaster()
@@ -23,7 +23,7 @@ public class NetworkManager_old : MonoBehaviourPunCallbacks
 
         Debug.Log(serverData);
 
-        testOutput.text = serverData;
+        //testOutput.text = serverData;
      
         return;
     }
@@ -52,7 +52,7 @@ public class NetworkManager_old : MonoBehaviourPunCallbacks
         var serverData = $"OnJoinedRoom> ServerAddress: " + PhotonNetwork.ServerAddress + " - Server: " + PhotonNetwork.Server + " UserId: " + PhotonNetwork.AuthValues?.UserId + " Token: " + PhotonNetwork.AuthValues?.Token;
         Debug.Log(serverData);
 
-        testOutput.text = serverData;
+        //testOutput.text = serverData;
 
         Debug.Log("Joined a Room");
         base.OnJoinedRoom();
@@ -67,8 +67,8 @@ public class NetworkManager_old : MonoBehaviourPunCallbacks
 
     internal void Initialize(TMPro.TMP_Text testOutput)
     {
-        this.testOutput = testOutput;
+        //this.testOutput = testOutput;
         PhotonNetwork.AutomaticallySyncScene = true;
     }
-    */
+    
 }

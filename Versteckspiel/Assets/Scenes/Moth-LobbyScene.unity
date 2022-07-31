@@ -1797,7 +1797,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516933158}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 1dd706bb85d8aef4e83a6229dbd62c36,
     type: 2}
@@ -4950,7 +4950,6 @@ MonoBehaviour:
     type: 3}
   LeftHand: {fileID: 624541175}
   RightHand: {fileID: 1861310040}
-  TestOutput: {fileID: 1489945460}
   PingText: {fileID: 1771413942}
   toStartGameMothAndBatMustBeSelected: 0
 --- !u!114 &1310044701
@@ -4965,6 +4964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304c8eb0e7a4f5c43aafc130f8d2d717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testOutput: {fileID: 1489945460}
 --- !u!1001 &1342421416
 PrefabInstance:
   m_ObjectHideFlags: 0
