@@ -3,18 +3,28 @@ using Photon.Pun;
 using Moth.Scripts;
 using Assets.Scripts.Lobby.Mappers;
 
-public class NetworkPlayerSpawner_Test : MonoBehaviourPunCallbacks
+/// <summary>
+/// Realize the initialization and orchestration of moths and bat 
+/// </summary>
+public class NetworkPlayerSpawner_old : MonoBehaviourPunCallbacks
 {
+    /*
     private GameObject spawnedPlayerPrefab;
     private MothGameManager mothGameManager;
 
+    private void Awake()
+    {
+        // Debug.Log($"> PhotonNetwork.IsConnected: {PhotonNetwork.IsConnected}");
+        // Debug.Log($"> PhotonNetwork.IsConnectedAndReady: {PhotonNetwork.IsConnectedAndReady}");
+        // Debug.Log($"> PhotonNetwork.IsMasterClient: {PhotonNetwork.IsMasterClient}");
+        // Debug.Log($"> PhotonNetwork.LevelLoadingProgress: {PhotonNetwork.LevelLoadingProgress}");
+    }
+
     private void Start()
     {
-        Debug.Log("OnJoinedRoom");
-
         mothGameManager = GameObject.FindGameObjectWithTag("MothGameManager")?.GetComponent<MothGameManager>();
 
-        if (mothGameManager == null)
+        if(mothGameManager == null)
         {
             Debug.LogError("Coudn't find 'MothGameManager'.");
             return;
@@ -40,7 +50,7 @@ public class NetworkPlayerSpawner_Test : MonoBehaviourPunCallbacks
                 case 100: playerPrefabName = "Bat_Network_Player"; break;
             }
 
-            if (playerPrefabName == "")
+            if(playerPrefabName == "")
             {
                 Debug.LogError($"Unknown MothBatType {playerMothBatState.MothBatType}. Couldn't create player.");
                 return;
@@ -59,13 +69,14 @@ public class NetworkPlayerSpawner_Test : MonoBehaviourPunCallbacks
         {
             Debug.LogWarning("Couldn't find bat properties.");
         }
-
-        base.OnJoinedRoom();
     }
+
+
 
     public override void OnLeftRoom()
     {
         base.OnLeftRoom();
         PhotonNetwork.Destroy(spawnedPlayerPrefab);
     }
+    */
 }

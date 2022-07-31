@@ -1,72 +1,56 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using System.Collections.Generic;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     private TMPro.TMP_Text testOutput;
 
-    public override void OnConnectedToMaster()
+    // Start is called before the first frame update
+    void Start()
     {
-        PhotonNetwork.JoinLobby();
-
-        Debug.Log("Connected To Server.");
-        base.OnConnectedToMaster();
-
-        var serverData = $"CONNECTED: " +
-            $"ServerAdress {PhotonNetwork.ServerAddress} " +
-            $"Region: {PhotonNetwork.CloudRegion} " +
-            $"Server: {PhotonNetwork.Server} " +
-            $"UserId: {PhotonNetwork.AuthValues?.UserId} ";
-
-        Debug.Log(serverData);
-
-        testOutput.text = serverData;
-     
-        return;
+        // 
+        if (!PhotonNetwork.IsConnected)
+        {
+            ConnectToServer();
+        }
     }
 
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    // Update is called once per frame
+    void ConnectToServer()
     {
-        Debug.Log("OnRoomListUpdate: " + roomList.Count);
+        PhotonNetwork.ConnectUsingSettings();
+        Debug.Log("Try connect to Server");
     }
-
-
-    public override void OnCreatedRoom()
-    {
-        Debug.Log("OnCreatedRoom!");
-        base.OnCreatedRoom();
-    }
-
-    public override void OnCreateRoomFailed(short returnCode, string message)
-    {
-        Debug.Log($"OnCreateRoomFailed: {returnCode} :{message}");
-        base.OnCreateRoomFailed(returnCode, message);
-    }
-
 
     public override void OnJoinedRoom()
     {
         var serverData = $"OnJoinedRoom> ServerAddress: " + PhotonNetwork.ServerAddress + " - Server: " + PhotonNetwork.Server + " UserId: " + PhotonNetwork.AuthValues?.UserId + " Token: " + PhotonNetwork.AuthValues?.Token;
         Debug.Log(serverData);
 
-        testOutput.text = serverData;
+       // testOutput.text = serverData;
 
         Debug.Log("Joined a Room");
         base.OnJoinedRoom();
     }
 
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("Connected to Server");
+        base.OnConnectedToMaster();
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 10;
+        roomOptions.IsVisible = true;
+        roomOptions.IsOpen = true;
+
+        PhotonNetwork.JoinOrCreateRoom("Room 1", roomOptions, TypedLobby.Default);
+    }
+
+
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
-        Debug.Log("New Player Joined The Room");
+        Debug.Log("A new Player joined the Room");
         base.OnPlayerEnteredRoom(newPlayer);
-    }
-
-    internal void Initialize(TMPro.TMP_Text testOutput)
-    {
-        this.testOutput = testOutput;
-        PhotonNetwork.AutomaticallySyncScene = true;
     }
 }

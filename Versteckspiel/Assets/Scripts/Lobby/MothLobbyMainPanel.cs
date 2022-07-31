@@ -52,7 +52,7 @@ namespace Moth.Scripts.Lobby // 350 rows
         public GameObject RightHand;
 
         [Header("Testmode")]
-        public TMP_Text TestOutput;
+        //public TMP_Text TestOutput;
         public TMP_Text PingText;
         [SerializeField]
         private bool toStartGameMothAndBatMustBeSelected = true;
@@ -74,8 +74,8 @@ namespace Moth.Scripts.Lobby // 350 rows
         public void Start()
         {
             networkManager = gameObject.GetComponent<NetworkManager>();
-            networkManager.Initialize(TestOutput);
-            TestOutput.gameObject.SetActive(false);
+            //networkManager.Initialize(TestOutput);
+            //TestOutput.gameObject.SetActive(false);
 
             topPlayerListManager = new TopPlayerListManager(TopMothPlayerListEntries, TopPlayerListEntryPrefab, Instantiate, Destroy);
             roomListManager = new RoomListManager(
@@ -115,7 +115,7 @@ namespace Moth.Scripts.Lobby // 350 rows
                 $"Token: {PhotonNetwork.AuthValues?.Token}";
             Debug.Log(serverData);
 
-            TestOutput.text = serverData;
+            //TestOutput.text = serverData;
         }
 
         void Update()
@@ -144,7 +144,7 @@ namespace Moth.Scripts.Lobby // 350 rows
 
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                TestOutput.gameObject.SetActive(!TestOutput.gameObject.activeSelf);
+               // TestOutput.gameObject.SetActive(!TestOutput.gameObject.activeSelf);
             }
         }
 

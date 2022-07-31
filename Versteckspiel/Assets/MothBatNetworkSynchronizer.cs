@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Scripts.Shared.Managers;
 using Moth.Scripts;
 using Moth.Scripts.Lobby.Types;
+using System.Linq;
 
 public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
 {
@@ -22,17 +23,40 @@ public class MothBatNetworkSynchronizer : MonoBehaviourPunCallbacks
 
         var playerMothBatActionType = playerDataProvider.TryProvideMothBatActionType(targetPlayer, changedProps);
 
-        if (playerMothBatActionType != null)
+        if (playerMothBatActionType == null)
         {
-            Debug.Log($"OnPlayerPropertiesUpdate: " +
-                $"ActorNumber:{playerMothBatActionType.ActorNumber} " +
-                $"AttackType:{playerMothBatActionType.AttackType} " +
-                $"MothBatType:{playerMothBatActionType.MothBatType}");
+            return;
+        }
 
-            if(playerMothBatActionType.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+
+        var batPlayerData = PhotonNetwork.PlayerList
+                    .ToList()
+                    .Select(player => playerDataProvider.Provide(player))
+                    .FirstOrDefault(playerData => playerData?.PlayerMothBatState?.MothBatType == MothBatType.Bat.GetHashCode());
+
+        //if(batPlayerData == null)
+        //{
+        //    Debug.LogWarning("No bat found - couldn't executee OnPlayerPropertiesUpdate");
+        //}
+
+
+        Debug.Log($"OnPlayerPropertiesUpdate: " +
+            $"ActorNumber:{playerMothBatActionType.ActorNumber} " +
+            $"AttackType:{playerMothBatActionType.AttackType} " +
+            $"MothBatType:{playerMothBatActionType.MothBatType}");
+
+        var localPlayerIsBat = PhotonNetwork.LocalPlayer.ActorNumber == batPlayerData?.ActorNumber;
+
+        if (localPlayerIsBat)
+        {
+            if (playerMothBatActionType.AttackType == AttackType.DisturbBatFieldOfView)
             {
                 TestPostprocessing.SetActive(true);
             }
+        }
+        else
+        {
+
         }
     }
 

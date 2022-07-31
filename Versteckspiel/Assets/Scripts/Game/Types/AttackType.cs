@@ -2,9 +2,9 @@
 {
     public enum AttackType
     {
-        Attack1,
-        Attack2,
-        Attack3,
-        Attack4
+        DisturbBatFieldOfView,
+        ShowMothBatDistance,
+        MakeMothInvulnerable,
+        ShortenRemainingTime
     }
 }

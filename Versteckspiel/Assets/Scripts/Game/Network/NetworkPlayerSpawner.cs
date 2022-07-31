@@ -3,27 +3,18 @@ using Photon.Pun;
 using Moth.Scripts;
 using Assets.Scripts.Lobby.Mappers;
 
-/// <summary>
-/// Realize the initialization and orchestration of moths and bat 
-/// </summary>
 public class NetworkPlayerSpawner : MonoBehaviourPunCallbacks
 {
     private GameObject spawnedPlayerPrefab;
     private MothGameManager mothGameManager;
 
-    private void Awake()
-    {
-        // Debug.Log($"> PhotonNetwork.IsConnected: {PhotonNetwork.IsConnected}");
-        // Debug.Log($"> PhotonNetwork.IsConnectedAndReady: {PhotonNetwork.IsConnectedAndReady}");
-        // Debug.Log($"> PhotonNetwork.IsMasterClient: {PhotonNetwork.IsMasterClient}");
-        // Debug.Log($"> PhotonNetwork.LevelLoadingProgress: {PhotonNetwork.LevelLoadingProgress}");
-    }
-
     private void Start()
     {
+        Debug.Log("OnJoinedRoom");
+
         mothGameManager = GameObject.FindGameObjectWithTag("MothGameManager")?.GetComponent<MothGameManager>();
 
-        if(mothGameManager == null)
+        if (mothGameManager == null)
         {
             Debug.LogError("Coudn't find 'MothGameManager'.");
             return;
@@ -49,7 +40,7 @@ public class NetworkPlayerSpawner : MonoBehaviourPunCallbacks
                 case 100: playerPrefabName = "Bat_Network_Player"; break;
             }
 
-            if(playerPrefabName == "")
+            if (playerPrefabName == "")
             {
                 Debug.LogError($"Unknown MothBatType {playerMothBatState.MothBatType}. Couldn't create player.");
                 return;
@@ -62,25 +53,18 @@ public class NetworkPlayerSpawner : MonoBehaviourPunCallbacks
                 Debug.LogWarning($"Spawnpositon for {playerMothBatState.MothBatType} wasn't set.");
             }
 
+
             spawnedPlayerPrefab = PhotonNetwork.Instantiate(playerPrefabName, spawnPosition, transform.rotation);
+
+            Debug.LogWarning($"Spawn player at ({spawnedPlayerPrefab.transform.position.x},{spawnedPlayerPrefab.transform.position.y},{spawnedPlayerPrefab.transform.position.z})");
         }
         else
         {
             Debug.LogWarning("Couldn't find bat properties.");
         }
-    }
 
-    /*
-     * ToDo: Evtl. wird hier eine Methode benötigt die remotePlayern das entsprechende Gameobject zuweist.
-     * 
-    public override void OnJoinedRoom()
-    {
-        Debug.Log($"Join {PhotonNetwork.LocalPlayer.ActorNumber}");
         base.OnJoinedRoom();
-        spawnedPlayerPrefab = PhotonNetwork.Instantiate("Bat_Network_Player", transform.position, transform.rotation);
     }
-    */
-
 
     public override void OnLeftRoom()
     {
