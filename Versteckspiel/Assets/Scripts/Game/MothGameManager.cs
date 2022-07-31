@@ -1,5 +1,4 @@
 using Moth.Scripts.Lobby.Types;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +14,12 @@ public class MothGameManager : MonoBehaviour
     [Header("Network")]
     [SerializeField] private MothBatNetworkSynchronizer mothBatNetworkSynchronizer;
 
+    [Header("Hud Menue")]
+    [SerializeField] private MothBatAttackIsReadyScript MothBatAttackIsReadyScript;
+
+
     private Dictionary<int, Vector3> positions;
+    private MothBatNetworkPlayer mothBatNetworkPlayer;
 
     void Start()
     {
@@ -31,6 +35,20 @@ public class MothGameManager : MonoBehaviour
         AddAndDisable(3, StartPositions_3);
         AddAndDisable(4, StartPositions_4);
         AddAndDisable(5, StartPositions_5);
+    }
+
+    private void Update()
+    {
+        if(mothBatNetworkPlayer != null){
+            bool mothBatAttackIsReadyImageIsInBaseState = 
+                mothBatNetworkPlayer.NextAttackIsReadyInPercent == 1.0f 
+                && MothBatAttackIsReadyScript.IsReady;
+
+            if (!mothBatAttackIsReadyImageIsInBaseState)
+            {
+                MothBatAttackIsReadyScript.SetIsReadyInPercent(mothBatNetworkPlayer.NextAttackIsReadyInPercent);
+            }
+        }
     }
 
 
@@ -49,6 +67,10 @@ public class MothGameManager : MonoBehaviour
         return Vector3.zero;
     }
 
+    internal void SetLocalMothBatPlayer(MothBatNetworkPlayer mothBatNetworkPlayer)
+    {
+        this.mothBatNetworkPlayer = mothBatNetworkPlayer;
+    }
 
     internal void MothBarExecuteInteraction(int actorNumber, MothBatType mothBatType)
     {
