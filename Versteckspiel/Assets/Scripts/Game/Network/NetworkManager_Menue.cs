@@ -33,7 +33,6 @@ public class NetworkManager_Menue : MonoBehaviourPunCallbacks
         Debug.Log("OnRoomListUpdate: " + roomList.Count);
     }
 
-
     public override void OnCreatedRoom()
     {
         Debug.Log("OnCreatedRoom!");
